@@ -1,0 +1,39 @@
+.loginContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.loginCard {
+	max-width: 500px;
+	min-width: 400px;
+	animation: fadein 1s;
+}
+
+.response-msg {
+	border: solid 1px gray;
+	padding: 0.4rem;
+	margin-bottom: 0.6rem;
+	border-radius: 3px;
+}
+.response-msg.info {
+	background: lightblue;
+	border: solid 1px blue;
+	color: blue;
+}
+.response-msg.success {
+	background: #91A675;
+	border: solid 1px green;
+	color: green;
+}
+.response-msg.error {
+	background: pink;
+	border: solid 1px red;
+	color: red;
+}

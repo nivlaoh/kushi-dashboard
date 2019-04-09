@@ -1,0 +1,21 @@
+.textContainer {
+
+}
+
+.text {
+	margin-top: 0.3rem;
+	margin-bottom: 0.3rem;
+	padding: 5px;
+	outline: none;
+	border: solid 1px #ccc;
+	transition: all 0.2s ease-out;
+	color: #333;
+}
+
+.text:hover {
+	border: solid 1px #557a8d;
+}
+
+.text::placeholder {
+	color: #ccc;
+}
