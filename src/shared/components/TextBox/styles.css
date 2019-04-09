@@ -1,21 +1,43 @@
 .textContainer {
+	margin-bottom: 0.5rem;
+}
 
+.label {
+	color: #6f6f6f;
+	font-weight: bold;
+}
+
+.textboxRow {
+	display: flex;
+	border: solid 1px #ccc;
+	margin-top: 0.3rem;
+	margin-bottom: 0.3rem;
+}
+.textboxRow:hover {
+	border: solid 1px #557a8d;
 }
 
 .text {
-	margin-top: 0.3rem;
-	margin-bottom: 0.3rem;
-	padding: 5px;
+	padding: 10px;
 	outline: none;
-	border: solid 1px #ccc;
+	border: none;
 	transition: all 0.2s ease-out;
 	color: #333;
 }
 
-.text:hover {
-	border: solid 1px #557a8d;
-}
-
 .text::placeholder {
 	color: #ccc;
+}
+
+.text.full {
+	flex: 1 1 auto;
+}
+
+.textboxIcon {
+	background-color: #ccc;
+	color: #666;
+	width: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

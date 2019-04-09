@@ -6,9 +6,8 @@ import styles from './styles.css';
 
 class CardBody extends Component {
   render() {
-
     return (
-      <div className="body">
+      <div className={`body ${this.props.className}`}>
         {this.props.children}
       </div>
     );
@@ -17,6 +16,7 @@ class CardBody extends Component {
 
 CardBody.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 export default CardBody;

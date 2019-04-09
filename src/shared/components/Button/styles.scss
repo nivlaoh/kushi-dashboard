@@ -1,12 +1,14 @@
 .default {
 	box-sizing: border-box;
 	background-color: #ccc;
-	padding: 0.5rem;
-	border: solid 1px #ccc;
+	padding: 0.8rem;
+	border: solid 2px #ccc;
 	border-radius: 5px;
 	margin: 0.2rem;
 	outline: none;
+	min-width: 120px;
 	transition: all 0.3s ease-out;
+	font-weight: bold;
 	&:hover {
 		background-color: #ddd;
 		cursor: pointer;
@@ -21,6 +23,6 @@
 	&:hover {
 		background-color: white;
 		color: gray;
-		border: solid 1px gray;
+		border-color: gray;
 	}
 }

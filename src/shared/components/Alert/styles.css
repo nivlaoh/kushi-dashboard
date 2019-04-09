@@ -1,0 +1,30 @@
+.response-msg {
+	border: solid 1px gray;
+	padding: 0.8rem;
+	margin-top: 0.6rem;
+	margin-bottom: 0.6rem;
+	border-radius: 3px;
+	transition: all 0.3s ease-out;
+}
+
+.dismiss-icon {
+	float: right;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.response-msg.info {
+	background: lightblue;
+	border: solid 1px #257aa6;
+	color: #257aa6;
+}
+.response-msg.success {
+	background: #91A675;
+	border: solid 1px green;
+	color: green;
+}
+.response-msg.error {
+	background: pink;
+	border: solid 1px red;
+	color: red;
+}
