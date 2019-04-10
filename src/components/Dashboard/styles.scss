@@ -1,0 +1,49 @@
+.dashboard {
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+	font-size: 1.2rem;
+	background: #eee;
+	height: 100vh;
+}
+
+.dashboardContents {
+	display: flex;
+	flex: 1 0 0;
+	width: 100%;
+}
+
+.content {
+	display: flex;
+	flex: 1 0 0;
+	padding: 15px;
+	align-items: flex-start;
+	flex-wrap: wrap;
+}
+
+.widget {
+	display: flex;
+	border: solid 1px white;
+	box-shadow: 0 1px 5px #888;
+	background: white;
+	min-width: 120px;
+	min-height: 200px;
+	border-radius: 6px;
+	padding: 2rem;
+	& + & {
+		margin-left: 15px;
+	}
+}
+
+[draggable=true] {
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+[draggable=true]:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}

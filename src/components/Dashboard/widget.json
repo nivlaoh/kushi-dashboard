@@ -1,0 +1,23 @@
+[
+	{
+    	"id": "1",
+    	"rows": 1,
+    	"columns": 1,
+    	"background": "purple",
+    	"color": "white"
+	},
+	{
+    	"id": "2",
+    	"rows": 2,
+    	"columns": 2,
+    	"background": "pink",
+    	"color": "white"
+	},
+	{
+    	"id": "3",
+    	"rows": 1,
+    	"columns": 1,
+    	"background": "green",
+    	"color": "white"
+	}
+]

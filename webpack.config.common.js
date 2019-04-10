@@ -1,6 +1,7 @@
-const path = require("path");
-const webpack = require("webpack");
-const autoprefixer = require("autoprefixer");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
 const CSSModuleLoader = {
   loader: 'css-loader',
@@ -35,24 +36,33 @@ const postCSSLoader = {
 };
 
 module.exports = {
-	entry: './src/index.js',
-	mode: 'development',
-	module: {
-		rules: [
-			{
-				test: /\.(js|jsx)$/,
-				exclude: /(node_modules|bower_components)/,
-				loader: 'babel-loader',
-				options: { presets: ['@babel/env'] }
-			},
-			{
-				test: /\.css$/,
-				use: [
+  entry: {
+    app: './src/index.js',
+  },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'Minimum-Viable',
+      filename: 'index.html',
+      template: './public/index.html',
+    }),
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel-loader',
+        options: { presets: ['@babel/env'] }
+      },
+      {
+        test: /\.css$/,
+        use: [
           'style-loader',
           { loader: 'css-loader', options: { importLoaders: 2 } },
           'postcss-loader'
         ]
-			},
+      },
       {
         test: /\.scss$/,
         exclude: /\.module\.scss$/,
@@ -78,25 +88,11 @@ module.exports = {
       {
         test: /\.(jpe?g|png|gif|svg)$/i, 
         loader: 'file-loader'
-      }
-		]
-	},
-	resolve: {
-		extensions: ['*', '.js', '.jsx'],
-		alias: {
-	    	'react-dom': '@hot-loader/react-dom'
-	    }
-	},
-	output: {
-		path: path.resolve(__dirname, 'dist/'),
-		publicPath: '/dist/',
-		filename: 'bundle.js'
-	},
-	devServer: {
-		contentBase: path.join(__dirname, "public/"),
-		port: 3020,
-		publicPath: 'http://localhost:3020/dist/',
-		hotOnly: true
-	},
-	plugins: [ new webpack.HotModuleReplacementPlugin()]
+      },
+    ],
+  },
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist/')
+  },
 };

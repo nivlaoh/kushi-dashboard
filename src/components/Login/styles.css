@@ -3,11 +3,14 @@
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
+	background: #257aa6 url('../../../public/images/daylight-environment-forest.jpg') no-repeat;
+	background-size: cover;
+	overflow: auto;
 }
 
 .loginTitle {
 	font-size: 2rem;
-	margin-left: 2rem;
+	margin-left: 0rem;
 	margin-top: 2rem;
 	margin-bottom: 2rem;
 }

@@ -44,7 +44,7 @@ class TextBox extends Component {
 }
 
 TextBox.propTypes = {
-  type: PropTypes.oneOf(['text', 'number', 'password']),
+  type: PropTypes.oneOf(['text', 'number', 'email', 'password']),
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   maxlength: PropTypes.number,

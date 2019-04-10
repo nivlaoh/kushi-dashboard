@@ -1,0 +1,19 @@
+.pageWrapper {
+	width: 100%;
+	height: 100vh;
+	background: #257aa6 url('../../../public/images/daylight-environment-forest.jpg') no-repeat;
+	background-size: cover;
+	overflow: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.infoCard {
+	width: 500px;
+	text-align: center;
+}
+
+.redirectHelp {
+	margin-top: 2rem;
+}

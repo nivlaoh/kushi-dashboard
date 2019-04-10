@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
+import { Link } from 'react-router-dom';
 
 import Alert from '../../Shared/components/Alert';
 import Button from '../../shared/components/Button';
@@ -33,6 +34,8 @@ class Login extends Component {
     this.setState({
       errorMessage: 'Test',
     });
+    this.props.history.push('/dashboard');
+    this.props.login(this.state.username, this.state.password);
   }
 
   dismissMsg() {
@@ -66,7 +69,7 @@ class Login extends Component {
               fluid
               icon="fa fa-key"
             />
-            <a href="#">Forgot your password?</a>
+            <Link to="/login">Forgot your password here?</Link>
             { !isEmpty(this.state.errorMessage) &&
               <Alert errorMessage={this.state.errorMessage} onDismiss={this.dismissMsg} />
             }
@@ -80,6 +83,12 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {};
+Login.propTypes = {
+  login: PropTypes.func,
+};
+
+Login.defaultProps = {
+  login: () => {},
+};
 
 export default Login;
