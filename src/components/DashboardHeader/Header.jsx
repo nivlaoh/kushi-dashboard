@@ -9,9 +9,35 @@ class Header extends Component {
     this.state = {
       showProfileDetails: false,
     };
+    this.node = React.createRef();
 
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.toggleProfile = this.toggleProfile.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
+  }
+
+  componentWillMount() {
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick(e) {
+    if (this.node.current === null || this.node.current.contains(e.target)) {
+      return;
+    }
+    this.handleOutsideClick();
+  }
+
+  handleOutsideClick() {
+    if (this.state.showProfileDetails) {
+      this.setState({
+        showProfileDetails: false,
+      });
+    }
   }
 
   toggleSidebar() {
@@ -40,7 +66,7 @@ class Header extends Component {
         <div className="dashboard-profile" onClick={this.toggleProfile}>
           <i className="fa fa-user"></i>
         </div>
-        <div className="profile-popover">
+        <div className="profile-popover" ref={this.node}>
           <div className={profileContentStyle}>
             Here
           </div>

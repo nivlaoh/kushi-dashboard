@@ -6,6 +6,8 @@ const DashboardWidget = PropTypes.shape({
   rows: PropTypes.number,
   background: PropTypes.string,
   color: PropTypes.string,
+  type: PropTypes.oneOf(['site', 'plugin']),
+  url: PropTypes.string,
 });
 
 export default DashboardWidget;

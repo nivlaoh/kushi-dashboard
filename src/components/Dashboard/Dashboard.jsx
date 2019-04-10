@@ -6,17 +6,20 @@ import { DashboardWidget } from '../../models';
 import Header from '../DashboardHeader';
 import Sidebar from '../DashboardSidebar';
 import Widget from './Widget';
+import Loader from '../../shared/components/Loader';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       sidebarVisible: false,
+      isLoading: false,
     };
 
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.allowDrop = this.allowDrop.bind(this);
     this.drop = this.drop.bind(this);
+    this.stopLoading = this.stopLoading.bind(this);
   }
 
   toggleSidebar() {
@@ -34,6 +37,12 @@ class Dashboard extends Component {
     const data = e.dataTransfer.getData('text');
     console.log('see', data, e);
     e.target.appendChild(document.getElementById(data));
+  }
+
+  stopLoading() {
+    this.setState({
+      isLoading: false,
+    });
   }
 
   render() {
@@ -69,6 +78,7 @@ class Dashboard extends Component {
             }
           </div>
         </div>
+        <Loader activate={this.state.isLoading} timeout={2000} timeoutFn={this.stopLoading} />
       </div>
     );
   }

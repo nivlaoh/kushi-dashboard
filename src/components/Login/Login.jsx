@@ -8,7 +8,7 @@ import Button from '../../shared/components/Button';
 import { Card, CardTitle, CardBody, CardFooter } from '../../shared/components/Card';
 import TextBox from '../../shared/components/TextBox';
 
-import styles from './styles.css';
+import styles from './styles.scss';
 
 class Login extends Component {
   constructor(props) {
@@ -17,6 +17,7 @@ class Login extends Component {
       username: 'Hi',
       password: 'pass',
       errorMessage: null,
+      loginDone: false,
     };
 
     this.updateVal = this.updateVal.bind(this);
@@ -33,9 +34,12 @@ class Login extends Component {
   login(e) {
     this.setState({
       errorMessage: 'Test',
+      loginDone: true,
     });
-    this.props.history.push('/dashboard');
     this.props.login(this.state.username, this.state.password);
+    setTimeout(() => {
+      this.props.history.push('/dashboard');
+    }, 800);
   }
 
   dismissMsg() {
@@ -45,9 +49,10 @@ class Login extends Component {
   }
 
   render() {
+    const cardStyle = this.state.loginDone ? 'loginCard fadeOut' : 'loginCard';
     return (
       <div className="loginContainer">
-        <Card className="loginCard">
+        <Card className={cardStyle}>
           <CardBody className="loginCardBody">
             <div className="loginTitle">
               Welcome

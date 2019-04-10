@@ -11,13 +11,43 @@
     	"rows": 2,
     	"columns": 2,
     	"background": "pink",
-    	"color": "white"
+    	"color": "white",
+    	"type": "site",
+    	"url": "https://www.hokaicheng.com"
 	},
 	{
     	"id": "3",
     	"rows": 1,
     	"columns": 1,
     	"background": "green",
+    	"color": "white"
+	},
+	{
+    	"id": "4",
+    	"rows": 1,
+    	"columns": 1,
+    	"background": "blue",
+    	"color": "white"
+	},
+	{
+    	"id": "5",
+    	"rows": 1,
+    	"columns": 1,
+    	"background": "orange",
+    	"color": "white"
+	},
+	{
+    	"id": "6",
+    	"rows": 1,
+    	"columns": 1,
+    	"background": "green",
+    	"color": "white"
+	},
+	{
+    	"id": "7",
+    	"rows": 1,
+    	"columns": 1,
+    	"background": "indigo",
     	"color": "white"
 	}
 ]

@@ -27,7 +27,8 @@ class Widget extends Component {
     const style = {
       backgroundColor: widget.background,
       color: widget.color,
-      flexGrow: widget.columns,
+      //flexGrow: widget.columns,
+      width: `${widget.columns * 250}px`,
       height: `${widget.rows * 200}px`,
     };
     return (
@@ -39,7 +40,10 @@ class Widget extends Component {
         draggable={draggable}
         onDragStart={this.drag}
       >
-        {widget.id}
+        { widget.type === 'site' ?
+          <iframe className="iframe" src={widget.url} /> :
+          widget.id
+        }
       </div>
     );
   }
