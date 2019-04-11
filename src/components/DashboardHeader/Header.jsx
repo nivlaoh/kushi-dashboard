@@ -15,6 +15,7 @@ class Header extends Component {
     this.toggleProfile = this.toggleProfile.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
+    this.processAnimationEnterExit = this.processAnimationEnterExit.bind(this);
   }
 
   componentWillMount() {
@@ -50,10 +51,28 @@ class Header extends Component {
     });
   }
 
+  processAnimationEnterExit(baseClass, flag, enter, exit) {
+    if (flag) {
+      return `${baseClass} ${enter}`;
+    } else {
+      return `${baseClass} ${exit}`;
+    }
+  }
+
   render() {
     const profileContentStyle = this.state.showProfileDetails ?
       'profile-content active' :
       'profile-content';
+
+    /*const profileIconStyle = this.state.showProfileDetails ?
+      'dashboard-profile clicked' :
+      'dashboard-profile';*/
+    const profileIconStyle = this.processAnimationEnterExit(
+      'dashboard-profile',
+      this.state.showProfileDetails,
+      'clicked',
+      'exit'
+    );
 
     return (
       <div className="header">
@@ -63,12 +82,13 @@ class Header extends Component {
         <div className="dashboard-title">
           Dashboard
         </div>
-        <div className="dashboard-profile" onClick={this.toggleProfile}>
+        <div className={profileIconStyle} onClick={this.toggleProfile}>
           <i className="fa fa-user"></i>
         </div>
         <div className="profile-popover" ref={this.node}>
           <div className={profileContentStyle}>
-            Here
+            <div className="profileBg"></div>
+            <div className="profileContentInner">Here</div>
           </div>
         </div>
       </div>

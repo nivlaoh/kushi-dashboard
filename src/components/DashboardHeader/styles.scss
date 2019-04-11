@@ -36,6 +36,25 @@
 	font-size: 1.5rem;
 }
 
+@keyframes profileZoom {
+    0% {
+    	transform: translate3d(0, 0, 0);
+    }
+    100% {
+    	transform: translate3d(-110px, 40px, 0) scale(2, 2);
+    	box-shadow: 0 2px 5px #666;
+    }
+}
+@keyframes profileShrink {
+    0% {
+    	transform: translate3d(-110px, 40px, 0) scale(2, 2);
+    	box-shadow: 0 2px 5px #666;
+    }
+    100% {
+    	transform: translate3d(0, 0, 0);
+    }
+}
+
 .dashboard-profile {
 	display: flex;
 	justify-content: center;
@@ -47,9 +66,17 @@
 	border-radius: 100%;
 	overflow: hidden;
 	cursor: pointer;
+	position: relative;
 	i {
 		font-size: 2rem;
 		color: white;
+	}
+	&.clicked {
+		animation: profileZoom 0.5s ease-in-out 0s both;
+		z-index: 15;
+	}
+	&.exit {
+		animation: profileShrink 0.5s ease-out 0s forwards;
 	}
 }
 
@@ -64,13 +91,11 @@
 		width: 300px;
 		height: 250px;
 		text-align: center;
-		font-size: 1.2rem;
 		border-left: solid 1px #aaa;
 		border-bottom: solid 1px #69696f;
 		border-right: solid 1px #aaa;
 		border-radius: 6px;
 		box-shadow: 0 3px 22px #666;
-		padding: 1.2rem;
 		transition: all 0.2s ease-in;
 		opacity: 0;
 		&.active {
@@ -100,5 +125,14 @@
 			width: 0;
 			z-index: 0;
 		}
+	}
+	.profileBg {
+		width: 100%;
+		height: 60px;
+		background: url('../../../public/images/5052.jpg') left top;
+	}
+	.profileContentInner {
+		padding: 1.2rem;
+		font-size: 1.2rem;
 	}
 }
