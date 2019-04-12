@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Tooltip from '../../shared/components/Tooltip';
+
 import styles from './styles.scss';
 
 class Header extends Component {
@@ -10,12 +12,15 @@ class Header extends Component {
       showProfileDetails: false,
     };
     this.node = React.createRef();
+    this.toolTip = React.createRef();
 
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.toggleProfile = this.toggleProfile.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
     this.processAnimationEnterExit = this.processAnimationEnterExit.bind(this);
+    this.handleOnMouseOver = this.handleOnMouseOver.bind(this);
+    this.handleOnMouseOut = this.handleOnMouseOut.bind(this);
   }
 
   componentWillMount() {
@@ -24,6 +29,18 @@ class Header extends Component {
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleOnMouseOut(evt) {
+    this.toolTip.current.hide();
+  }
+
+  handleOnMouseOver(evt) {
+    let el = evt.currentTarget;
+    if (el != null) {
+      let rect = el.getBoundingClientRect();
+      this.toolTip.current.show(rect);
+    }
   }
 
   handleClick(e) {
@@ -64,9 +81,6 @@ class Header extends Component {
       'profile-content active' :
       'profile-content';
 
-    /*const profileIconStyle = this.state.showProfileDetails ?
-      'dashboard-profile clicked' :
-      'dashboard-profile';*/
     const profileIconStyle = this.processAnimationEnterExit(
       'dashboard-profile',
       this.state.showProfileDetails,
@@ -88,9 +102,11 @@ class Header extends Component {
         <div className="profile-popover" ref={this.node}>
           <div className={profileContentStyle}>
             <div className="profileBg"></div>
-            <div className="profileContentInner">Here</div>
+            <div className="profileContentInner" onMouseOver={this.handleOnMouseOver} onMouseOut={this.handleOnMouseOut}>Here
+            </div>
           </div>
         </div>
+        <Tooltip ref={this.toolTip} text="Hello" />
       </div>
     );
   }

@@ -13,7 +13,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       sidebarVisible: false,
-      isLoading: false,
+      isLoading: true,
     };
 
     this.toggleSidebar = this.toggleSidebar.bind(this);

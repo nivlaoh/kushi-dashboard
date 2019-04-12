@@ -1,15 +1,32 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 
 import styles from './styles.scss';
 
 class Loader extends Component {
+  constructor(props) {
+    super(props);
+
+    this.dismissLoader = this.dismissLoader.bind(this);
+
+    this.dismissLoader(props);
+  }
+
   componentWillReceiveProps(nextProps) {
-    console.log('aaa', nextProps);
-    if (nextProps.timeout !== -1 && this.props.activate) {
-      setTimeout(() => {
-        this.props.timeoutFn();
-      }, this.props.timeout);
+    if (this.props.activate) {
+      console.log('dismiss', nextProps);
+      this.dismissLoader(nextProps);
+    }
+  }
+
+  dismissLoader(props) {
+    if (isEmpty(this.timer) && props.timeout !== -1) {
+      this.timer = setTimeout(() => {
+        props.timeoutFn();
+        clearTimeout(this.timer);
+        this.timer = null;
+      }, props.timeout);
     }
   }
 
