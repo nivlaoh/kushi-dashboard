@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
-import Alert from '../../Shared/components/Alert';
+import fakeAuth from '../../shared/components/Auth/auth';
+import Alert from '../../shared/components/Alert';
 import Button from '../../shared/components/Button';
 import { Card, CardTitle, CardBody, CardFooter } from '../../shared/components/Card';
 import TextBox from '../../shared/components/TextBox';
@@ -32,14 +33,12 @@ class Login extends Component {
   }
 
   login(e) {
-    this.setState({
-      errorMessage: 'Test',
-      loginDone: true,
+    console.log('from', this.props.location.state);
+    this.props.login(this.state.username, this.state.password, () => {
+      this.setState({
+        loginDone: true,
+      });
     });
-    this.props.login(this.state.username, this.state.password);
-    setTimeout(() => {
-      this.props.history.push('/dashboard');
-    }, 800);
   }
 
   dismissMsg() {
@@ -50,6 +49,10 @@ class Login extends Component {
 
   render() {
     const cardStyle = this.state.loginDone ? 'loginCard fadeOut' : 'loginCard';
+    const { from } = this.props.location.state || { from: { pathname: '/dashboard' }};
+    if (this.state.loginDone) {
+      return (<Redirect to={from} />);
+    }
     return (
       <div className="loginContainer">
         <Card className={cardStyle}>

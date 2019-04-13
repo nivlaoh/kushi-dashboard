@@ -35,7 +35,7 @@ class Dashboard extends Component {
   drop(e) {
     e.preventDefault();
     const data = e.dataTransfer.getData('text');
-    console.log('see', data, e);
+    console.log('dropping', data, e);
     e.target.appendChild(document.getElementById(data));
   }
 
@@ -57,8 +57,9 @@ class Dashboard extends Component {
         route: '/logout',
         icon: 'fa fa-sign-out',
         run: () => {
-          this.props.logout();
-          this.props.history.push('/logout');
+          this.props.logout(() => {
+            this.props.history.push('/logout');
+          });
         },
       }
     ];
@@ -68,7 +69,7 @@ class Dashboard extends Component {
 
     return (
       <div className="dashboard">
-        <Header toggleSidebar={this.toggleSidebar} />
+        <Header toggleSidebar={this.toggleSidebar} {...this.props} />
         <div className="dashboardContents">
           <Sidebar links={links} visible={this.state.sidebarVisible} />
           <div className="content" onDragOver={this.allowDrop} onDrop={this.drop}>
@@ -87,6 +88,7 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
   logout: PropTypes.func.isRequired,
   widgets: PropTypes.arrayOf(DashboardWidget),
+  user: PropTypes.shape(),
 };
 
 export default Dashboard;
