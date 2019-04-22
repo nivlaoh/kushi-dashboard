@@ -1,0 +1,30 @@
+.select-container {
+	position: relative;
+	margin-left: 1rem;
+	margin-right: 1rem;
+	input {
+		padding: 0.7rem 1rem;
+		outline: solid 1px lightblue;
+		&:focus {
+			/* background: rgb(140, 200, 250); */
+		}
+	}
+	.select-dropdown {
+		position: absolute;
+		background: white;
+		border: solid 1px #ccc;
+		box-shadow: 0 8px 10px #666;
+		width: 100%;
+		overflow: hidden;
+		.select-option {
+			padding: 1rem;
+			cursor: pointer;
+			&:hover {
+				background: #ccc;
+			}
+			&.active {
+				background: #ccc;
+			}
+		}
+	}	
+}

@@ -4,6 +4,7 @@ import { isEmpty } from 'lodash';
 
 import Tooltip, { withTooltip } from '../../shared/components/Tooltip';
 import Button from '../../shared/components/Button';
+import MultiSelect from '../../shared/components/MultiSelect';
 
 import styles from './styles.scss';
 
@@ -86,6 +87,17 @@ class Header extends Component {
       </div>
     ));
 
+    const options = [
+      {
+        key: 'test',
+        value: 'Hello'
+      },
+      {
+        key: 'test2',
+        value: 'World',
+      }
+    ];
+
     return (
       <div className="header">
         <div className="menuToggle" onClick={this.toggleSidebar}>
@@ -94,6 +106,7 @@ class Header extends Component {
         <div className="dashboard-title">
           Dashboard
         </div>
+        <MultiSelect placeholder="test" options={options} searchCallback={()=>{}} />
         <div className={profileIconStyle} onClick={this.toggleProfile}>
           <i className="fa fa-user"></i>
         </div>
