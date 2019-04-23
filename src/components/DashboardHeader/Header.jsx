@@ -88,14 +88,15 @@ class Header extends Component {
     ));
 
     const options = [
-      {
-        key: 'test',
-        value: 'Hello'
-      },
-      {
-        key: 'test2',
-        value: 'World',
-      }
+      { key: 'test', value: 'Hello' },
+      { key: 'test2', value: 'World' },
+      { key: 'test3', value: 'addfsf' },
+      { key: 'test4', value: 'azzz' },
+      { key: 'test5', value: 'fdsg' },
+      { key: 'test6', value: '123124' },
+      { key: 'test7', value: 'fdfsdf' },
+      { key: 'test8', value: '329fs09' },
+      { key: 'test9', value: 'mysteak' }
     ];
 
     return (
@@ -106,7 +107,7 @@ class Header extends Component {
         <div className="dashboard-title">
           Dashboard
         </div>
-        <MultiSelect placeholder="test" options={options} searchCallback={()=>{}} />
+        <MultiSelect placeholder="test" multi options={options} searchCallback={()=>{}} />
         <div className={profileIconStyle} onClick={this.toggleProfile}>
           <i className="fa fa-user"></i>
         </div>

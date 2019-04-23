@@ -14,7 +14,8 @@ class MultiSelect extends Component {
       dropdownVisible: false,
       searchValue: '',
       filteredOptions: props.options,
-      highlight: -1,
+      cursor: 0,
+      selectedOptions: [],
     };
 
     this.showDropdown = this.showDropdown.bind(this);
@@ -25,12 +26,35 @@ class MultiSelect extends Component {
 
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClick, false);
-    document.addEventListener('keydown', this.highlightOption, false);
   }
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClick, false);
   }
+
+  handleKeyDown = (e) => {
+    if (!this.state.dropdownVisible) {
+      this.showDropdown();
+      return;
+    }
+    let newCursorValue;
+    if (e.keyCode === 38) {
+      newCursorValue = Math.abs(this.state.cursor - 1) % this.props.options.length;
+      this.setState({
+        cursor: newCursorValue,
+      });
+    } else if (e.keyCode === 40) {
+      newCursorValue = (this.state.cursor + 1) % this.props.options.length;
+      this.setState({
+        cursor: newCursorValue,
+      });
+    } else if (e.keyCode === 13) {
+      this.setState({
+        dropdownVisible: false,
+        searchValue: this.props.options[this.state.cursor].value,
+      });
+    }
+  };
 
   handleClick(e) {
     if (isEmpty(this.node) || this.node.current.contains(e.target)) {
@@ -52,24 +76,30 @@ class MultiSelect extends Component {
   }
 
   selectOption(e) {
-    const val = this.props.options.filter(option => option.key === e.target.id)[0].value;
-    this.setState({
-      searchValue: val,
-      dropdownVisible: false,
-    }, this.props.onChange);
+    const selectedOption = this.props.options.filter(option => option.key === e.target.id)[0];
+    if (this.props.multi) {
+      const newSelected = this.state.selectedOptions.filter(s => s.key === selectedOption.key).length >= 1 ?
+        this.state.selectedOptions.filter(s => s.key !== selectedOption.key) :
+        [ ...this.state.selectedOptions, selectedOption ];
+      this.setState({
+        searchValue: newSelected.map(o => o.value).join(', '),
+        selectedOptions: newSelected,
+      }, this.props.onChange);
+    } else {
+      this.setState({
+        searchValue: selectedOption.value,
+        dropdownVisible: false,
+      }, this.props.onChange);
+    }
   }
 
-  highlightOption = (e) => {
-    if (!this.state.dropdownVisible) {
-      this.showDropdown();
-      return;
-    }
-    const newHighlightValue = (this.state.highlight + 1) % this.props.options.length;
+  hoverOption = (index) => {
     this.setState({
-      highlight: newHighlightValue,
+      cursor: index,
     });
-    console.log('new', newHighlightValue);
   };
+
+
 
   render() {
     const {
@@ -78,6 +108,8 @@ class MultiSelect extends Component {
       selected,
       onChange,
       readonly,
+      multi,
+      maxShown,
     } = this.props;
 
     let value;
@@ -111,6 +143,16 @@ class MultiSelect extends Component {
       }
     }, this.props.searchDelay);
 
+    const dropdownStyle = {
+      maxHeight: `${55 * maxShown}px`,
+      overflowY: 'auto',
+    };
+
+    const tickboxClass = (option) => {
+      return this.state.selectedOptions.filter(selected => selected.key === option.key).length >= 1 ?
+        'tickbox checked' : 'tickbox';
+    };
+
     return (
       <div className="select-container" ref={this.node}>
         <input
@@ -119,19 +161,30 @@ class MultiSelect extends Component {
           placeholder={placeholder}
           onClick={this.showDropdown}
           onChange={searchUpdate.bind(this)}
+          onKeyDown={this.handleKeyDown}
           defaultValue={value}
-          readOnly={readonly}
+          disabled={readonly}
         />
+        <div className="select-arrow">
+          <i className="fa fa-caret-down"></i>
+        </div>
         { this.state.dropdownVisible &&
-          <div className="select-dropdown">
+          <div className="select-dropdown" style={dropdownStyle}>
             { this.state.filteredOptions.map((option, index) => (
               <div
                 key={option.key}
                 id={option.key}
-                className={`select-option${index===this.state.highlight ? ' active' : ''}`}
+                className={`select-option${index === this.state.cursor ? ' active' : ''}`}
+                onMouseEnter={() => this.hoverOption(index)}
                 onClick={this.selectOption}
               >
-                {index} {option.value}
+                <div className="option-value">
+                  {option.value}
+                </div>
+                { multi &&
+                  (<div className={tickboxClass(option)}>
+                  </div>)
+                }
               </div>
             ))
             }
@@ -159,6 +212,7 @@ MultiSelect.propTypes = {
   onChange: PropTypes.func,
   minCharacters: PropTypes.number,
   searchDelay: PropTypes.number,
+  maxShown: PropTypes.number,
 };
 
 MultiSelect.defaultProps = {
@@ -170,6 +224,7 @@ MultiSelect.defaultProps = {
   onChange: () => {},
   minCharacters: 1,
   searchDelay: 200,
+  maxShown: 5,
 };
 
 export default MultiSelect;
