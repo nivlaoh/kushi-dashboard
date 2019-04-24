@@ -12,7 +12,7 @@ import logger from './utils/logger';
 
 export const Root = ({ store }) => (
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename="/kushi-dashboard">
       <Routes />
     </BrowserRouter>
   </Provider>

@@ -11,6 +11,7 @@ import NotFound from './components/NotFound';
 const routes = () => (
   <App>
     <Switch>
+      <PrivateRoute path="/" exact component={Dashboard} />
       <Route path="/login" component={Login} />
       <Route path="/logout" component={Login} />
       <PrivateRoute path="/dashboard" component={Dashboard} />

@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const Dotenv = require('dotenv-webpack');
 
 const CSSModuleLoader = {
   loader: 'css-loader',
@@ -40,6 +41,7 @@ module.exports = {
     app: './src/index.js',
   },
   plugins: [
+    new Dotenv(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'Minimum-Viable',
