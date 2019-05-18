@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const Dotenv = require('dotenv-webpack');
+const webpack = require('webpack');
 
 const CSSModuleLoader = {
   loader: 'css-loader',
@@ -10,7 +11,7 @@ const CSSModuleLoader = {
     modules: true,
     sourceMap: true,
     localIdentName: '[local]__[hash:base64:5]',
-    //minimize: true
+    // minimize: true
   }
 };
 
@@ -19,7 +20,7 @@ const CSSLoader = {
   options: {
     modules: false,
     sourceMap: true,
-    //minimize: true
+    // minimize: true
   }
 };
 
@@ -48,6 +49,7 @@ module.exports = {
       filename: 'index.html',
       template: './public/index.html',
     }),
+    new webpack.HashedModuleIdsPlugin()
   ],
   module: {
     rules: [
@@ -97,4 +99,9 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/')
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
+  }
 };

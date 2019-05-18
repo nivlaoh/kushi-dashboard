@@ -1,23 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
 
-import { concatClass } from '../../../utils/StyleUtil';
+import './styles.css';
 
-import styles from './styles.css';
-
-class Card extends Component {
-  render() {
-    return (
-      <div className={`card ${this.props.className}`}>
-        {this.props.children}
-      </div>
-    );
-  }
+const Card = (props) => {
+  const {
+    className,
+    children,
+  } = props;
+  return (
+    <div className={`card ${className}`}>
+      {children}
+    </div>
+  );
 }
 
 Card.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };
 

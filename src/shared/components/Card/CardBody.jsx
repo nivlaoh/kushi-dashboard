@@ -1,22 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
 
-import styles from './styles.css';
+import './styles.css';
 
-class CardBody extends Component {
-  render() {
-    return (
-      <div className={`body ${this.props.className}`}>
-        {this.props.children}
-      </div>
-    );
-  }
+const CardBody = (props) => {
+  const {
+    className,
+    children,
+  } = props;
+  return (
+    <div className={`body ${className}`}>
+      {children}
+    </div>
+  );
 }
 
 CardBody.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   className: PropTypes.string,
+};
+
+CardBody.defaultProps = {
+  className: '',
 };
 
 export default CardBody;

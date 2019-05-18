@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 
-import Tooltip, { withTooltip } from '../../shared/components/Tooltip';
-import Button from '../../shared/components/Button';
+import { withTooltip } from '../../shared/components/Tooltip';
 import MultiSelect from '../../shared/components/MultiSelect';
+import Search from '../../shared/components/Search';
 
-import styles from './styles.scss';
+import './styles.scss';
 
 class Header extends Component {
   constructor(props) {
@@ -16,7 +16,6 @@ class Header extends Component {
     };
     this.node = React.createRef();
 
-    this.toggleSidebar = this.toggleSidebar.bind(this);
     this.toggleProfile = this.toggleProfile.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
@@ -39,20 +38,22 @@ class Header extends Component {
   }
 
   handleOutsideClick() {
-    if (this.state.showProfileDetails) {
+    const {
+      showProfileDetails,
+    } = this.state;
+    if (showProfileDetails) {
       this.setState({
         showProfileDetails: false,
       });
     }
   }
 
-  toggleSidebar() {
-    this.props.toggleSidebar();
-  }
-
   toggleProfile() {
+    const {
+      showProfileDetails,
+    } = this.state;
     this.setState({
-      showProfileDetails: !this.state.showProfileDetails,
+      showProfileDetails: !showProfileDetails,
     });
   }
 
@@ -65,13 +66,22 @@ class Header extends Component {
   }
 
   render() {
-    const profileContentStyle = this.state.showProfileDetails ?
+    const {
+      showProfileDetails,
+    } = this.state;
+
+    const {
+      user,
+      toggleSidebar,
+    } = this.props;
+
+    const profileContentStyle = showProfileDetails ?
       'profile-content active' :
       'profile-content';
 
     const profileIconStyle = this.processAnimationEnterExit(
       'dashboard-profile',
-      this.state.showProfileDetails,
+      showProfileDetails,
       'clicked',
       'exit'
     );
@@ -81,7 +91,7 @@ class Header extends Component {
         <div className={profileContentStyle}>
           <div className="profileBg"></div>
           <div className="profileContentInner">
-            { isEmpty(this.props.user) ? '' : this.props.user.username }
+            { isEmpty(user) ? '' : user.username }
           </div>
         </div>
       </div>
@@ -101,14 +111,22 @@ class Header extends Component {
 
     return (
       <div className="header">
-        <div className="menuToggle" onClick={this.toggleSidebar}>
+        <div className="menuToggle" role="button" tabIndex="0" onClick={toggleSidebar}>
           <i className="fa fa-bars"></i>
         </div>
         <div className="dashboard-title">
           Dashboard
         </div>
+        <Search />
         <MultiSelect placeholder="test" multi options={options} searchCallback={()=>{}} />
-        <div className={profileIconStyle} onClick={this.toggleProfile}>
+        <div className="notification-icon">
+          <i className="fa fa-envelope"></i>
+          <div className="new">2</div>
+        </div>
+        <div className="notification-icon">
+          <i className="fa fa-bell"></i>
+        </div>
+        <div className={profileIconStyle} role="button" tabIndex="-1" onClick={this.toggleProfile}>
           <i className="fa fa-user"></i>
         </div>
         <ProfileWithTooltip text="Hello" />

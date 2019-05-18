@@ -8,7 +8,7 @@ module.exports = merge(common, {
     extensions: ['*', '.js', '.jsx']
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[contenthash].bundle.js',
     path: path.resolve(__dirname, 'dist/'),
     publicPath: 'https://nivlaoh.github.io/kushi-dashboard/'
   },

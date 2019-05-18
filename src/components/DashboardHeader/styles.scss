@@ -36,6 +36,36 @@
 	font-size: 1.5rem;
 }
 
+.notification-icon {
+	position: relative;
+	color: #ddd;
+	width: 35px;
+	height: 35px;
+	font-size: 1.3rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 1rem;
+	cursor: pointer;
+	&:hover {
+		color: #aaa;
+	}
+	.new {
+		position: absolute;
+		top: 0px;
+		right: -5px;
+		background: #e74a3b;
+		color: white;
+		padding-left: 5px;
+		padding-right: 5px;
+		padding-top: 1px;
+		padding-bottom: 1px;
+		border-radius: 100%;
+		font-size: 0.7rem;
+		font-weight: bold;
+	}
+}
+
 @keyframes profileZoom {
     0% {
     	transform: translate3d(0, 0, 0);

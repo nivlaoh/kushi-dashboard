@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-import styles from './styles.scss';
+import './styles.scss';
 
 class Tooltip extends Component {
   constructor(props) {
@@ -28,32 +27,33 @@ class Tooltip extends Component {
 
   pastShow(hoverRect) {
     // position the tooltip after showing it
-    let ttNode = ReactDOM.findDOMNode(this);
+    const ttNode = this.node; // ReactDOM.findDOMNode(this);
 
     if (ttNode != null) {
-      let x = 0, y = 0;
+      let x = 0;
+      let y = 0;
 
-      const docWidth = document.documentElement.clientWidth,
-            docHeight = document.documentElement.clientHeight;
+      const docWidth = document.documentElement.clientWidth;
+      const docHeight = document.documentElement.clientHeight;
 
-      let rx = hoverRect.x + hoverRect.width, // most right x
-          lx = hoverRect.x, // most left x
-          ty = hoverRect.y, // most top y
-          by = hoverRect.y + hoverRect.height; // most bottom y
+      const rx = hoverRect.x + hoverRect.width; // most right x
+      const lx = hoverRect.x; // most left x
+      const ty = hoverRect.y; // most top y
+      const by = hoverRect.y + hoverRect.height; // most bottom y
 
-      // tool tip rectange
-      let ttRect = ttNode.getBoundingClientRect();
+      // tooltip rectangle
+      const ttRect = ttNode.getBoundingClientRect();
 
-      let bRight = (rx + ttRect.width) <= (window.scrollX + docWidth);
-      let bLeft = (lx - ttRect.width) >= 0;
+      const bRight = (rx + ttRect.width) <= (window.scrollX + docWidth);
+      const bLeft = (lx - ttRect.width) >= 0;
 
-      let bAbove = (ty - ttRect.height) >= 0;
-      let bBellow = (by + ttRect.height) <= (window.scrollY + docHeight);
+      const bAbove = (ty - ttRect.height) >= 0;
+      const bBellow = (by + ttRect.height) <= (window.scrollY + docHeight);
 
       let newState = {};
 
       // the tooltip doesn't fit to the right
-      if(bRight) {
+      if (bRight) {
         x = rx;
         y = ty + (hoverRect.height - ttRect.height);
 
@@ -61,7 +61,7 @@ class Tooltip extends Component {
           y = ty;
         }
         newState.type = 'right';
-      } else if(bBellow) {
+      } else if (bBellow) {
         y = by;
         x = lx + (hoverRect.width - ttRect.width);
 
@@ -69,7 +69,7 @@ class Tooltip extends Component {
           x = lx;
         }
         newState.type = 'bottom';
-      } else if(bLeft) {
+      } else if (bLeft) {
         x = lx - ttRect.width;
         y = ty + (hoverRect.height - ttRect.height);
 
@@ -97,16 +97,25 @@ class Tooltip extends Component {
     const {
       text,
     } = this.props;
+    const {
+      x,
+      y,
+      visible,
+    } = this.state;
 
     const tooltipStyle = {
-      left: `${this.state.x + window.scrollX}px`,
-      top: `${this.state.y + window.scrollY}px`,
+      left: `${x + window.scrollX}px`,
+      top: `${y + window.scrollY}px`,
     };
 
-    const tooltipClass = this.state.visible ? 'tooltip active' : 'tooltip';
+    const tooltipClass = visible ? 'tooltip active' : 'tooltip';
     
     return (
-      <div className={tooltipClass} style={tooltipStyle}>
+      <div
+        className={tooltipClass}
+        style={tooltipStyle}
+        ref={node => { this.node = node }}
+      >
         { text }
       </div>
     );

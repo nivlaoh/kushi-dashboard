@@ -1,26 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
 
-import styles from './styles.css';
+import './styles.css';
 
-class CardFooter extends Component {
-  render() {
-    const {
-      children,
-      rightAligned,
-    } = this.props;
-    return (
-      <div className={`footer${rightAligned ? ' right' : ''}`}>
-        {children}
-      </div>
-    );
-  }
+const CardFooter = (props) => {
+  const {
+    children,
+    rightAligned,
+  } = props;
+  return (
+    <div className={`footer${rightAligned ? ' right' : ''}`}>
+      {children}
+    </div>
+  );
 }
 
 CardFooter.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   rightAligned: PropTypes.bool,
+};
+
+CardFooter.defaultProps = {
+  rightAligned: false,
 };
 
 export default CardFooter;

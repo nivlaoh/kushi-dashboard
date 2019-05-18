@@ -12,9 +12,9 @@
 	border: solid 1px #ccc;
 	margin-top: 0.3rem;
 	margin-bottom: 0.3rem;
-}
-.textboxRow:hover {
-	border: solid 1px #557a8d;
+	&:hover {
+		border: solid 1px #557a8d;
+	}
 }
 
 .text {

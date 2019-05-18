@@ -1,23 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './styles.css';
+import './styles.css';
 
-class Alert extends Component {
-  render() {
-    const {
-      errorMessage,
-      onDismiss,
-    } = this.props;
-    return (
-      <div className="response-msg info">
-        {errorMessage}
-        <div className="dismiss-icon" onClick={onDismiss}>
-          <i className="fa fa-times"></i>
-        </div>
+const Alert = (props) => {
+  const {
+    errorMessage,
+    onDismiss,
+  } = props;
+  return (
+    <div className="response-msg info">
+      {errorMessage}
+      <div role="button" tabIndex={0} className="dismiss-icon" onClick={onDismiss}>
+        <i className="fa fa-times"></i>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 Alert.propTypes = {
@@ -26,6 +24,7 @@ Alert.propTypes = {
 };
 
 Alert.defaultProps = {
+  errorMessage: null,
   onDismiss: () => {},
 };
 

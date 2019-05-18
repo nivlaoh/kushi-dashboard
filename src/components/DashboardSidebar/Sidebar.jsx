@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { SidebarLink } from '../../models';
-import styles from './styles.scss';
+import './styles.scss';
 
 class Sidebar extends Component {
   constructor(props) {
@@ -13,7 +13,21 @@ class Sidebar extends Component {
     };
     this.initSidebar = this.initSidebar.bind(this);
   }
-  
+
+  componentDidUpdate(prevProps) {
+    const {
+      visible,
+    } = this.props;
+    if (visible && !prevProps.visible) {
+      this.setState({
+        removeSidebar: false
+      });
+    }
+    if (!visible && prevProps.visible) {
+      this.initSidebar();
+    }
+  }
+
   initSidebar() {
     setTimeout(() => {
       this.setState({
@@ -22,26 +36,18 @@ class Sidebar extends Component {
     }, 300);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.visible && !prevProps.visible) {
-      this.setState({
-        removeSidebar: false
-      });
-    }
-    if (!this.props.visible && prevProps.visible) {
-      this.initSidebar();
-    }
-  }
-
   render() {
     const {
       visible,
       links,
     } = this.props;
+    const {
+      removeSidebar,
+    } = this.state;
     const sidebarStyle = visible ? "sidebar visible" : "sidebar";
-    return this.state.removeSidebar ? (<div></div>) : (
+    return removeSidebar ? (<div></div>) : (
       <div className={sidebarStyle}>
-        {links.map(link => (
+        { links.map((link, linkIndex) => (
           <div key={`wrapper.${link.label}`} className="linkWrapper">
             { !link.run ?
             <Link key={`link.${link.label}`} to={link.route}>
@@ -52,7 +58,7 @@ class Sidebar extends Component {
               }
               {link.label}
             </Link> :
-            <a onClick={link.run}>
+            <a href="javascript:void(0)" tabIndex={linkIndex} onClick={link.run}>
               {link.icon &&
                 <div className="linkIcon">
                   <i className={link.icon}></i>
@@ -75,6 +81,7 @@ Sidebar.propTypes = {
 
 Sidebar.defaultProps = {
   visible: true,
+  links: [],
 };
 
 export default Sidebar;

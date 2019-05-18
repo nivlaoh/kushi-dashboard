@@ -1,22 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
 
-import styles from './styles.css';
+import './styles.css';
 
-class CardTitle extends Component {
-  render() {
-
-    return (
-      <div className="title">
-        {this.props.children}
-      </div>
-    );
-  }
+const CardTitle = (props) => {
+  const {
+    children,
+  } = props;
+  return (
+    <div className="title">
+      {children}
+    </div>
+  );
 }
 
 CardTitle.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 export default CardTitle;

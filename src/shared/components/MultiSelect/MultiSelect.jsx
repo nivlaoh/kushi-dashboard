@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { debounce, isEmpty, isFunction } from 'lodash';
 
-import styles from './styles.scss';
+import './styles.scss';
 
 class MultiSelect extends Component {
   constructor(props) {
@@ -33,27 +33,40 @@ class MultiSelect extends Component {
   }
 
   handleKeyDown = (e) => {
-    if (!this.state.dropdownVisible) {
+    const {
+      cursor,
+      dropdownVisible,
+    } = this.state;
+    const {
+      options
+    } = this.props;
+    if (!dropdownVisible) {
       this.showDropdown();
       return;
     }
     let newCursorValue;
     if (e.keyCode === 38) {
-      newCursorValue = Math.abs(this.state.cursor - 1) % this.props.options.length;
+      newCursorValue = Math.abs(cursor - 1) % options.length;
       this.setState({
         cursor: newCursorValue,
       });
     } else if (e.keyCode === 40) {
-      newCursorValue = (this.state.cursor + 1) % this.props.options.length;
+      newCursorValue = (cursor + 1) % options.length;
       this.setState({
         cursor: newCursorValue,
       });
     } else if (e.keyCode === 13) {
       this.setState({
         dropdownVisible: false,
-        searchValue: this.props.options[this.state.cursor].value,
+        searchValue: options[cursor].value,
       });
     }
+  };
+
+  hoverOption = (index) => {
+    this.setState({
+      cursor: index,
+    });
   };
 
   handleClick(e) {
@@ -76,51 +89,58 @@ class MultiSelect extends Component {
   }
 
   selectOption(e) {
-    const selectedOption = this.props.options.filter(option => option.key === e.target.id)[0];
-    if (this.props.multi) {
-      const newSelected = this.state.selectedOptions.filter(s => s.key === selectedOption.key).length >= 1 ?
-        this.state.selectedOptions.filter(s => s.key !== selectedOption.key) :
-        [ ...this.state.selectedOptions, selectedOption ];
+    const {
+      options,
+      multi,
+      onChange,
+    } = this.props;
+    const {
+      selectedOptions,
+    } = this.state;
+    const selectedOption = options.filter(option => option.key === e.target.id)[0];
+    if (multi) {
+      const newSelected = selectedOptions.filter(s => s.key === selectedOption.key).length >= 1 ?
+        selectedOptions.filter(s => s.key !== selectedOption.key) :
+        [ ...selectedOptions, selectedOption ];
       this.setState({
         searchValue: newSelected.map(o => o.value).join(', '),
         selectedOptions: newSelected,
-      }, this.props.onChange);
+      }, onChange);
     } else {
       this.setState({
         searchValue: selectedOption.value,
         dropdownVisible: false,
-      }, this.props.onChange);
+      }, onChange);
     }
   }
-
-  hoverOption = (index) => {
-    this.setState({
-      cursor: index,
-    });
-  };
-
-
 
   render() {
     const {
       placeholder,
       options,
       selected,
-      onChange,
       readonly,
       multi,
       maxShown,
+      searchDelay,
     } = this.props;
+    const {
+      cursor,
+      dropdownVisible,
+      filteredOptions,
+      searchValue,
+      selectedOptions,
+    } = this.state;
 
     let value;
-    if (isEmpty(this.state.searchValue)) {
+    if (isEmpty(searchValue)) {
       if (isEmpty(selected)) {
         value = '';
       } else {
         value = selected.value;
       }
     } else {
-      value = this.state.searchValue;
+      value = searchValue;
     }
 
     const searchUpdate = debounce((e) => {
@@ -129,7 +149,6 @@ class MultiSelect extends Component {
         searchCallback,
         minCharacters,
         async,
-        options,
       } = this.props;
       if (async && isFunction(searchCallback)
         && this.searchBox.current.value.length >= minCharacters) {
@@ -141,7 +160,7 @@ class MultiSelect extends Component {
           filteredOptions: options.filter(option => option.value.toLowerCase().includes(this.searchBox.current.value)),
         });
       }
-    }, this.props.searchDelay);
+    }, searchDelay);
 
     const dropdownStyle = {
       maxHeight: `${55 * maxShown}px`,
@@ -149,7 +168,7 @@ class MultiSelect extends Component {
     };
 
     const tickboxClass = (option) => {
-      return this.state.selectedOptions.filter(selected => selected.key === option.key).length >= 1 ?
+      return selectedOptions.filter(selectedOpt => selectedOpt.key === option.key).length >= 1 ?
         'tickbox checked' : 'tickbox';
     };
 
@@ -168,13 +187,15 @@ class MultiSelect extends Component {
         <div className="select-arrow">
           <i className="fa fa-caret-down"></i>
         </div>
-        { this.state.dropdownVisible &&
+        { dropdownVisible &&
           <div className="select-dropdown" style={dropdownStyle}>
-            { this.state.filteredOptions.map((option, index) => (
+            { filteredOptions.map((option, index) => (
               <div
                 key={option.key}
                 id={option.key}
-                className={`select-option${index === this.state.cursor ? ' active' : ''}`}
+                role="row"
+                tabIndex={index}
+                className={`select-option${index === cursor ? ' active' : ''}`}
                 onMouseEnter={() => this.hoverOption(index)}
                 onClick={this.selectOption}
               >
@@ -217,6 +238,8 @@ MultiSelect.propTypes = {
 
 MultiSelect.defaultProps = {
   options: [],
+  selected: null,
+  placeholder: null,
   multi: false,
   readonly: false,
   async: false,

@@ -1,22 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './styles.scss';
+import './styles.scss';
 
-class Button extends Component {
-	render() {
-    const {
-      text,
-      type,
-      onClick,
-    } = this.props;
+const Button = (props) => {
+  const {
+    text,
+    type,
+    onClick,
+  } = props;
 
-		return (
-      <button className={type} onClick={onClick}>
-        {text}
-      </button>
-    );
-	}
+	return (
+    <button type="button" className={type} onClick={onClick}>
+      {text}
+    </button>
+  );
 }
 
 Button.propTypes = {

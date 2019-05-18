@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 
-import styles from './styles.scss';
+import './styles.scss';
 
 class Loader extends Component {
   constructor(props) {
@@ -14,8 +14,10 @@ class Loader extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.activate) {
-      console.log('dismiss', nextProps);
+    const {
+      activate,
+    } = this.props;
+    if (activate) {
       this.dismissLoader(nextProps);
     }
   }
@@ -51,6 +53,7 @@ Loader.propTypes = {
 };
 
 Loader.defaultProps = {
+  activate: false,
   timeoutFn: () => {},
   timeout: -1,
 };

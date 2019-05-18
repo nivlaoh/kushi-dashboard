@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { DashboardWidget as WidgetModel } from '../../models';
-import styles from './styles.scss';
+import './styles.scss';
 
 class Widget extends Component {
   constructor(props) {
@@ -12,7 +12,10 @@ class Widget extends Component {
   }
 
   drag(e) {
-    if (!this.props.draggable) {
+    const {
+      draggable,
+    } = this.props;
+    if (!draggable) {
       return;
     }
     console.log('tata', e.target.id);
@@ -27,7 +30,7 @@ class Widget extends Component {
     const style = {
       backgroundColor: widget.background,
       color: widget.color,
-      //flexGrow: widget.columns,
+      // flexGrow: widget.columns,
       width: `${widget.columns * 250}px`,
       height: `${widget.rows * 200}px`,
     };
@@ -41,7 +44,7 @@ class Widget extends Component {
         onDragStart={this.drag}
       >
         { widget.type === 'site' ?
-          <iframe className="iframe" src={widget.url} /> :
+          <iframe className="iframe" title="widget" src={widget.url} /> :
           widget.id
         }
       </div>
@@ -50,8 +53,12 @@ class Widget extends Component {
 }
 
 Widget.propTypes = {
-  widget: WidgetModel,
+  widget: WidgetModel.isRequired,
   draggable: PropTypes.bool,
+};
+
+Widget.defaultProps = {
+  draggable: false,
 };
 
 export default Widget;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './styles.scss';
+import './styles.scss';
 import { DashboardWidget } from '../../models';
 import Header from '../DashboardHeader';
 import Sidebar from '../DashboardSidebar';
@@ -23,8 +23,11 @@ class Dashboard extends Component {
   }
 
   toggleSidebar() {
+    const {
+      sidebarVisible,
+    } = this.state;
     this.setState({
-      sidebarVisible: !this.state.sidebarVisible
+      sidebarVisible: !sidebarVisible,
     });
   }
 
@@ -46,6 +49,16 @@ class Dashboard extends Component {
   }
 
   render() {
+    const {
+      widgets,
+      logout,
+      history,
+    } = this.props;
+    const {
+      isLoading,
+      sidebarVisible,
+    } = this.state;
+
     const links = [
       {
         label: 'Home',
@@ -57,21 +70,18 @@ class Dashboard extends Component {
         route: '/logout',
         icon: 'fa fa-sign-out',
         run: () => {
-          this.props.logout(() => {
-            this.props.history.push('/logout');
+          logout(() => {
+            history.push('/logout');
           });
         },
       }
     ];
-    const {
-      widgets,
-    } = this.props;
-
+    
     return (
       <div className="dashboard">
         <Header toggleSidebar={this.toggleSidebar} {...this.props} />
         <div className="dashboardContents">
-          <Sidebar links={links} visible={this.state.sidebarVisible} />
+          <Sidebar links={links} visible={sidebarVisible} />
           <div className="content" onDragOver={this.allowDrop} onDrop={this.drop}>
             { widgets &&
               widgets.map(widget =>
@@ -79,7 +89,7 @@ class Dashboard extends Component {
             }
           </div>
         </div>
-        <Loader activate={this.state.isLoading} timeout={2000} timeoutFn={this.stopLoading} />
+        <Loader activate={isLoading} timeout={2000} timeoutFn={this.stopLoading} />
       </div>
     );
   }
@@ -89,6 +99,11 @@ Dashboard.propTypes = {
   logout: PropTypes.func.isRequired,
   widgets: PropTypes.arrayOf(DashboardWidget),
   user: PropTypes.shape(),
+};
+
+Dashboard.defaultProps = {
+  widgets: [],
+  user: null,
 };
 
 export default Dashboard;
