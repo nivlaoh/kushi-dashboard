@@ -5,7 +5,7 @@ import fakeAuth from './auth';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props =>
-    fakeAuth.isAuthenticated ?
+    fakeAuth.hasSession() ?
       (<Component {...props} />) :
       (<Redirect to={{
         pathname: '/login',

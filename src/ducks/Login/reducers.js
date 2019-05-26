@@ -1,19 +1,20 @@
-import types from './types';
+import { LOGIN, LOGOUT, RESET_PASSWORD } from './types';
 
 const loginReducer = (state = {}, action) => {
   switch (action.type) {
-    case types.LOGIN:
+    case LOGIN:
       return {
         ...state,
         username: action.username,
         password: action.password,
       };
-    case types.LOGOUT:
+    case LOGOUT:
       return {
         ...state,
         username: null,
         password: null,
       };
+    case RESET_PASSWORD:
     default:
       return state;
   }

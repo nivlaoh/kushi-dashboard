@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
 import Login from '../../components/Login';

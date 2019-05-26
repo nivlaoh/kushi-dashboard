@@ -1,5 +1,6 @@
 .searchWrapper {
 	display: flex;
+	margin-right: 1rem;
 	.searchContainer {
 		position: relative;
 		.searchIcon {
@@ -22,6 +23,7 @@
 		.searchResultRow {
 			padding: 12px;
 			cursor: pointer;
+			outline: none;
 			&:hover {
 				background: #ccc;
 			}

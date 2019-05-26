@@ -14,7 +14,15 @@ export const logout = () => {
   };
 };
 
+const resetPassword = (email) => {
+  return {
+    type: types.RESET_PASSWORD,
+    email,
+  };
+}
+
 export default {
   login,
-  logout
+  logout,
+  resetPassword,
 };

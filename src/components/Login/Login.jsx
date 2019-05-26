@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import fakeAuth from '../../shared/components/Auth/auth';
 import Alert from '../../shared/components/Alert';
 import Button from '../../shared/components/Button';
-import { Card, CardTitle, CardBody, CardFooter } from '../../shared/components/Card';
+import { Card, CardBody, CardFooter } from '../../shared/components/Card';
 import TextBox from '../../shared/components/TextBox';
 
-import styles from './styles.scss';
+import './styles.scss';
 
 class Login extends Component {
   constructor(props) {
@@ -22,22 +21,31 @@ class Login extends Component {
     };
 
     this.updateVal = this.updateVal.bind(this);
-    this.login = this.login.bind(this);
+    this.onLogin = this.onLogin.bind(this);
     this.dismissMsg = this.dismissMsg.bind(this);
+  }
+
+  onLogin() {
+    const {
+      location,
+      login,
+    } = this.props;
+    const {
+      username,
+      password,
+    } = this.state;
+
+    console.log('from', location.state);
+    login(username, password, () => {
+      this.setState({
+        loginDone: true,
+      });
+    });
   }
 
   updateVal(field, val) {
     this.setState({
       [field]: val
-    });
-  }
-
-  login(e) {
-    console.log('from', this.props.location.state);
-    this.props.login(this.state.username, this.state.password, () => {
-      this.setState({
-        loginDone: true,
-      });
     });
   }
 
@@ -48,11 +56,23 @@ class Login extends Component {
   }
 
   render() {
-    const cardStyle = this.state.loginDone ? 'loginCard fadeOut' : 'loginCard';
-    const { from } = this.props.location.state || { from: { pathname: '/dashboard' }};
-    if (this.state.loginDone) {
-      return (<Redirect to={from} />);
+    const {
+      username,
+      password,
+      errorMessage,
+      loginDone,
+    } = this.state;
+    const {
+      location,
+      history,
+    } = this.props;
+
+    const cardStyle = loginDone ? 'loginCard fadeOut' : 'loginCard';
+    const { from } = location.state || { from: { pathname: '/dashboard' }};
+    if (loginDone) {
+      setTimeout(() => history.push(from), 400);
     }
+
     return (
       <div className="loginContainer">
         <Card className={cardStyle}>
@@ -61,7 +81,7 @@ class Login extends Component {
               Welcome
             </div>
             <TextBox
-              value={this.state.username}
+              value={username}
               onChange={e => this.updateVal('username', e.target.value)}
               placeholder="Username"
               label="Username:"
@@ -70,20 +90,20 @@ class Login extends Component {
             />
             <TextBox
               type="password"
-              value={this.state.password}
+              value={password}
               onChange={e => this.updateVal('password', e.target.value)}
               placeholder="Password"
               label="Password:"
               fluid
               icon="fa fa-key"
             />
-            <Link to="/login">Forgot your password here?</Link>
-            { !isEmpty(this.state.errorMessage) &&
-              <Alert errorMessage={this.state.errorMessage} onDismiss={this.dismissMsg} />
+            <Link to="/forgot-password">Forgot your password here?</Link>
+            { !isEmpty(errorMessage) &&
+              <Alert errorMessage={errorMessage} onDismiss={this.dismissMsg} />
             }
           </CardBody>
           <CardFooter rightAligned>
-            <Button text="Login" type="primary" onClick={this.login} />
+            <Button text="Login" type="primary" onClick={this.onLogin} />
           </CardFooter>
         </Card>
       </div>

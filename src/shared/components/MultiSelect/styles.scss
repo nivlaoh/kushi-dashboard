@@ -1,6 +1,5 @@
 .select-container {
 	position: relative;
-	margin-left: 1rem;
 	margin-right: 1rem;
 	input {
 		padding: 0.7rem 1rem;
@@ -8,6 +7,7 @@
 		border: solid 1px #ccc;
 		cursor: pointer;
 		transition: all 0.2s ease-in;
+		width: 100%;
 		&:hover {
 			background: #eee;
 			border: solid 1px #557a8d;
@@ -35,6 +35,7 @@
 			padding: 1rem;
 			cursor: pointer;
 			display: flex;
+			outline: none;
 			&.active {
 				background: #ccc;
 			}

@@ -20,7 +20,7 @@ class Search extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.options.length > 0) {
+    if (nextProps.options.length > 0 && nextProps.dropdownVisible) {
       this.setState({
         dropdownVisible: true,
       });
