@@ -13,6 +13,12 @@
 	background: #eee;
 }
 
+.content-wrapper {
+	display: flex;
+	padding: 15px;
+	flex-direction: column;
+}
+
 .content {
 	display: flex;
 	flex: 1 0 0;

@@ -1,14 +1,11 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import Dashboard from '../../components/Dashboard';
+import Settings from '../../components/Settings';
 import operations from '../../ducks/Login/operations';
-import widgetData from '../../components/Dashboard/widget.json';
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('data', widgetData);
   return {
-    widgets: widgetData,
     user: { username: state.login.username },
   };
 };
@@ -17,6 +14,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   logout: (cb) => operations.logout(cb)(dispatch),
 });
 
-const DashboardContainer = connect(mapStateToProps, mapDispatchToProps)(withRouter(Dashboard));
+const SettingsContainer = connect(mapStateToProps, mapDispatchToProps)(withRouter(Settings));
 
-export default DashboardContainer;
+export default SettingsContainer;

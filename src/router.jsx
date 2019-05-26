@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { hot } from 'react-hot-loader/root';
 
 import App from './App';
@@ -15,9 +15,10 @@ const routes = () => (
       <Route path="/login" component={Login} />
       <Route path="/logout" component={Login} />
       <PrivateRoute path="/dashboard" component={Dashboard} />
+      <PrivateRoute path="/settings" component={Dashboard} />
       <Route component={NotFound} />
     </Switch>
   </App>
 );
 
-export const Routes = hot(routes);
+export default hot(routes);

@@ -11,7 +11,22 @@
 			align-items: center;
 			color: #999;
 		}
-	}	
+	}
+	.searchResults {
+		position: absolute;
+		border: solid 1px #ccc;
+		background: white;
+		top: 46px;
+		width: 220px;
+		box-shadow: 0 3px 8px #555;
+		.searchResultRow {
+			padding: 12px;
+			cursor: pointer;
+			&:hover {
+				background: #ccc;
+			}
+		}
+	}
 }
 
 .text {

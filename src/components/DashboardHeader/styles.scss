@@ -24,6 +24,7 @@
 	cursor: pointer;
 	transition: all 0.3s ease-out;
 	border-radius: 100%;
+	outline: none;
 	&:hover {
 		color: white;
 		background-color: #263238;
@@ -94,6 +95,7 @@
 	margin-right: 25px;
 	background-color: #ccc;
 	border-radius: 100%;
+	outline: none;
 	overflow: hidden;
 	cursor: pointer;
 	position: relative;

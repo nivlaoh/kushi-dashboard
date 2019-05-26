@@ -1,6 +1,6 @@
 {
   "extends": ["airbnb", "prettier", "prettier/react"],
-  "plugins": ["prettier"],
+  "plugins": ["jest", "prettier"],
   "rules": {
     "react/jsx-filename-extension": [
       1,
@@ -12,7 +12,8 @@
     "no-underscore-dangle": 0,
     "import/imports-first": ["error", "absolute-first"],
     "import/newline-after-import": "error",
-    "jsx-a11y/click-events-have-key-events": 0
+    "jsx-a11y/click-events-have-key-events": 0,
+    "import/no-extraneous-dependencies": [2, { "devDependencies": true }]
   },
   "globals": {
     "window": true,
@@ -22,6 +23,9 @@
     "FileReader": true,
     "Blob": true,
     "navigator": true
+  },
+  "env": {
+    "jest/globals": true
   },
   "parser": "babel-eslint"
 }

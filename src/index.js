@@ -7,10 +7,10 @@ import { createStore, applyMiddleware } from 'redux';
 import 'font-awesome/css/font-awesome.css';
 
 import rootReducer from './reducers';
-import { Routes } from './router';
+import Routes from './router';
 import logger from './utils/logger';
 
-export const Root = ({ store }) => (
+const Root = ({ store }) => (
   <Provider store={store}>
     <BrowserRouter basename="/kushi-dashboard">
       <Routes />

@@ -13,6 +13,7 @@ class Header extends Component {
     super(props);
     this.state = {
       showProfileDetails: false,
+      searchOptions: [],
     };
     this.node = React.createRef();
 
@@ -109,6 +110,12 @@ class Header extends Component {
       { key: 'test9', value: 'mysteak' }
     ];
 
+    const search = (e) => {
+      this.setState({
+        searchOptions: options.filter(option => option.value.toLowerCase().includes(e.target.value))
+      });
+    }
+
     return (
       <div className="header">
         <div className="menuToggle" role="button" tabIndex="0" onClick={toggleSidebar}>
@@ -117,7 +124,7 @@ class Header extends Component {
         <div className="dashboard-title">
           Dashboard
         </div>
-        <Search />
+        <Search onChange={search} options={this.state.searchOptions} />
         <MultiSelect placeholder="test" multi options={options} searchCallback={()=>{}} />
         <div className="notification-icon">
           <i className="fa fa-envelope"></i>

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Route } from 'react-router-dom';
 
 import './styles.scss';
 import { DashboardWidget } from '../../models';
 import Header from '../DashboardHeader';
 import Sidebar from '../DashboardSidebar';
-import Widget from './Widget';
+import DashboardHome from './DashboardHome';
+import Settings from '../../containers/Settings';
 import Loader from '../../shared/components/Loader';
 
 class Dashboard extends Component {
@@ -17,8 +19,6 @@ class Dashboard extends Component {
     };
 
     this.toggleSidebar = this.toggleSidebar.bind(this);
-    this.allowDrop = this.allowDrop.bind(this);
-    this.drop = this.drop.bind(this);
     this.stopLoading = this.stopLoading.bind(this);
   }
 
@@ -29,17 +29,6 @@ class Dashboard extends Component {
     this.setState({
       sidebarVisible: !sidebarVisible,
     });
-  }
-
-  allowDrop(e) {
-    e.preventDefault();
-  }
-
-  drop(e) {
-    e.preventDefault();
-    const data = e.dataTransfer.getData('text');
-    console.log('dropping', data, e);
-    e.target.appendChild(document.getElementById(data));
   }
 
   stopLoading() {
@@ -66,6 +55,11 @@ class Dashboard extends Component {
         icon: 'fa fa-home'
       },
       {
+        label: 'Settings',
+        route: '/settings',
+        icon: 'fa fa-gear'
+      },
+      {
         label: 'Logout',
         route: '/logout',
         icon: 'fa fa-sign-out',
@@ -82,12 +76,12 @@ class Dashboard extends Component {
         <Header toggleSidebar={this.toggleSidebar} {...this.props} />
         <div className="dashboardContents">
           <Sidebar links={links} visible={sidebarVisible} />
-          <div className="content" onDragOver={this.allowDrop} onDrop={this.drop}>
-            { widgets &&
-              widgets.map(widget =>
-                <Widget key={`wid.${widget.id}`} widget={widget} draggable />)
-            }
-          </div>
+          <Route path='/' exact render={(routeProps) => (
+            <DashboardHome {...routeProps} widgets={widgets} />
+          )} />
+          <Route path='/settings' render={(routeProps) => (
+            <Settings {...routeProps} />
+          )} />
         </div>
         <Loader activate={isLoading} timeout={2000} timeoutFn={this.stopLoading} />
       </div>
