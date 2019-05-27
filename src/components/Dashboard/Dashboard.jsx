@@ -51,7 +51,7 @@ class Dashboard extends Component {
     const links = [
       {
         label: 'Home',
-        route: '/',
+        route: '/dashboard',
         icon: 'fa fa-home'
       },
       {
@@ -76,7 +76,7 @@ class Dashboard extends Component {
         <Header toggleSidebar={this.toggleSidebar} {...this.props} />
         <div className="dashboardContents">
           <Sidebar links={links} visible={sidebarVisible} />
-          <Route path='/' exact render={(routeProps) => (
+          <Route path='/dashboard' exact render={(routeProps) => (
             <DashboardHome {...routeProps} widgets={widgets} />
           )} />
           <Route path='/settings' render={(routeProps) => (

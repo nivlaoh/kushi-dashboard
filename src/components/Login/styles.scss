@@ -15,7 +15,7 @@
 	margin-bottom: 2rem;
 }
 
-@keyframes fadein {
+@keyframes slideIn {
     0% {
     	opacity: 0;
     	transform: perspective(10cm) translate3d(0, 100px, 0) rotateX(90deg);
@@ -29,7 +29,7 @@
     }
 }
 
-@keyframes fadeout {
+@keyframes slideOut {
     0% {
     	opacity: 1;
     	transform: translate3d(0, 0, 0);
@@ -43,9 +43,9 @@
 .loginCard {
 	max-width: 550px;
 	min-width: 450px;
-	animation: fadein 1s;
+	animation: slideIn 1s;
 	&.fadeOut {
-		animation: fadeout 0.8s forwards;
+		animation: slideOut 0.8s forwards;
 	}
 }
 

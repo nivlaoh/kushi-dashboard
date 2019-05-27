@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Alert from '../../shared/components/Alert';
 import Button from '../../shared/components/Button';
@@ -17,6 +17,7 @@ class ForgotPassword extends Component {
     this.state = {
       resetDone: false,
       emailAddress: '',
+      showMsg: false,
     };
   }
 
@@ -27,12 +28,15 @@ class ForgotPassword extends Component {
     const {
       emailAddress,
     } = this.state;
-    if (emailAddress.includes('@')) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (re.test(emailAddress.toLowerCase())) {
       resetPassword(emailAddress, () => {
         console.log('reset');
         this.setState({
-          resetDone: true,
           emailAddress: '',
+          showMsg: true,
+        }, () => {
+          setTimeout(() => this.setState({ resetDone: true }), 3000);
         });
       });
     } else {
@@ -42,7 +46,7 @@ class ForgotPassword extends Component {
     }
   }
 
-  checkEmail = (e) => {
+  updateEmail = (e) => {
     const email = e.target.value;
     this.setState({
       emailAddress: email,
@@ -60,10 +64,12 @@ class ForgotPassword extends Component {
       resetDone,
       emailAddress,
       errorMessage,
+      showMsg,
     } = this.state;
     const {
       location,
       history: { push },
+      successMessage,
     } = this.props;
 
     const cardStyle = resetDone ? 'loginCard fadeOut' : 'loginCard';
@@ -83,14 +89,18 @@ class ForgotPassword extends Component {
             <TextBox
               type="email"
               value={emailAddress}
-              onChange={this.checkEmail}
+              onChange={this.updateEmail}
               placeholder="Email Address"
               label="Email Address:"
               fluid
               icon="fa fa-envelope"
             />
-            { !isEmpty(errorMessage) &&
-              <Alert errorMessage={errorMessage} onDismiss={this.dismissMsg} />
+            { !isEmpty(errorMessage) || showMsg &&
+              <Alert
+                message={successMessage}
+                errorMessage={errorMessage}
+                onDismiss={this.dismissMsg}
+              />
             }
             <Link to="/login">Back to Login Page</Link>
           </CardBody>
@@ -105,10 +115,12 @@ class ForgotPassword extends Component {
 
 ForgotPassword.propTypes = {
   resetPassword: PropTypes.func,
+  successMessage: PropTypes.string,
 };
 
 ForgotPassword.defaultProps = {
   resetPassword: () => {},
+  successMessage: 'Reset password email sent',
 };
 
 export default ForgotPassword;

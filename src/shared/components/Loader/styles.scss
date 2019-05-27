@@ -1,3 +1,21 @@
+@keyframes fadeIn {
+    0% {
+    	opacity: 0;
+    }
+    100% {
+    	opacity: 0.8;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+    	opacity: 0.8;
+    }
+    100% {
+    	opacity: 0;
+    }
+}
+
 .loader-container {
 	position: absolute;
 	left: 0;
@@ -10,6 +28,10 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	animation: fadeIn 0.4s;
+	&.fadeOut {
+		animation: fadeOut 0.4s forwards;
+	}
 	i {
 		display: block;
 		font-size: 3rem;

@@ -16,7 +16,6 @@ class Tabs extends Component {
       data,
       active: data.filter(tab => tab.active)[0].title,
     };
-    console.log('state', this.state);
   }
 
   activateTab = (tab) => {
@@ -64,7 +63,7 @@ Tabs.propTypes = {
     const prop = props[propName];
     let error = null;
     React.Children.forEach(prop, (child) => {
-      if (!(child.type.prototype instanceof Tab)) {
+      if (child.type !== Tab) {
         error = new Error(`'${componentName}' children should be of type Tab`);
       }
     });

@@ -79,7 +79,7 @@ class Search extends Component {
       inputValue,
       dropdownVisible,
     } = this.state;
-    const textStyle = 'text';
+    const textStyle = 'search';
     return (
       <div className="searchWrapper" ref={this.node}>
         <div className="searchContainer">
