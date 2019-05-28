@@ -12,11 +12,13 @@ class MessagePane extends Component {
   constructor(props) {
     super(props);
     this.activeNode = React.createRef();
+    this.replyRef = React.createRef();
 
     this.state = {
       activeMessage: null,
       reply: false,
       closingReply: false,
+      replyText: '',
     };
   }
 
@@ -49,8 +51,8 @@ class MessagePane extends Component {
     }
     if (field === 'from') {
       return activeMessage.senderName ?
-        (<span><b>{ activeMessage.senderName }</b> &lt;{ activeMessage.senderEmail }&gt;</span>) :
-        (<span>{ activeMessage.senderEmail }</span>);
+        (<span><b>{activeMessage.senderName}</b> &lt;{activeMessage.senderEmail}&gt;</span>) :
+        (<span>{activeMessage.senderEmail}</span>);
     }
     if (field === 'subject') {
       return activeMessage.subject;
@@ -62,7 +64,7 @@ class MessagePane extends Component {
     const letters = '0123456789ABCDEF'.split('');
     let colour = '#';
     const addDigitToColour = (limit) => {
-      colour += letters[Math.round(Math.random() * limit )]
+      colour += letters[Math.round(Math.random() * limit)]
     };
     for (let i = 0; i < 6; i += 1) {
       addDigitToColour(15);
@@ -89,6 +91,16 @@ class MessagePane extends Component {
     });
   }
 
+  sendEmail = () => {
+    const {
+      onSend,
+    } = this.props;
+    onSend({
+      text: this.replyRef.current.value,
+    });
+    this.closeReplyPane();
+  };
+
   render() {
     const {
       messages,
@@ -97,6 +109,7 @@ class MessagePane extends Component {
       activeMessage,
       reply,
       closingReply,
+      replyText,
     } = this.state;
 
     return (
@@ -104,28 +117,28 @@ class MessagePane extends Component {
         <div className="conversations">
           <div className="title">Conversations</div>
           <div className="recipientList">
-            { messages.map(msg => (
-            <div key={msg.id}
-              className={`sender ${activeMessage && activeMessage.id === msg.id ? 'active' : ''}`}
-              onClick={() => { this.viewMessage(msg) }}
-              onContextMenu={e => { this.messageContext(e, msg.id) }}
-              role="button"
-              tabIndex="0"
-            >
-              <div className="senderIcon" style={{ backgroundColor: this.getRandomColours() }}>
-                <i className={`${msg.senderIcon ? msg.senderIcon : 'fa fa-user'}`}></i>
-              </div>
-              <div className="senderContents">
-                <div className="senderName">
-                  {msg.senderName}
-                  { msg.status === 'UNREAD' ?
-                    <span className="unreadTag">NEW</span> : null
-                  }
+            {messages.map(msg => (
+              <div key={msg.id}
+                className={`sender ${activeMessage && activeMessage.id === msg.id ? 'active' : ''}`}
+                onClick={() => { this.viewMessage(msg) }}
+                onContextMenu={e => { this.messageContext(e, msg.id) }}
+                role="button"
+                tabIndex="0"
+              >
+                <div className="senderIcon" style={{ backgroundColor: this.getRandomColours() }}>
+                  <i className={`${msg.senderIcon ? msg.senderIcon : 'fa fa-user'}`}></i>
                 </div>
-                <div className="messageSnippet">{msg.message}</div>
+                <div className="senderContents">
+                  <div className="senderName">
+                    {msg.senderName}
+                    {msg.status === 'UNREAD' ?
+                      <span className="unreadTag">NEW</span> : null
+                    }
+                  </div>
+                  <div className="messageSnippet">{msg.message}</div>
+                </div>
               </div>
-            </div>
-            )) }
+            ))}
             <Dropdown
               target={this.activeNode}
               event="contextmenu"
@@ -138,12 +151,12 @@ class MessagePane extends Component {
             <div className="metadata">
               <div className="tag">From:</div>
               <div className="tagValue">
-                { this.displayEmail('from') }
+                {this.displayEmail('from')}
               </div>
             </div>
             <div className="metadata">
               <div className="tag">Subject:</div>
-              <div className="tagValue">{ this.displayEmail('subject') }</div>
+              <div className="tagValue">{this.displayEmail('subject')}</div>
             </div>
           </div>
           <div className="messageToolbar">
@@ -163,13 +176,13 @@ class MessagePane extends Component {
               <i className="fa fa-share"></i>
             </div>
           </div>
-          { reply &&
+          {reply &&
             <div className={`replyPane ${closingReply ? 'closing' : ''}`}>
-              <textarea></textarea>
+              <textarea ref={this.replyRef}></textarea>
               <div className="closeReplyPane" role="button" tabIndex="0" onClick={this.closeReplyPane}>
                 <i className="fa fa-close"></i>
               </div>
-              <Button type="primary" className="sendMsgBtn" onClick={this.closeReplyPane}>
+              <Button type="primary" className="sendMsgBtn" onClick={this.sendEmail}>
                 Send
               </Button>
             </div>
@@ -188,11 +201,13 @@ class MessagePane extends Component {
 MessagePane.propTypes = {
   messages: PropTypes.arrayOf(Message),
   onRead: PropTypes.func,
+  onSend: PropTypes.func,
 };
 
 MessagePane.defaultProps = {
   messages: [],
   onRead: () => {},
+  onSend: () => {},
 };
 
 export default MessagePane;

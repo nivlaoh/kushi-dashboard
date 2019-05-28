@@ -1,0 +1,57 @@
+@import "../../../variables.scss";
+
+@keyframes slideDown {
+	0% {
+		opacity: 0;
+		transform: translate3d(0, -55px, 0);
+	}
+	100% {
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes slideUp {
+	0% {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+	100% {
+		opacity: 0;
+		transform: translate3d(0, -55px, 0);
+	}
+}
+
+.toast {
+	display: flex;
+	align-items: stretch;
+	border: solid 1px $linkBlue;
+	max-width: 1000px;
+	width: 500px;
+	position: absolute;
+	top: 0;
+	left: calc(50% - 500px);
+	z-index: 80;
+	box-shadow: 0 2px 5px #aaa;
+	animation: slideDown 0.4s forwards;
+	&.dismiss {
+		animation: slideUp 0.4s ease-out forwards;
+	}
+	.toastMsg {
+		display: flex;
+		flex: 1;
+		background: white;
+		align-items: center;
+		padding-left: 1rem;
+	}
+	.toastClose {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 55px;
+		height: 55px;
+		background: $linkBlue;
+		color: white;
+		border: none;
+		cursor: pointer;
+	}
+}

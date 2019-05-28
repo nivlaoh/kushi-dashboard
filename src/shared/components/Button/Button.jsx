@@ -26,7 +26,7 @@ const Button = (props) => {
 }
 
 Button.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   type: PropTypes.oneOf(['default', 'primary', 'secondary']),
   className: PropTypes.string,
   children: PropTypes.node,
@@ -34,6 +34,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
+  text: null,
   type: 'default',
   className: '',
   onClick: () => {}

@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import Notification from '../../components/Notification';
 import messages from '../../components/Dashboard/messages.json';
+import { operations } from '../../ducks/Notification';
 
 const onRead = (msg) => {
   messages.forEach(message => {
@@ -13,12 +14,16 @@ const onRead = (msg) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  return {};
+  console.log('state', state);
+  return {
+    showToast: state.notification.status,
+  };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   messages,
   onRead,
+  onSend: (message) => operations.sendEmail(message)(dispatch),
 });
 
 const NotificationContainer = connect(mapStateToProps, mapDispatchToProps)(withRouter(Notification));
