@@ -4,6 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const Dotenv = require('dotenv-webpack');
 const webpack = require('webpack');
+const AsyncChunkNames = require('webpack-async-chunk-names-plugin');
 
 const CSSModuleLoader = {
   loader: 'css-loader',
@@ -49,7 +50,8 @@ module.exports = {
       filename: 'index.html',
       template: './public/index.html',
     }),
-    new webpack.HashedModuleIdsPlugin()
+    new webpack.HashedModuleIdsPlugin(),
+    new AsyncChunkNames()
   ],
   module: {
     rules: [

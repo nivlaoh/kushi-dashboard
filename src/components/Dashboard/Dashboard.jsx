@@ -8,6 +8,7 @@ import Header from '../DashboardHeader';
 import Sidebar from '../DashboardSidebar';
 import DashboardHome from './DashboardHome';
 import Settings from '../../containers/Settings';
+import Notification from '../../containers/Notification';
 import Loader from '../../shared/components/Loader';
 
 class Dashboard extends Component {
@@ -81,6 +82,9 @@ class Dashboard extends Component {
           )} />
           <Route path='/settings' render={(routeProps) => (
             <Settings {...routeProps} />
+          )} />
+          <Route path='/notification' render={(routeProps) => (
+            <Notification {...routeProps} />
           )} />
         </div>
         <Loader activate={isLoading} timeout={2000} timeoutFn={this.stopLoading} />

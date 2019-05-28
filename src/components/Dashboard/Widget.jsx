@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Loadable from 'react-loadable';
+import { isEmpty } from 'lodash';
 
 import { DashboardWidget as WidgetModel } from '../../models';
 import './styles.scss';
@@ -22,11 +24,27 @@ class Widget extends Component {
     e.dataTransfer.setData('text', e.target.id);
   }
 
+  drawWidget = (widget) => {
+    if (widget.type === 'site') {
+      return <iframe className="iframe" title="widget" src={widget.url} />;
+    }
+    if (widget.type === 'component') {
+      const WidgetComponent = !isEmpty(widget.componentSrc) ? Loadable({
+        loader: () => import(`../${widget.componentSrc}`),
+        loading: () => <div>Loading...</div>
+      }) : null;
+
+      return <WidgetComponent />;
+    }
+    return widget.id;
+  };
+
   render() {
     const {
       widget,
       draggable,
     } = this.props;
+
     const style = {
       backgroundColor: widget.background,
       color: widget.color,
@@ -34,6 +52,7 @@ class Widget extends Component {
       width: `${widget.columns * 250}px`,
       height: `${widget.rows * 200}px`,
     };
+
     return (
       <div
         key={`wid-${widget.id}`}
@@ -43,10 +62,7 @@ class Widget extends Component {
         draggable={draggable}
         onDragStart={this.drag}
       >
-        { widget.type === 'site' ?
-          <iframe className="iframe" title="widget" src={widget.url} /> :
-          widget.id
-        }
+        { this.drawWidget(widget) }
       </div>
     );
   }

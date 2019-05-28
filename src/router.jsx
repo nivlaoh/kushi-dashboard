@@ -18,6 +18,7 @@ const routes = () => (
       <Route path="/forgot-password" component={ForgotPassword} />
       <PrivateRoute path="/dashboard" component={Dashboard} />
       <PrivateRoute path="/settings" component={Dashboard} />
+      <PrivateRoute path="/notification" component={Dashboard} />
       <Route component={NotFound} />
     </Switch>
   </App>

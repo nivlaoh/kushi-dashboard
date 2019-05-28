@@ -48,6 +48,9 @@
 	align-items: center;
 	margin-right: 1rem;
 	cursor: pointer;
+	i {
+		pointer-events: none;
+	}
 	&:hover {
 		color: #aaa;
 	}

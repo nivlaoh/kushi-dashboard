@@ -5,6 +5,7 @@ import { isEmpty } from 'lodash';
 import { withTooltip } from '../../shared/components/Tooltip';
 import MultiSelect from '../../shared/components/MultiSelect';
 import Search from '../../shared/components/Search';
+import Dropdown from '../../shared/components/Dropdown';
 
 import './styles.scss';
 
@@ -16,11 +17,11 @@ class Header extends Component {
       searchOptions: [],
     };
     this.node = React.createRef();
+    this.notificationIcon = React.createRef();
 
     this.toggleProfile = this.toggleProfile.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
-    this.processAnimationEnterExit = this.processAnimationEnterExit.bind(this);
   }
 
   componentWillMount() {
@@ -29,6 +30,13 @@ class Header extends Component {
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  processAnimationEnterExit = (baseClass, flag, enter, exit) => {
+    if (flag) {
+      return `${baseClass} ${enter}`;
+    }
+    return `${baseClass} ${exit}`;
   }
 
   handleClick(e) {
@@ -58,16 +66,16 @@ class Header extends Component {
     });
   }
 
-  processAnimationEnterExit(baseClass, flag, enter, exit) {
-    if (flag) {
-      return `${baseClass} ${enter}`;
-    } else {
-      return `${baseClass} ${exit}`;
-    }
-  }
+  navigateNotification = () => {
+    const {
+      history,
+    } = this.props;
+    history.push('/notification');
+  };
 
   render() {
     const {
+      searchOptions,
       showProfileDetails,
     } = this.state;
 
@@ -124,12 +132,13 @@ class Header extends Component {
         <div className="dashboard-title">
           Dashboard
         </div>
-        <Search onChange={search} options={this.state.searchOptions} />
+        <Search onChange={search} options={searchOptions} />
         <MultiSelect placeholder="test" multi options={options} searchCallback={()=>{}} />
-        <div className="notification-icon">
+        <div className="notification-icon" ref={this.notificationIcon}>
           <i className="fa fa-envelope"></i>
           <div className="new">2</div>
         </div>
+        <Dropdown target={this.notificationIcon} options={options} onSelected={this.navigateNotification} />
         <div className="notification-icon">
           <i className="fa fa-bell"></i>
         </div>

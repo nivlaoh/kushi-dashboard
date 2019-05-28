@@ -4,7 +4,9 @@
     	"rows": 1,
     	"columns": 1,
     	"background": "purple",
-    	"color": "white"
+    	"color": "white",
+        "type": "component",
+        "componentSrc": "widget1"
 	},
 	{
     	"id": "2",

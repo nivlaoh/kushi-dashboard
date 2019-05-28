@@ -1,0 +1,18 @@
+.dropdownMenu {
+	background: white;
+	border: solid 1px #ccc;
+	box-shadow: 0 2px 8px #ccc;
+	position: absolute;
+	z-index: 80;
+	overflow: scroll;
+}
+
+.dropdownOption {
+	padding: 1rem;
+	cursor: pointer;
+	min-width: 120px;
+	outline: none;
+	&:hover {
+		background: #ccc;
+	}
+}
