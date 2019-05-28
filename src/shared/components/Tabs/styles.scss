@@ -1,3 +1,5 @@
+@import "../../../variables.scss";
+
 .tabs {
 	background: white;
 	border: solid 1px #ccc;
@@ -15,7 +17,7 @@
 			flex: 1 1 0;
 			border-bottom: solid 3px transparent;
 			&.active {
-				border-bottom: solid 3px navy;
+				border-bottom: solid 3px $linkBlue;
 				color: black;
 			}
 		}

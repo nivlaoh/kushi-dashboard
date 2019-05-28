@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .dashboard {
 	display: flex;
 	align-items: flex-start;
@@ -10,13 +12,14 @@
 	flex: 1 0 1;
 	width: 100%;
 	min-height: calc(100vh - 55px);
-	background: #eee;
+	background: $pageGray;
 }
 
 .content-wrapper {
 	display: flex;
 	padding: 15px;
 	flex-direction: column;
+	flex: 1;
 }
 
 .content {

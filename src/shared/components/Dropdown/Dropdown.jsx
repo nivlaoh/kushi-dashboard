@@ -12,32 +12,64 @@ class Dropdown extends Component {
 
     this.state = {
       showDropdown: false,
-    }
+      x: 0,
+      y: 0,
+    };
   }
 
   componentDidMount() {
     const {
       target,
+      event,
     } = this.props;
-    if (!isEmpty(target)) {
-      target.current.addEventListener('mousedown', this.openDropdown, false);
+    if (!isEmpty(target) && !isEmpty(target.current)) {
+      console.log('attaching click', target.current);
+      target.current.addEventListener(event, this.openDropdown, false);
     }
     document.addEventListener('mousedown', this.closeDropdown, false);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      target,
+      event,
+    } = this.props;
+    if ((isEmpty(target) || isEmpty(target.current)) && !isEmpty(nextProps.target.current)) {
+      console.log('attaching added click', nextProps.target.current);
+      nextProps.target.current.addEventListener(event, this.openDropdown, false);
+      this.setState({
+        showDropdown: true,
+        x: nextProps.x,
+        y: nextProps.y,
+      });
+    }
+    if (!isEmpty(target) && !isEmpty(target.current) && !isEmpty(nextProps.target)
+      && nextProps.target.current !== target.current) {
+      console.log('change attached click', nextProps.target.current);
+      nextProps.target.current.addEventListener(event, this.openDropdown, false);
+      this.setState({
+        showDropdown: true,
+      });
+    }
   }
 
   componentWillUnmount() {
     const {
       target,
+      event,
     } = this.props;
-    if (!isEmpty(target)) {
-      target.current.removeEventListener('mousedown', this.openDropdown, false);
+    if (!isEmpty(target.current)) {
+      target.current.removeEventListener(event, this.openDropdown, false);
     }
     document.removeEventListener('mousedown', this.closeDropdown, false);
   }
 
-  openDropdown = () => {
+  openDropdown = (e) => {
+    console.log('showing at ', e.clientX, e.clientY);
     this.setState({
       showDropdown: true,
+      x: e.clientX,
+      y: e.clientY,
     });
   };
 
@@ -46,7 +78,7 @@ class Dropdown extends Component {
       target,
     } = this.props;
 
-    if (isEmpty(this.dropdownNode) || e.target === target.current || this.dropdownNode.current.contains(e.target)) {
+    if (isEmpty(this.dropdownNode.current) || e.target === target.current || this.dropdownNode.current.contains(e.target)) {
       return;
     }
 
@@ -65,20 +97,42 @@ class Dropdown extends Component {
     }, () => { onSelected(item) });
   };
 
+  calculateDropdownLeft = (target) => {
+    const {
+      width,
+    } = this.props;
+    const {
+      x,
+    } = this.state;
+    if (isEmpty(target) || isEmpty(target.current)) {
+      return 0;
+    }
+    if (x + width > window.innerWidth) {
+      return x - width + 20;
+    }
+    return x;
+  };
+
   render() {
     const {
       target,
       options,
       maxShown,
+      truncateOption,
+      width,
     } = this.props;
     const {
       showDropdown,
+      y,
     } = this.state;
 
     const dropdownStyle = {
-      left: !isEmpty(target.current) ? target.current.offsetLeft : 0,
-      top: !isEmpty(target.current) ? target.current.offsetTop + 40 : 0,
-      height: maxShown === -1 ? 'auto' : maxShown * 46,
+      left: this.calculateDropdownLeft(target),
+      top: !isEmpty(target) && !isEmpty(target.current) ? y + 20 : 0,
+      maxHeight: maxShown === -1 ? 'auto' : maxShown * 46,
+    };
+    const optionStyle = {
+      width: `${width}px`,
     };
 
     return showDropdown ? (
@@ -86,7 +140,8 @@ class Dropdown extends Component {
         { options.map(option =>
           <div
             key={option.key}
-            className="dropdownOption"
+            className={`dropdownOption ${truncateOption ? 'truncate' : ''}`}
+            style={optionStyle}
             role="button"
             tabIndex="0"
             onClick={e => { this.selectOption(e, option) }}
@@ -101,18 +156,24 @@ class Dropdown extends Component {
 
 Dropdown.propTypes = {
   target: PropTypes.shape({}).isRequired,
+  event: PropTypes.oneOf(['mousedown', 'contextmenu']),
   options: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string,
     value: PropTypes.string,
   })),
   onSelected: PropTypes.func,
   maxShown: PropTypes.number,
+  width: PropTypes.number,
+  truncateOption: PropTypes.bool,
 };
 
 Dropdown.defaultProps = {
+  event: 'mousedown',
   options: [],
   onSelected: () => {},
   maxShown: 5,
+  width: 150,
+  truncateOption: true,
 };
 
 export default Dropdown;

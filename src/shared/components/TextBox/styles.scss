@@ -1,20 +1,22 @@
+@import "../../../variables.scss";
+
 .textContainer {
 	margin-top: 0.7rem;
 	margin-bottom: 0.7rem;
 }
 
 .label {
-	color: #6f6f6f;
+	color: $label;
 	font-weight: bold;
 }
 
 .textboxRow {
 	display: flex;
-	border: solid 1px #ccc;
+	border: solid 1px $formWidgetBorder;
 	margin-top: 0.3rem;
 	margin-bottom: 0.3rem;
 	&:hover {
-		border: solid 1px #557a8d;
+		border: solid 1px $textBoxHover;
 	}
 }
 
@@ -27,7 +29,7 @@
 }
 
 .text::placeholder {
-	color: #ccc;
+	color: $textBoxPlaceholder;
 }
 
 .text.full {
@@ -35,8 +37,8 @@
 }
 
 .textboxIcon {
-	background-color: #ccc;
-	color: #666;
+	background-color: $btnDefault;
+	color: $btnDefaultTextColor;
 	width: 40px;
 	display: flex;
 	justify-content: center;
@@ -44,5 +46,5 @@
 }
 
 .errorMessage {
-	color: red;
+	color: $red;
 }

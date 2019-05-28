@@ -69,8 +69,24 @@ class MultiSelect extends Component {
     });
   };
 
+  showSelectedTags = () => {
+    const {
+      selectedOptions,
+    } = this.state;
+    if (selectedOptions.length > 3) {
+      return [
+        selectedOptions[selectedOptions.length - 1],
+        {
+          key: 'more',
+          value: `+${selectedOptions.length - 1} more`,
+        },
+      ];
+    }
+    return [...selectedOptions];
+  };
+
   handleClick(e) {
-    if (isEmpty(this.node) || this.node.current.contains(e.target)) {
+    if (isEmpty(this.node) || isEmpty(this.node.current) || this.node.current.contains(e.target)) {
       return;
     }
     this.hideDropdown();
@@ -102,9 +118,11 @@ class MultiSelect extends Component {
       const newSelected = selectedOptions.filter(s => s.key === selectedOption.key).length >= 1 ?
         selectedOptions.filter(s => s.key !== selectedOption.key) :
         [ ...selectedOptions, selectedOption ];
+      this.searchBox.current.value = '';
       this.setState({
-        searchValue: newSelected.map(o => o.value).join(', '),
         selectedOptions: newSelected,
+        searchValue: '',
+        filteredOptions: options,
       }, onChange);
     } else {
       this.setState({
@@ -174,6 +192,11 @@ class MultiSelect extends Component {
 
     return (
       <div className="select-container" ref={this.node}>
+        <div className="selectedTags">
+          { this.showSelectedTags().map(opt =>
+            <div key={opt.key} className="selectedTag">{opt.value}</div>
+          )}
+        </div>
         <input
           type="text"
           ref={this.searchBox}

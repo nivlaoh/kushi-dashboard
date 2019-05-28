@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 
 import { withTooltip } from '../../shared/components/Tooltip';
-import MultiSelect from '../../shared/components/MultiSelect';
 import Search from '../../shared/components/Search';
-import Dropdown from '../../shared/components/Dropdown';
+import NotificationDropdown from './NotificationDropdown';
 
 import './styles.scss';
 
 class Header extends Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       showProfileDetails: false,
       searchOptions: [],
@@ -39,6 +39,13 @@ class Header extends Component {
     return `${baseClass} ${exit}`;
   }
 
+  navigateNotification = () => {
+    const {
+      history,
+    } = this.props;
+    history.push('/notification');
+  };
+
   handleClick(e) {
     if (this.node.current === null || this.node.current.contains(e.target)) {
       return;
@@ -65,13 +72,6 @@ class Header extends Component {
       showProfileDetails: !showProfileDetails,
     });
   }
-
-  navigateNotification = () => {
-    const {
-      history,
-    } = this.props;
-    history.push('/notification');
-  };
 
   render() {
     const {
@@ -117,7 +117,6 @@ class Header extends Component {
       { key: 'test8', value: '329fs09' },
       { key: 'test9', value: 'mysteak' }
     ];
-
     const search = (e) => {
       this.setState({
         searchOptions: options.filter(option => option.value.toLowerCase().includes(e.target.value))
@@ -132,13 +131,15 @@ class Header extends Component {
         <div className="dashboard-title">
           Dashboard
         </div>
-        <Search onChange={search} options={searchOptions} />
-        <MultiSelect placeholder="test" multi options={options} searchCallback={()=>{}} />
+        <Search onChange={search} onSearch={search} options={searchOptions} />
         <div className="notification-icon" ref={this.notificationIcon}>
           <i className="fa fa-envelope"></i>
           <div className="new">2</div>
         </div>
-        <Dropdown target={this.notificationIcon} options={options} onSelected={this.navigateNotification} />
+        <NotificationDropdown
+          target={this.notificationIcon}
+          onSelected={this.navigateNotification}
+        />
         <div className="notification-icon">
           <i className="fa fa-bell"></i>
         </div>

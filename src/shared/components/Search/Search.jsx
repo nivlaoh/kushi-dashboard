@@ -56,6 +56,7 @@ class Search extends Component {
     setTimeout(() => {
       this.setState({
         searching: false,
+        dropdownVisible: true,
       });
     }, 50);
   };

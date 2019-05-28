@@ -50,8 +50,7 @@ module.exports = {
       filename: 'index.html',
       template: './public/index.html',
     }),
-    new webpack.HashedModuleIdsPlugin(),
-    new AsyncChunkNames()
+    new webpack.HashedModuleIdsPlugin()
   ],
   module: {
     rules: [

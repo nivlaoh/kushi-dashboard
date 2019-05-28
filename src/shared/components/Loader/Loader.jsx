@@ -32,7 +32,6 @@ class Loader extends Component {
     } = this.props;
     console.log('willReceive', activate, this.state.offLoader);
     if (activate && timeout !== -1) {
-      console.log('here');
       this.dismissLoader(nextProps);
     }
   }
@@ -44,9 +43,7 @@ class Loader extends Component {
   }
 
   dismissLoader(props) {
-    console.log('dismissLoader', props.activate);
     if (isEmpty(this.timer) && props.timeout !== -1) {
-      console.log('waiting');
       this.timer = setTimeout(() => {
         console.log('clear timer');
         props.timeoutFn();

@@ -1,0 +1,86 @@
+[
+	{
+    	"id": "1",
+    	"senderName": "Alvin",
+    	"senderEmail": "alvin@alvin.com",
+    	"senderIcon": "fa fa-gear",
+    	"toEmails": ["aa@aa.com"],
+    	"ccEmails": ["bb@bb.com"],
+    	"bccEmails": ["cc@cc.com"],
+    	"subject": "New Promotions",
+    	"message": "This is a test message",
+        "status": "UNREAD"
+	},
+	{
+    	"id": "2",
+    	"senderName": "Carrie",
+    	"senderEmail": "carrie@alvin.com",
+    	"senderIcon": null,
+    	"toEmails": ["aa@aa.com"],
+    	"ccEmails": ["bb@bb.com"],
+    	"bccEmails": ["cc@cc.com"],
+    	"subject": "Testing Results",
+    	"message": "This is a very long message to see how it can be rendered",
+        "status": "READ"
+	},
+    {
+        "id": "3",
+        "senderName": "Carrie",
+        "senderEmail": "carrie@alvin.com",
+        "senderIcon": null,
+        "toEmails": ["aa@aa.com"],
+        "ccEmails": ["bb@bb.com"],
+        "bccEmails": ["cc@cc.com"],
+        "subject": "Testing Results",
+        "message": "This is a very long message to see how it can be rendered",
+        "status": "READ"
+    },
+    {
+        "id": "4",
+        "senderName": "Bobby",
+        "senderEmail": "bobby@alvin.com",
+        "senderIcon": null,
+        "toEmails": ["aa@aa.com"],
+        "ccEmails": ["bb@bb.com"],
+        "bccEmails": ["cc@cc.com"],
+        "subject": "Testing Results",
+        "message": "<ul><li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li><li> Placeat, dignissimos perferendis delectus minus amet sunt.</li><li> Quod eligendi atque, pariatur fugit vel amet, eveniet, deleniti debitis dolorem cupiditate ex, magnam veniam.</li><li> Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li><li> Quis accusamus quam, aut fugit, quasi incidunt sit nisi quidem itaque laborum distinctio praesentium, nemo laboriosam magnam in. Iure, sunt, consequuntur. Ea!</li></ul>",
+        "status": "READ"
+    },
+    {
+        "id": "5",
+        "senderName": "James",
+        "senderEmail": "james@alvin.com",
+        "senderIcon": null,
+        "toEmails": ["aa@aa.com"],
+        "ccEmails": ["bb@bb.com"],
+        "bccEmails": ["cc@cc.com"],
+        "subject": "Testing Results",
+        "message": "This is a very long message to see how it can be rendered",
+        "status": "READ"
+    },
+    {
+        "id": "6",
+        "senderName": "Alex",
+        "senderEmail": "Alex@alvin.com",
+        "senderIcon": null,
+        "toEmails": ["aa@aa.com"],
+        "ccEmails": ["bb@bb.com"],
+        "bccEmails": ["cc@cc.com"],
+        "subject": "Testing Results",
+        "message": "This is a very long message to see how it can be rendered",
+        "status": "READ"
+    },
+    {
+        "id": "7",
+        "senderName": "Carrie",
+        "senderEmail": "carrie@alvin.com",
+        "senderIcon": null,
+        "toEmails": ["aa@aa.com"],
+        "ccEmails": ["bb@bb.com"],
+        "bccEmails": ["cc@cc.com"],
+        "subject": "Testing Results",
+        "message": "This is a very long message to see how it can be rendered",
+        "status": "READ"
+    }
+]

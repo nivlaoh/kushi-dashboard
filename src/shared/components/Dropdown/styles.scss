@@ -4,7 +4,7 @@
 	box-shadow: 0 2px 8px #ccc;
 	position: absolute;
 	z-index: 80;
-	overflow: scroll;
+	overflow-y: auto;
 }
 
 .dropdownOption {
@@ -12,6 +12,12 @@
 	cursor: pointer;
 	min-width: 120px;
 	outline: none;
+	&.truncate {
+		width: 200px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 	&:hover {
 		background: #ccc;
 	}

@@ -2,7 +2,7 @@ const fakeAuth = {
   isAuthenticated: false,
   hasSession() {
     const token = localStorage.getItem('token');
-    return token !== undefined;
+    return token !== null;
   },
   authenticate(cb) {
     this.isAuthenticated = true;

@@ -1,3 +1,5 @@
+@import "../../../variables.scss";
+
 @keyframes fadeIn {
     0% {
     	opacity: 0;
@@ -24,7 +26,7 @@
 	height: 100%;
 	z-index: 99;
 	opacity: 0.9;
-	background: #257aa6;
+	background: $linkBlue;
 	display: flex;
 	justify-content: center;
 	align-items: center;

@@ -1,6 +1,8 @@
+@import "../../variables.scss";
+
 .sidebar {
 	width: 250px;
-	background: #263238;
+	background: $darkBlue;
 	color: white;
 	padding-top: 20px;
 	border-right: solid 1px #ddd;
@@ -19,12 +21,9 @@
 	padding-left: 1rem;
 	height: 50px;
 	transition: all 0.2s ease-out;
-	/* border-top: solid 1px transparent;
-	border-bottom: solid 1px transparent; */
 	border-left: solid 5px transparent;
 	vertical-align: middle;
 	&:hover {
-		/* background-color: #257aa6; */
 		cursor: pointer;
 		border-left: solid 5px white;
 		a {
@@ -44,9 +43,6 @@
 
 .linkIcon {
 	display: inline-block;
-	/* display: flex;
-	justify-content: center;
-	align-items: center; */
 	color: #bbb;
 	text-align: center;
 	vertical-align: middle;

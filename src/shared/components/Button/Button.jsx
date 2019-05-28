@@ -8,23 +8,34 @@ const Button = (props) => {
     text,
     type,
     onClick,
+    children,
+    className,
   } = props;
 
+  const buttonProps = {
+    ...props,
+    className: `${type} ${className}`,
+    type: 'button',
+  };
+
 	return (
-    <button type="button" className={type} onClick={onClick}>
-      {text}
+    <button type="button" className={type} onClick={onClick} {...buttonProps}>
+      { text || children }
     </button>
   );
 }
 
 Button.propTypes = {
   text: PropTypes.string.isRequired,
-  type: PropTypes.string,
+  type: PropTypes.oneOf(['default', 'primary', 'secondary']),
+  className: PropTypes.string,
+  children: PropTypes.node,
   onClick: PropTypes.func,
 };
 
 Button.defaultProps = {
   type: 'default',
+  className: '',
   onClick: () => {}
 };
 

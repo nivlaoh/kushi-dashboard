@@ -1,3 +1,5 @@
+@import "../../../variables.scss";
+
 .searchWrapper {
 	display: flex;
 	margin-right: 1rem;
@@ -15,11 +17,11 @@
 	}
 	.searchResults {
 		position: absolute;
-		border: solid 1px #ccc;
+		border: solid 1px $formWidgetBorder;
 		background: white;
 		top: 46px;
 		width: 220px;
-		box-shadow: 0 3px 8px #555;
+		box-shadow: 0 2px 8px #ccc;
 		.searchResultRow {
 			padding: 12px;
 			cursor: pointer;
@@ -36,20 +38,20 @@
 	outline: none;
 	transition: all 0.2s ease-out;
 	color: #333;
-	border: solid 1px #ccc;
+	border: solid 1px $formWidgetBorder;
 	&:hover {
-		border: solid 1px #557a8d;
+		border: solid 1px $textBoxHover;
 	}
 }
 
 .text::placeholder {
-	color: #ccc;
+	color: $textBoxPlaceholder;
 }
 
 .searchBtn {
 	box-sizing: border-box;
-	background-color: #ccc;
-	color: #666;
+	background-color: $btnDefault;
+	color: $btnDefaultTextColor;
 	padding: 10px;
 	border: none;
 	border-top-right-radius: 5px;

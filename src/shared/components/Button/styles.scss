@@ -1,12 +1,14 @@
+@import "../../../variables.scss";
+
 .default {
 	box-sizing: border-box;
-	background-color: #ccc;
+	background-color: $btnDefault;
 	padding: 0.8rem;
-	border: solid 2px #ccc;
+	border: solid 2px $btnDefault;
 	border-radius: 5px;
 	margin: 0.2rem;
 	outline: none;
-	min-width: 120px;
+	width: 120px;
 	transition: all 0.3s ease-out;
 	font-weight: bold;
 	&:hover {
@@ -17,8 +19,8 @@
 
 .primary {
 	@extend .default;
-	background-color: #557a8d;
-	border-color: #557a8d;
+	background-color: $textBoxHover;
+	border-color: $textBoxHover;
 	color: white;
 	&:hover {
 		background-color: white;

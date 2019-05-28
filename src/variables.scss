@@ -1,0 +1,28 @@
+// Mixins
+@mixin line-clamp($numLines : 1, $lineHeight: 1.412) {
+	overflow: hidden;
+	text-overflow: -o-ellipsis-lastline;
+	text-overflow: ellipsis;
+	display: block;
+	/* autoprefixer: off */
+	display: -webkit-box;
+	-webkit-line-clamp: $numLines;
+	-webkit-box-orient: vertical;
+	max-height: $numLines * $lineHeight + unquote('em');
+}
+
+// Variables
+$linkBlue: #257aa6;
+$red: #e74a3b;
+$darkBlue: #263238;
+$pageGray: #eee;
+
+$btnDefault: #ccc;
+$btnDefaultTextColor: #666;
+
+$textBoxPlaceholder: #ccc;
+$textBoxHover: #557a8d;
+$label: #6f6f6f;
+$formWidgetBorder: #ccc;
+
+$pageTitle: #696969;
