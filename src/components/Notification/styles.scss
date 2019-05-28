@@ -4,6 +4,7 @@
 	display: flex;
 	flex: 1;
 	justify-content: center;
+	max-height: calc(100vh - 120px);
 }
 
 .messageContainer {
@@ -34,15 +35,16 @@
 .recipientList {
 	display: flex;
 	flex-direction: column;
-	max-height: 400px;
+	//max-height: 400px;
 	overflow-y: auto;
 	.sender {
 		display: flex;
 		padding: 1rem;
-		align-items: stretch;
-		align-content: center;
+		align-items: flex-start;
+		justify-content: center;
 		cursor: pointer;
 		outline: none;
+		min-height: 80px;
 		&:hover {
 			background: #eee;
 		}
@@ -137,6 +139,10 @@
 			}
 			.tagValue {
 				margin-left: 10px;
+				flex: 1;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
 			}
 		}
 	}
@@ -145,6 +151,10 @@
 		display: flex;
 		background: #ddd;
 		z-index: 30;
+		.spacer {
+			display: flex;
+			flex: 1;
+		}
 		.toolbarIcon {
 			display: flex;
 			justify-content: center;
@@ -154,16 +164,19 @@
 			color: #666;
 			cursor: pointer;
 			outline: none;
+			border: none;
+			background: none;
 			&:hover {
 				background: #bbb;
+			}
+			&.more {
+				align-self: flex-end;
 			}
 		}
 	}
 	.replyPane {
 		display: flex;
 		position: relative;
-		//min-height: 100px;
-		//background: red;
 		animation: showMessage 0.5s ease-out forwards;
 		&.closing {
 			animation: hideMessage 0.4s ease-out forwards;
@@ -175,8 +188,8 @@
 		}
 		.sendMsgBtn {
 			position: absolute;
-			bottom: 0;
-			right: 0;
+			bottom: 5px;
+			right: 5px;
 			width: 80px;
 		}
 		.closeReplyPane {
@@ -191,6 +204,7 @@
 			width: 30px;
 			height: 30px;
 			color: #666;
+			transition: all 0.5s ease-out;
 			&:hover {
 				border-radius: 100%;
 				background: #ccc;

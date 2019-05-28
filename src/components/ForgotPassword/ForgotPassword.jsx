@@ -105,7 +105,7 @@ class ForgotPassword extends Component {
             <Link to="/login">Back to Login Page</Link>
           </CardBody>
           <CardFooter rightAligned>
-            <Button text="Reset Password" type="primary" onClick={this.onReset} />
+            <Button text="Reset Password" type="primary" onClick={this.onReset} style={{ width: '160px' }} />
           </CardFooter>
         </Card>
       </div>

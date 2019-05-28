@@ -11,6 +11,7 @@ const Message = PropTypes.shape({
   subject: PropTypes.string,
   message: PropTypes.string,
   status: PropTypes.oneOf(['READ', 'UNREAD']),
+  colour: PropTypes.string,
 });
 
 export default Message;

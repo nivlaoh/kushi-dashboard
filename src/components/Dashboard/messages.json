@@ -19,7 +19,7 @@
     	"toEmails": ["aa@aa.com"],
     	"ccEmails": ["bb@bb.com"],
     	"bccEmails": ["cc@cc.com"],
-    	"subject": "Testing Results",
+    	"subject": "Testing Results - Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis delectus molestias voluptatibus accusantium voluptas tenetur, nostrum modi ea facere reiciendis veniam ipsa totam, fugit quae illo soluta. Quas, vitae, non!",
     	"message": "This is a very long message to see how it can be rendered",
         "status": "READ"
 	},

@@ -21,6 +21,7 @@ class Loader extends Component {
       timeout,
     } = this.props;
     if (activate && timeout !== -1) {
+      document.body.classList.toggle('noscroll', true);
       this.dismissLoader(this.props);
     }
   }
@@ -30,7 +31,6 @@ class Loader extends Component {
       activate,
       timeout,
     } = this.props;
-    console.log('willReceive', activate, this.state.offLoader);
     if (activate && timeout !== -1) {
       this.dismissLoader(nextProps);
     }
@@ -55,6 +55,7 @@ class Loader extends Component {
         }, () => {
           clearTimeout(this.loaderTimer);
           this.loaderTimer = null;
+          document.body.classList.toggle('noscroll', false);
         }), 400);
 
       }, props.timeout);
@@ -70,9 +71,14 @@ class Loader extends Component {
     } = this.state;
 
     const loaderClasses = !activate ? 'loader-container fadeOut' : 'loader-container';
+    console.log('top', document.body.scrollTop);
+    const loaderStyle = {
+      left: document.body.scrollLeft,
+      top: document.body.scrollTop,
+    };
     return (
       !offLoader ?
-      <div className={loaderClasses}>
+      <div className={loaderClasses} style={loaderStyle}>
         <i className="fa fa-circle-o-notch fa-3x fa-spin fa-fw"></i>
       </div> :
       null

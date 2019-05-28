@@ -18,7 +18,6 @@ class MessagePane extends Component {
       activeMessage: null,
       reply: false,
       closingReply: false,
-      replyText: '',
     };
   }
 
@@ -28,6 +27,7 @@ class MessagePane extends Component {
     } = this.props;
     this.setState({
       activeMessage: msg,
+      reply: false,
     }, () => { onRead(msg) });
   };
 
@@ -58,18 +58,6 @@ class MessagePane extends Component {
       return activeMessage.subject;
     }
     return null;
-  };
-
-  getRandomColours = () => {
-    const letters = '0123456789ABCDEF'.split('');
-    let colour = '#';
-    const addDigitToColour = (limit) => {
-      colour += letters[Math.round(Math.random() * limit)]
-    };
-    for (let i = 0; i < 6; i += 1) {
-      addDigitToColour(15);
-    }
-    return colour;
   };
 
   replyMessage = () => {
@@ -109,7 +97,6 @@ class MessagePane extends Component {
       activeMessage,
       reply,
       closingReply,
-      replyText,
     } = this.state;
 
     return (
@@ -125,7 +112,7 @@ class MessagePane extends Component {
                 role="button"
                 tabIndex="0"
               >
-                <div className="senderIcon" style={{ backgroundColor: this.getRandomColours() }}>
+                <div className="senderIcon" style={{ backgroundColor: msg.colour }}>
                   <i className={`${msg.senderIcon ? msg.senderIcon : 'fa fa-user'}`}></i>
                 </div>
                 <div className="senderContents">
@@ -160,21 +147,27 @@ class MessagePane extends Component {
             </div>
           </div>
           <div className="messageToolbar">
-            <div
+            <button
+              type="button"
               className="toolbarIcon"
               title="Reply"
               onClick={this.replyMessage}
-              role="button"
-              tabIndex="0"
             >
               <i className="fa fa-reply"></i>
-            </div>
-            <div className="toolbarIcon" title="Reply All">
+            </button>
+            <button type="button" className="toolbarIcon" title="Reply All">
               <i className="fa fa-reply-all"></i>
-            </div>
-            <div className="toolbarIcon" title="Forward">
+            </button>
+            <button type="button" className="toolbarIcon" title="Forward">
               <i className="fa fa-share"></i>
-            </div>
+            </button>
+            <button type="button" className="toolbarIcon" title="Delete">
+              <i className="fa fa-trash"></i>
+            </button>
+            <div className="spacer"></div>
+            <button type="button" className="toolbarIcon more" title="More">
+              <i className="fa fa-caret-down"></i>
+            </button>
           </div>
           {reply &&
             <div className={`replyPane ${closingReply ? 'closing' : ''}`}>
