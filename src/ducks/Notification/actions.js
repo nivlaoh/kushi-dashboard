@@ -13,7 +13,15 @@ const sendEmail = (message) => {
   };
 };
 
+const deleteEmail = (message) => {
+  return {
+    type: types.DELETE_EMAIL,
+    message,
+  };
+};
+
 export default {
   getEmails,
   sendEmail,
+  deleteEmail,
 };

@@ -1,0 +1,57 @@
+@import "../../../variables.scss";
+
+.checkboxWrapper {
+	display: flex;
+	&.noclick {
+		pointer-events: none;
+	}
+	.checkbox {
+		position: relative;
+		color: #999;
+		display: inline-block;
+		border: solid 1px #ccc;
+		width: 20px;
+		height: 20px;
+		border-radius: 5px;
+		outline: none;
+		transition: all 0.3s ease-out;
+		&.checked {
+			background: $linkBlue;
+			border: solid 1px $linkBlue;
+			&:after {
+				content: ' ';
+				position: absolute;
+				right: 6px;
+				top: 2px;
+				width: 3px;
+				height: 10px;
+				border-right: solid 3px white;
+				border-bottom: solid 3px white;
+				transform: rotate(45deg);
+			}
+		}
+		&.circle {
+			border-radius: 100%;
+		}
+		&.noclick {
+			pointer-events: none;
+		}
+		&.disabled {
+			border: solid 1px #999;
+			background: #ccc;
+		}
+		&.disabled.checked {
+			&:after {
+				border-right-color: #999;
+				border-bottom-color: #999;
+			}
+		}
+	}
+	.checkboxLabel {
+		margin-left: 10px;
+		&.left {
+			margin-left: 0;
+			margin-right: 10px;
+		}
+	}
+}

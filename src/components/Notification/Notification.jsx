@@ -23,13 +23,19 @@ class Notification extends Component {
       messages,
       onRead,
       onSend,
+      deleteMessage,
     } = this.props;
     return (
       <div className="content-wrapper">
         <div className="pageTitle">Notifications</div>
         <Toast message="Email sent" show={showToast} />
         <div className="messageContentWrapper">
-          <MessagePane messages={messages} onRead={onRead} onSend={onSend} />
+          <MessagePane
+            messages={messages}
+            onRead={onRead}
+            onSend={onSend}
+            deleteMessage={deleteMessage}
+          />
         </div>
       </div>
     );
@@ -40,6 +46,7 @@ Notification.propTypes = {
   showToast: PropTypes.bool,
   messages: PropTypes.arrayOf(Message),
   getMessages: PropTypes.func,
+  deleteMessage: PropTypes.func,
   onRead: PropTypes.func,
   onSend: PropTypes.func,
 };
@@ -48,6 +55,7 @@ Notification.defaultProps = {
   showToast: false,
   messages: [],
   getMessages: () => {},
+  deleteMessage: () => {},
   onRead: () => {},
   onSend: () => {},
 };

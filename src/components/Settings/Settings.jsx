@@ -1,15 +1,32 @@
 import React, { Component } from 'react';
 import { Tab, Tabs } from '../../shared/components/Tabs';
 
+import RadioButton from '../../shared/components/RadioButton';
 import MultiSelect from '../../shared/components/MultiSelect';
 import System from './System';
 
 import './styles.scss';
 
 class Settings extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      checked: false,
+    };
+  }
+
+  toggleCheckbox = () => {
+    this.setState({
+      checked: !this.state.checked,
+    });
+  };
+
   render() {
+    const {
+      checked,
+    } = this.state;
     const settingsStyle = {
-      width: '400px',
+      maxWidth: '700px',
     };
     const options = [
       { key: 'test', value: 'Hello' },
@@ -25,15 +42,18 @@ class Settings extends Component {
     return (
       <div className="content-wrapper">
         <div className="pageTitle">Settings</div>
-        <Tabs type="horizontal" style={settingsStyle}>
-          <Tab title="Profile" active>
-            <System />
-          </Tab>
-          <Tab title="System">
-            <MultiSelect placeholder="Enter option" multi options={options} searchCallback={()=>{}} />
-          </Tab>
-          <Tab title="Third">Hello3</Tab>
-        </Tabs>
+        <div className="settingsWrapper">
+          <Tabs type="horizontal" style={settingsStyle}>
+            <Tab title="Profile" active>
+              <System />
+              <RadioButton checked={checked} onCheck={this.toggleCheckbox} />
+            </Tab>
+            <Tab title="System">
+              <MultiSelect placeholder="Enter option" multi options={options} searchCallback={()=>{}} />
+            </Tab>
+            <Tab title="Third">Hello3</Tab>
+          </Tabs>
+        </div>
       </div>
     );
   }

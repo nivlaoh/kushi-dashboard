@@ -64,32 +64,11 @@
 			display: flex;
 			outline: none;
 			&.active {
-				background: #ccc;
+				background: #dedede;
 			}
 			.option-value {
 				flex: 1 auto;
 				pointer-events: none;
-			}
-			.tickbox {
-				position: relative;
-				color: #999;
-				display: inline-block;
-				border: solid 1px #aaa;
-				width: 20px;
-				height: 20px;
-				&.checked {
-					&:after {
-						content: ' ';
-						position: absolute;
-						right: 5px;
-						top: 0;
-						width: 5px;
-						height: 13px;
-						border-right: solid 3px #333;
-						border-bottom: solid 3px #333;
-						transform: rotate(45deg);
-					}
-				}
 			}
 		}
 	}	

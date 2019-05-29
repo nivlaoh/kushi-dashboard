@@ -71,7 +71,6 @@ class Loader extends Component {
     } = this.state;
 
     const loaderClasses = !activate ? 'loader-container fadeOut' : 'loader-container';
-    console.log('top', document.body.scrollTop);
     const loaderStyle = {
       left: document.body.scrollLeft,
       top: document.body.scrollTop,

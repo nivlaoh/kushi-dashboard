@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { debounce, isEmpty, isFunction } from 'lodash';
 
+import Checkbox from '../Checkbox';
+
 import './styles.scss';
 
 class MultiSelect extends Component {
@@ -185,11 +187,6 @@ class MultiSelect extends Component {
       overflowY: 'auto',
     };
 
-    const tickboxClass = (option) => {
-      return selectedOptions.filter(selectedOpt => selectedOpt.key === option.key).length >= 1 ?
-        'tickbox checked' : 'tickbox';
-    };
-
     return (
       <div className="select-container" ref={this.node}>
         <div className="selectedTags">
@@ -226,8 +223,10 @@ class MultiSelect extends Component {
                   {option.value}
                 </div>
                 { multi &&
-                  (<div className={tickboxClass(option)}>
-                  </div>)
+                  (<Checkbox
+                    checked={selectedOptions.filter(selectedOpt => selectedOpt.key === option.key).length >= 1}
+                    captureClick={false}
+                   />)
                 }
               </div>
             ))

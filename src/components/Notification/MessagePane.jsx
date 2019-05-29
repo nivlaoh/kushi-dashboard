@@ -89,9 +89,23 @@ class MessagePane extends Component {
     this.closeReplyPane();
   };
 
+  deleteEmail = () => {
+    const {
+      deleteMessage,
+    } = this.props;
+    const {
+      activeMessage,
+    } = this.state;
+    deleteMessage(activeMessage);
+    this.setState({
+      activeMessage: null,
+    });
+  };
+
   render() {
     const {
       messages,
+      deleteMessage,
     } = this.props;
     const {
       activeMessage,
@@ -161,7 +175,12 @@ class MessagePane extends Component {
             <button type="button" className="toolbarIcon" title="Forward">
               <i className="fa fa-share"></i>
             </button>
-            <button type="button" className="toolbarIcon" title="Delete">
+            <button
+              type="button"
+              className="toolbarIcon"
+              title="Delete"
+              onClick={this.deleteEmail}
+            >
               <i className="fa fa-trash"></i>
             </button>
             <div className="spacer"></div>
@@ -195,12 +214,14 @@ MessagePane.propTypes = {
   messages: PropTypes.arrayOf(Message),
   onRead: PropTypes.func,
   onSend: PropTypes.func,
+  deleteMessage: PropTypes.func,
 };
 
 MessagePane.defaultProps = {
   messages: [],
   onRead: () => {},
   onSend: () => {},
+  deleteMessage: () => {},
 };
 
 export default MessagePane;
