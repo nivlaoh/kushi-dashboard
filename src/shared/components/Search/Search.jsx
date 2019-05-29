@@ -8,6 +8,7 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.node = React.createRef();
+    this.searchBox = React.createRef();
     this.state = {
       searching: false,
       inputValue: '',
@@ -68,10 +69,26 @@ class Search extends Component {
     });
   };
 
+  checkKeystroke = (e) => {
+    const {
+      onSearch,
+      options,
+    } = this.props;
+    if (e.keyCode === 13) {
+      onSearch(e);
+    } else if (e.keyCode === 9) {
+      e.preventDefault();
+      if (options.length > 0) {
+        this.setState({
+          inputValue: options[0].value,
+        });
+      }
+    }
+  };
+
   render() {
     const {
       placeholder,
-      onSearch,
       showSearchIcon,
       options,
     } = this.props;
@@ -81,27 +98,30 @@ class Search extends Component {
       dropdownVisible,
     } = this.state;
     const textStyle = 'search';
+    const resultStyle = {
+      width: this.searchBox.current === null ? 'auto' : this.searchBox.current.clientWidth,
+    };
     return (
       <div className="searchWrapper" ref={this.node}>
         <div className="searchContainer">
           <input
             type="text"
+            ref={this.searchBox}
             className={textStyle}
             value={inputValue}
             onChange={this.asyncSearch}
+            onKeyDown={this.checkKeystroke}
             placeholder={placeholder}
           />
+          <i className="innericon fa fa-search"></i>
           { searching && showSearchIcon &&
             <div className="searchIcon">
               <i className="fa fa-spinner fa-spin fa-fw"></i>
             </div>
           }
         </div>
-        <button type="button" className="searchBtn" onClick={onSearch}>
-          <i className="fa fa-search"></i>
-        </button>
         { dropdownVisible &&
-          <div className="searchResults">
+          <div className="searchResults" style={resultStyle}>
             { options.map((result, resultIndex) =>
               <div key={result.key}
                 role="button"

@@ -3,6 +3,7 @@
 .select-container {
 	position: relative;
 	margin-right: 1rem;
+	margin-bottom: 1rem;
 	border: solid 1px $formWidgetBorder;
 	display: flex;
 	transition: all 0.2s ease-in;
@@ -27,6 +28,9 @@
 			margin-bottom: 5px;
 			padding-left: 5px;
 			padding-right: 5px;
+			i {
+				cursor: pointer;
+			}
 		}
 	}
 	input {
@@ -53,6 +57,7 @@
 	.select-dropdown {
 		position: absolute;
 		top: 37px;
+		z-index: 40;
 		background: white;
 		border: solid 1px #ccc;
 		box-shadow: 0 2px 8px #ccc;

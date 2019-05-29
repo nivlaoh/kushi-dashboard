@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Tab, Tabs } from '../../shared/components/Tabs';
 
-import RadioButton from '../../shared/components/RadioButton';
 import MultiSelect from '../../shared/components/MultiSelect';
 import System from './System';
 
@@ -10,21 +9,9 @@ import './styles.scss';
 class Settings extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      checked: false,
-    };
   }
 
-  toggleCheckbox = () => {
-    this.setState({
-      checked: !this.state.checked,
-    });
-  };
-
   render() {
-    const {
-      checked,
-    } = this.state;
     const settingsStyle = {
       maxWidth: '700px',
     };
@@ -46,7 +33,6 @@ class Settings extends Component {
           <Tabs type="horizontal" style={settingsStyle}>
             <Tab title="Profile" active>
               <System />
-              <RadioButton checked={checked} onCheck={this.toggleCheckbox} />
             </Tab>
             <Tab title="System">
               <MultiSelect placeholder="Enter option" multi options={options} searchCallback={()=>{}} />

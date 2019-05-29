@@ -40,6 +40,7 @@ class Checkbox extends Component {
       label,
       textPosition,
       captureClick,
+      refkey,
     } = this.props;
 
     return (
@@ -50,11 +51,13 @@ class Checkbox extends Component {
           role="button"
           tabIndex="0"
           style={{ order: textPosition === 'right' ? 1 : 2 }}
+          refkey={refkey}
         >
         </div>
         { label &&
           <div
             className={`checkboxLabel ${textPosition === 'left' ? 'left' : ''}`}
+            refkey={refkey}
             style={{ order: textPosition === 'right' ? 2 : 1 }}>
           { label }
           </div>

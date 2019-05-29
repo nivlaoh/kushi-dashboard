@@ -1,8 +1,8 @@
 @import "../../../variables.scss";
 
 .textContainer {
-	margin-top: 0.7rem;
-	margin-bottom: 0.7rem;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 .label {
@@ -12,28 +12,29 @@
 
 .textboxRow {
 	display: flex;
-	border: solid 1px $formWidgetBorder;
-	margin-top: 0.3rem;
-	margin-bottom: 0.3rem;
-	&:hover {
-		border: solid 1px $textBoxHover;
+	flex: 1;
+	margin: 0.3rem;
+	.text {
+		width: 100%;
+		padding: 10px;
+		outline: none;
+		border: solid 1px $formWidgetBorder;
+		transition: all 0.3s ease-out;
+		color: #333;
+		&:hover {
+			border: solid 1px $textBoxHover;
+			background: #eee;
+		}
+		&:focus {
+			border: solid 1px $textBoxHover;
+		}
+		&::placeholder {
+			color: $textBoxPlaceholder;
+		}
+		&.full {
+			flex: 1 1 auto;
+		}
 	}
-}
-
-.text {
-	padding: 10px;
-	outline: none;
-	border: none;
-	transition: all 0.2s ease-out;
-	color: #333;
-}
-
-.text::placeholder {
-	color: $textBoxPlaceholder;
-}
-
-.text.full {
-	flex: 1 1 auto;
 }
 
 .textboxIcon {

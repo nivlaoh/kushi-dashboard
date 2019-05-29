@@ -107,8 +107,8 @@ class Dropdown extends Component {
     if (isEmpty(target) || isEmpty(target.current)) {
       return 0;
     }
-    if (x + width > window.innerWidth) {
-      return x - width + 20;
+    if (x + width > window.innerWidth - 25) {
+      return x - width + 30;
     }
     return x;
   };
@@ -120,6 +120,7 @@ class Dropdown extends Component {
       maxShown,
       truncateOption,
       width,
+      RowComponent,
     } = this.props;
     const {
       showDropdown,
@@ -137,17 +138,20 @@ class Dropdown extends Component {
 
     return showDropdown ? (
       <div className="dropdownMenu" style={dropdownStyle} ref={this.dropdownNode}>
-        { options.map(option =>
+        { RowComponent === null && options.map(option =>
           <div
             key={option.key}
             className={`dropdownOption ${truncateOption ? 'truncate' : ''}`}
             style={optionStyle}
             role="button"
             tabIndex="0"
-            onClick={e => { this.selectOption(e, option) }}
+            onClick={e => { this.selectOption(e, option); }}
           >
             {option.value}
           </div>)
+        }
+        { RowComponent && options.map(option =>
+          <RowComponent key={option.key} option={option} onClick={e => { this.selectOption(e, option); }} />)
         }
       </div>
     ) : null;
@@ -157,14 +161,12 @@ class Dropdown extends Component {
 Dropdown.propTypes = {
   target: PropTypes.shape({}).isRequired,
   event: PropTypes.oneOf(['mousedown', 'contextmenu']),
-  options: PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.string,
-    value: PropTypes.string,
-  })),
+  options: PropTypes.arrayOf(PropTypes.shape({})),
   onSelected: PropTypes.func,
   maxShown: PropTypes.number,
   width: PropTypes.number,
   truncateOption: PropTypes.bool,
+  rowComponent: PropTypes.func,
 };
 
 Dropdown.defaultProps = {
@@ -174,6 +176,7 @@ Dropdown.defaultProps = {
   maxShown: 5,
   width: 150,
   truncateOption: true,
+  RowComponent: null,
 };
 
 export default Dropdown;

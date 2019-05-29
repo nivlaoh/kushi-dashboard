@@ -4,6 +4,7 @@ import { isEmpty } from 'lodash';
 
 import Button from '../../shared/components/Button';
 import Dropdown from '../../shared/components/Dropdown';
+import TextBox from '../../shared/components/TextBox';
 import { Message } from '../../models';
 
 import './styles.scss';
@@ -18,6 +19,8 @@ class MessagePane extends Component {
       activeMessage: null,
       reply: false,
       closingReply: false,
+      compose: false,
+      closingCompose: false,
     };
   }
 
@@ -102,21 +105,55 @@ class MessagePane extends Component {
     });
   };
 
+  showComposeWindow = () => {
+    const {
+      compose,
+    } = this.state;
+    if (!compose) {
+      this.setState({
+        compose: true,
+      });
+    } else {
+      this.setState({
+        closingCompose: true,
+      }, () => {
+        setTimeout(() => {
+          this.setState({
+            closingCompose: false,
+            compose: false,
+          });
+        }, 400);
+      });
+    }
+  };
+
+  composeEmail = () => {
+    this.setState({
+      compose: false,
+    });
+  };
+
   render() {
     const {
       messages,
-      deleteMessage,
     } = this.props;
     const {
       activeMessage,
       reply,
       closingReply,
+      compose,
+      closingCompose,
     } = this.state;
 
     return (
       <div className="messageContainer">
         <div className="conversations">
-          <div className="title">Conversations</div>
+          <div className="headerPane">
+            <div className="title">Conversations</div>
+            <button type="button" className="controlIcons" onClick={this.showComposeWindow}>
+              <i className="fa fa-envelope"></i>
+            </button>
+          </div>
           <div className="recipientList">
             {messages.map(msg => (
               <div key={msg.id}
@@ -203,6 +240,20 @@ class MessagePane extends Component {
             className="messagePreview"
             dangerouslySetInnerHTML={{ __html: activeMessage ? activeMessage.message : 'Please click on a notification' }}
           >
+          </div>
+          <div className={`composeWindow ${compose ? 'visible' : ''} ${closingCompose ? 'hide' : ''}`}>
+            <div className="composeMetaRow">
+              <TextBox placeholder="To" />
+              <TextBox placeholder="Cc" />
+            </div>
+            <div className="composeMetaRow">
+              <TextBox placeholder="Subject" />
+            </div>
+            <textarea className="composeContent"></textarea>
+            <div className="buttonsControl">
+              <Button type="default" onClick={this.composeEmail}>Cancel</Button>
+              <Button type="primary" onClick={this.composeEmail}>Send</Button>
+            </div>
           </div>
         </div>
       </div>

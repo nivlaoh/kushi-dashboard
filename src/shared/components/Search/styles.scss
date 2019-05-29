@@ -17,6 +17,7 @@
 	}
 	.searchResults {
 		position: absolute;
+		z-index: 90;
 		border: solid 1px $formWidgetBorder;
 		background: white;
 		top: 46px;
@@ -35,34 +36,27 @@
 
 .search {
 	padding: 10px;
+	padding-left: 30px;
 	outline: none;
 	transition: all 0.2s ease-out;
 	color: #333;
 	border: solid 1px $formWidgetBorder;
 	&:hover {
 		border: solid 1px $textBoxHover;
+		background: #eee;
 	}
+	&:focus {
+		border: solid 1px $textBoxHover;
+	}
+}
+
+.innericon {
+	position: absolute;
+	left: 10px;
+	top: 12px;
+	color: #bbb;
 }
 
 .text::placeholder {
 	color: $textBoxPlaceholder;
-}
-
-.searchBtn {
-	box-sizing: border-box;
-	background-color: $btnDefault;
-	color: $btnDefaultTextColor;
-	padding: 10px;
-	border: none;
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
-	outline: none;
-	width: 40px;
-	height: 40px;
-	transition: all 0.3s ease-out;
-	font-weight: bold;
-	&:hover {
-		background-color: #ddd;
-		cursor: pointer;
-	}
 }

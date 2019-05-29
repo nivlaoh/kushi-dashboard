@@ -6,12 +6,12 @@ import './styles.scss';
 class RadioButton extends Component {
   radioClasses = () => {
     const {
-      checked,
+      selected,
       captureClick,
       disabled,
     } = this.props;
     let classes = 'radio';
-    if (checked) {
+    if (selected) {
       classes += ' selected';
     }
     if (!captureClick) {
@@ -26,13 +26,13 @@ class RadioButton extends Component {
   clickRadio = (e) => {
     const {
       disabled,
-      onCheck,
+      onSelect,
     } = this.props;
     if (disabled) {
       e.preventDefault();
       return;
     }
-    onCheck(e);
+    onSelect(e);
   };
 
   render() {
@@ -65,19 +65,19 @@ class RadioButton extends Component {
 }
 
 RadioButton.propTypes = {
-  checked: PropTypes.bool,
+  selected: PropTypes.bool,
   disabled: PropTypes.bool,
   captureClick: PropTypes.bool,
-  onCheck: PropTypes.func,
+  onSelect: PropTypes.func,
   label: PropTypes.string,
   textPosition: PropTypes.oneOf(['left', 'right']),
 };
 
 RadioButton.defaultProps = {
-  checked: false,
+  selected: false,
   disabled: false,
   captureClick: true,
-  onCheck: () => {},
+  onSelect: () => {},
   label: null,
   textPosition: 'right',
 };

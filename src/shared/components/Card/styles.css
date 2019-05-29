@@ -34,11 +34,11 @@
 
 .footer {
 	border-top: solid 1px #ccc;
-	padding-top: 0.6rem;
-	padding-bottom: 0.6rem;
-	padding-left: 0.6rem;
+	padding-top: 0.1rem;
+	padding-bottom: 0.1rem;
+	padding-left: 0.1rem;
 }
 .footer.right {
 	text-align: right;
-	padding-right: 0.6rem;
+	padding-right: 0.1rem;
 }

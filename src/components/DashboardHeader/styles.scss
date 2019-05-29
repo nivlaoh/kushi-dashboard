@@ -132,7 +132,8 @@
 		border-bottom: solid 1px #69696f;
 		border-right: solid 1px #aaa;
 		border-radius: 6px;
-		box-shadow: 0 3px 22px #666;
+		/* box-shadow: 0 3px 22px #666; */
+		box-shadow: 0 2px 8px #ccc;
 		transition: all 0.2s ease-in;
 		display: none;
 		&.active {
@@ -170,6 +171,62 @@
 		.profileContentInner {
 			padding: 1.2rem;
 			font-size: 1.2rem;
+		}
+	}
+}
+
+.sender {
+	display: flex;
+	padding: 1rem;
+	align-items: flex-start;
+	justify-content: center;
+	cursor: pointer;
+	outline: none;
+	min-height: 80px;
+	&:hover {
+		background: #eee;
+	}
+	.senderIcon {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 100%;
+		background: #ccc;
+		width: 50px;
+		height: 50px;
+		margin-right: 20px;
+		pointer-events: none;
+		i {
+			color: white;
+			font-size: 2rem;
+		}
+	}
+	.senderContents {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		pointer-events: none;
+		.senderName {
+			display: flex;
+			font-weight: bold;
+			.unreadTag {
+				display: inline-block;
+				background: green;
+				color: white;
+				font-size: 0.7rem;
+				font-weight: normal;
+				padding: 2px;
+				margin-left: 5px;
+				border-radius: 4px;
+			}
+		}
+		.messageSnippet {
+			display: flex;
+			flex: 1;
+			max-width: 150px;
+			overflow: hidden;
+			color: #888;
+			@include line-clamp(2);
 		}
 	}
 }

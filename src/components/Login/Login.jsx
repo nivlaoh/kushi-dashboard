@@ -68,7 +68,7 @@ class Login extends Component {
     } = this.props;
 
     const cardStyle = loginDone ? 'loginCard fadeOut' : 'loginCard';
-    const { from } = location.state || { from: { pathname: '/dashboard' }};
+    const { from } = location.state || { from: { pathname: '/' }};
     if (loginDone) {
       setTimeout(() => history.push(from), 400);
     }

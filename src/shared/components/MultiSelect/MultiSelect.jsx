@@ -115,7 +115,7 @@ class MultiSelect extends Component {
     const {
       selectedOptions,
     } = this.state;
-    const selectedOption = options.filter(option => option.key === e.target.id)[0];
+    const selectedOption = options.filter(option => option.key === e.target.getAttribute('refkey'))[0];
     if (multi) {
       const newSelected = selectedOptions.filter(s => s.key === selectedOption.key).length >= 1 ?
         selectedOptions.filter(s => s.key !== selectedOption.key) :
@@ -191,7 +191,9 @@ class MultiSelect extends Component {
       <div className="select-container" ref={this.node}>
         <div className="selectedTags">
           { this.showSelectedTags().map(opt =>
-            <div key={opt.key} className="selectedTag">{opt.value}</div>
+            <div key={opt.key} className="selectedTag">
+              <i className="fa fa-close" refkey={opt.key} onClick={this.selectOption}></i> &nbsp;{opt.value}
+            </div>
           )}
         </div>
         <input
@@ -213,6 +215,7 @@ class MultiSelect extends Component {
               <div
                 key={option.key}
                 id={option.key}
+                refkey={option.key}
                 role="row"
                 tabIndex={index}
                 className={`select-option${index === cursor ? ' active' : ''}`}
@@ -225,7 +228,7 @@ class MultiSelect extends Component {
                 { multi &&
                   (<Checkbox
                     checked={selectedOptions.filter(selectedOpt => selectedOpt.key === option.key).length >= 1}
-                    captureClick={false}
+                    refkey={option.key}
                    />)
                 }
               </div>
