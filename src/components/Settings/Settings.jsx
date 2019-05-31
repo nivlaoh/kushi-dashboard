@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Tab, Tabs } from '../../shared/components/Tabs';
 
+import FileUpload from '../../shared/components/FileUpload';
 import MultiSelect from '../../shared/components/MultiSelect';
 import System from './System';
 
@@ -32,10 +33,11 @@ class Settings extends Component {
         <div className="settingsWrapper">
           <Tabs type="horizontal" style={settingsStyle}>
             <Tab title="Profile" active>
-              <System />
+              <FileUpload title="Upload Profile Picture" />
             </Tab>
             <Tab title="System">
               <MultiSelect placeholder="Enter option" multi options={options} searchCallback={()=>{}} />
+              <System />
             </Tab>
             <Tab title="Third">Hello3</Tab>
           </Tabs>

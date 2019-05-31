@@ -6,6 +6,8 @@
 .infoRow {
 	display: flex;
 	flex-direction: row;
+	align-items: center;
+	margin-bottom: 5px;
 }
 
 .widgetWrapper {
@@ -31,4 +33,16 @@
 			color: white;
 		}
 	}
+}
+.weatherIcon {
+	font-size: 2.5rem;
+	margin-right: 1rem;
+	margin-bottom: 10px;
+}
+.marker {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 20px;
+	height: 20px;
 }

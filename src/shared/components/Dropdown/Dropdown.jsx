@@ -126,11 +126,11 @@ class Dropdown extends Component {
       showDropdown,
       y,
     } = this.state;
-
+    const dropdownRowHeight = RowComponent ? 80 : 46;
     const dropdownStyle = {
       left: this.calculateDropdownLeft(target),
       top: !isEmpty(target) && !isEmpty(target.current) ? y + 20 : 0,
-      maxHeight: maxShown === -1 ? 'auto' : maxShown * 46,
+      maxHeight: maxShown === -1 ? 'auto' : maxShown * dropdownRowHeight,
     };
     const optionStyle = {
       width: `${width}px`,
@@ -151,7 +151,11 @@ class Dropdown extends Component {
           </div>)
         }
         { RowComponent && options.map(option =>
-          <RowComponent key={option.key} option={option} onClick={e => { this.selectOption(e, option); }} />)
+          <RowComponent
+            key={option.key}
+            option={option}
+            onClick={e => { this.selectOption(e, option); }}
+          />)
         }
       </div>
     ) : null;
@@ -166,7 +170,7 @@ Dropdown.propTypes = {
   maxShown: PropTypes.number,
   width: PropTypes.number,
   truncateOption: PropTypes.bool,
-  rowComponent: PropTypes.func,
+  RowComponent: PropTypes.func,
 };
 
 Dropdown.defaultProps = {
