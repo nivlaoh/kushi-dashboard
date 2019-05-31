@@ -1,0 +1,34 @@
+.tempReading {
+	font-size: 4rem;
+	font-weight: bold;
+}
+
+.infoRow {
+	display: flex;
+	flex-direction: row;
+}
+
+.widgetWrapper {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	.widgetName {
+		display: flex;
+		flex: 1;
+	}
+	.refreshBtn {
+		display: flex;
+		align-self: flex-end;
+		justify-content: flex-end;
+		border: none;
+		outline: none;
+		background: none;
+		color: #ccc;
+		cursor: pointer;
+		transition: all 0.3s ease-out;
+		&:hover {
+			transform: rotate(45deg);
+			color: white;
+		}
+	}
+}

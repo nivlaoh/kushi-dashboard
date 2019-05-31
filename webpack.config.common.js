@@ -4,7 +4,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const Dotenv = require('dotenv-webpack');
 const webpack = require('webpack');
-const AsyncChunkNames = require('webpack-async-chunk-names-plugin');
 
 const CSSModuleLoader = {
   loader: 'css-loader',
@@ -92,7 +91,7 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i, 
-        loader: 'file-loader'
+        loader: 'file-loader?name=[name]-[hash].[ext]'
       },
     ],
   },

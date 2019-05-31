@@ -6,12 +6,12 @@
     	"background": "purple",
     	"color": "white",
         "type": "component",
-        "componentSrc": "widget1"
+        "componentSrc": "Weather"
 	},
 	{
     	"id": "2",
-    	"rows": 2,
-    	"columns": 2,
+    	"rows": 1,
+    	"columns": 1,
     	"background": "pink",
     	"color": "white",
     	"type": "site",

@@ -10,10 +10,24 @@ class Widget extends Component {
   constructor(props) {
     super(props);
 
-    this.drag = this.drag.bind(this);
+    this.widgetRender = null;
   }
 
-  drag(e) {
+  componentDidMount() {
+    const {
+      widget,
+    } = this.props;
+    this.widgetRender = this.drawWidget(widget);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.widgetRender === null) {
+      console.log('widget', nextProps);
+      this.widgetRender = this.drawWidget(nextProps.widget);
+    }
+  }
+
+  onDrag = (e) => {
     const {
       draggable,
     } = this.props;
@@ -22,7 +36,7 @@ class Widget extends Component {
     }
     console.log('tata', e.target.id);
     e.dataTransfer.setData('text', e.target.id);
-  }
+  };
 
   drawWidget = (widget) => {
     if (widget.type === 'site') {
@@ -52,7 +66,10 @@ class Widget extends Component {
       width: `${widget.columns * 250}px`,
       height: `${widget.rows * 200}px`,
     };
-
+    if (this.widgetRender === null) {
+      this.widgetRender = this.drawWidget(widget);
+    }
+    
     return (
       <div
         key={`wid-${widget.id}`}
@@ -60,9 +77,9 @@ class Widget extends Component {
         className="widget"
         style={style}
         draggable={draggable}
-        onDragStart={this.drag}
+        onDragStart={this.onDrag}
       >
-        { this.drawWidget(widget) }
+        { this.widgetRender }
       </div>
     );
   }

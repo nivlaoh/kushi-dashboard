@@ -1,0 +1,7 @@
+export const GET_AIR_TEMP = 'GET_AIR_TEMP';
+export const GET_WEATHER_FORECAST = 'GET_WEATHER_FORECAST';
+
+export default {
+  GET_AIR_TEMP,
+  GET_WEATHER_FORECAST,
+};
