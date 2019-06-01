@@ -10,7 +10,41 @@ import './styles.scss';
 class Settings extends Component {
   constructor(props) {
     super(props);
+    this.acceptedTypes = ['image/png', 'image/gif', 'image/jpeg'];
+    this.state = {
+      files: [],
+    };
   }
+
+  uploadFiles = (fileList) => {
+    console.log('Uploading...', fileList);
+    this.setState({
+      files: fileList,
+    });
+    this.increasePercentage = setInterval(() => {
+      const {
+        files,
+      } = this.state;
+      console.log('called', files);
+      if (files.map(file => file.progress).every((item) => item >= 100)) {
+        console.log('clear');
+        clearInterval(this.increasePercentage);
+        this.increasePercentage = null;
+      } else {
+        const updatedFiles = files.map(file => {
+          const progressIncrement = Math.random()*20;
+          return {
+            ...file,
+            progress: file.progress + progressIncrement > 100 ? 100 : file.progress + progressIncrement,
+            status: file.progress + progressIncrement >= 100 ? 'UPLOADED' : 'NEW',
+          };
+        });
+        this.setState({
+          files: updatedFiles,
+        });
+      }
+    }, 1000);
+  };
 
   render() {
     const settingsStyle = {
@@ -27,13 +61,22 @@ class Settings extends Component {
       { key: 'test8', value: '329fs09' },
       { key: 'test9', value: 'mysteak' }
     ];
+    const {
+      files,
+    } = this.state;
     return (
       <div className="content-wrapper">
         <div className="pageTitle">Settings</div>
         <div className="settingsWrapper">
           <Tabs type="horizontal" style={settingsStyle}>
             <Tab title="Profile" active>
-              <FileUpload title="Upload Profile Picture" />
+              <FileUpload
+                title="Upload Profile Picture"
+                description="Please upload an image for your profile picture"
+                fileTypes={this.acceptedTypes}
+                handleDrop={this.uploadFiles}
+                fileList={files}
+              />
             </Tab>
             <Tab title="System">
               <MultiSelect placeholder="Enter option" multi options={options} searchCallback={()=>{}} />

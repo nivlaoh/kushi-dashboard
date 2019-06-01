@@ -1,0 +1,28 @@
+@import "../../../variables.scss";
+
+.progressWrapper {
+	display: flex;
+	flex: 1;
+	align-items: center;
+	.progressBase {
+		display: flex;
+		flex: 1;
+		height: 5px;
+		background: #bbb;
+		border-radius: 3px;
+		&.huge {
+			height: 15px;
+			border-radius: 10px;
+			.progressBar {
+				border-radius: 10px;
+			}
+		}
+		.progressBar {
+			background: $linkBlue;
+			border-radius: 3px;
+		}
+	}
+	.progressText {
+		margin-left: 10px;
+	}
+}

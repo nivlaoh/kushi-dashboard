@@ -1,9 +1,33 @@
+@import "../../../variables.scss";
+
 .fileUploadWrapper {
 	display: flex;
 	flex-direction: column;
 	border: solid 1px #ccc;
 	position: relative;
 	overflow: hidden;
+	&.onDrag {
+		opacity: 0.5;
+		transition: all 0.4s ease-out;
+		&:before {
+			content: ' ';
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			position: absolute;
+			z-index: 3;
+			opacity: 1;
+		}
+		&:after {
+			position: absolute;
+			z-index: 4;
+			margin-left: 30%;
+			margin-top: 5%;
+			color: white;
+			font-size: 3rem;
+			content: 'Drop files here';
+		}
+	}
 	.uploadInfoPane {
 		display: flex;
 		flex: 1;
@@ -70,15 +94,39 @@
 				color: #999;
 				margin-right: 5px;
 			}
-			.filename {
+			.fileDetails {
 				display: flex;
+				flex: 2;
+				flex-direction: column;
+				.filename {
+					display: flex;
+					flex: 1;
+					align-items: center;
+					font-weight: bold;
+					color: #555;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+				.filesize {
+					font-size: 0.9rem;
+					color: #777;
+				}
+			}
+			.fileStatus {
+				display: flex;
+				flex: 1;
 				align-items: center;
 				font-weight: bold;
-				color: #666;
-				flex: 1;
-				white-space: nowrap;
-				overflow: hidden;
-				text-overflow: ellipsis;
+				* {
+					font-size: 0.9rem;
+				}
+				.success {
+					color: green;
+				}
+				.error {
+					color: $red;
+				}
 			}
 			.fileRowIcons {
 				display: flex;
