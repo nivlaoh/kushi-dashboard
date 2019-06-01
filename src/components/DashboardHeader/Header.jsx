@@ -143,8 +143,15 @@ class Header extends Component {
         <div className="notification-icon">
           <i className="fa fa-bell"></i>
         </div>
-        <div className={profileIconStyle} role="button" tabIndex="-1" onClick={this.toggleProfile}>
-          <i className="fa fa-user"></i>
+        <div className={profileIconStyle}
+          role="button"
+          tabIndex="-1"
+          onClick={this.toggleProfile}
+          style={{ background:  user.profilePic ? `url(${user.profilePic})` : '#ccc', backgroundSize: 'cover' }}
+        >
+          { !user.profilePic &&
+            <i className="fa fa-user"></i>
+          }
         </div>
         <ProfileWithTooltip text="Hello" />
       </div>
@@ -154,10 +161,12 @@ class Header extends Component {
 
 Header.propTypes = {
   toggleSidebar: PropTypes.func,
+  profilePic: PropTypes.string,
 };
 
 Header.defaultProps = {
   toggleSidebar: () => {},
+  profilePic: null,
 };
 
 export default Header;

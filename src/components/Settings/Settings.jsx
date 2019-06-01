@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Tab, Tabs } from '../../shared/components/Tabs';
+import PropTypes from 'prop-types';
 
+import { Tab, Tabs } from '../../shared/components/Tabs';
 import FileUpload from '../../shared/components/FileUpload';
 import MultiSelect from '../../shared/components/MultiSelect';
 import System from './System';
+import { getBase64 } from '../../utils/browserUtil';
 
 import './styles.scss';
 
@@ -21,17 +23,26 @@ class Settings extends Component {
     this.setState({
       files: fileList,
     });
+
     this.increasePercentage = setInterval(() => {
       const {
         files,
       } = this.state;
-      console.log('called', files);
-      if (files.map(file => file.progress).every((item) => item >= 100)) {
+      const {
+        uploadProfilePic,
+      } = this.props;
+      if (files.every(file => file.progress >= 100)) {
         console.log('clear');
         clearInterval(this.increasePercentage);
         this.increasePercentage = null;
+        getBase64(files[0].ref).then(data => uploadProfilePic(data));
       } else {
         const updatedFiles = files.map(file => {
+          if (file.status === 'ERROR') {
+            clearInterval(this.increasePercentage);
+            this.increasePercentage = null;
+            return file;
+          }
           const progressIncrement = Math.random()*20;
           return {
             ...file,
@@ -89,5 +100,14 @@ class Settings extends Component {
     );
   }
 }
+
+Settings.propTypes = {
+  user: PropTypes.shape({}).isRequired,
+  uploadProfilePic: PropTypes.func,
+};
+
+Settings.defaultProps = {
+  uploadProfilePic: () => {},
+};
 
 export default Settings;

@@ -307,6 +307,7 @@
 		line-height: 1.4;
 		transition: all 0.3s ease-out;
 		color: #333;
+		border: solid 1px $formWidgetBorder;
 		&:hover {
 			border: solid 1px $textBoxHover;
 		}

@@ -8,7 +8,17 @@ export const formatFileSize = (size) => {
   return sizeInKb < 1024 ? `${Math.round(sizeInKb)} kB` : `${Math.round(sizeInKb/1024)} MB`;
 };
 
+export const getBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+};
+
 export default {
   isAdvancedUpload,
   formatFileSize,
+  getBase64,
 };

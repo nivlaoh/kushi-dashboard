@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 
 import Button from '../Button';
 import ProgressBar from '../ProgressBar';
@@ -27,17 +28,12 @@ class FileUpload extends Component {
   }
 
   chooseFiles = (e) => {
-    this.uploadNode.current.click();
+    this.uploadNode.current.click(e);
   };
 
   onChange = (e) => {
-    console.log('change', e.target.files);
     const files = [ ...e.target.files ];
-    const filesRef = files.map(file => ({
-      ref: file,
-      status: 'NEW',
-      progress: 0,
-    }));
+    const filesRef = this.checkAndInitFiles(files);
     this.setState({
       files: filesRef,
     });
@@ -52,14 +48,18 @@ class FileUpload extends Component {
 
   onDrop = (e) => {
     e.preventDefault();
-    const files = [ ...e.dataTransfer.files ].map(file => ({
-      ref: file,
-      status: 'NEW',
-      progress: 0,
-    }));
     const {
       handleDrop,
+      numFiles,
     } = this.props;
+    if (e.dataTransfer.files.length > numFiles) {
+      this.setState({
+        onDrag: false,
+        errorMessage: `Please select not more than ${numFiles} file(s)`,
+      });
+      return;
+    }
+    const files = this.checkAndInitFiles([ ...e.dataTransfer.files ]);
     this.setState({
       onDrag: false,
       files: [ ...files ],
@@ -68,8 +68,19 @@ class FileUpload extends Component {
     });
   };
 
+  checkAndInitFiles = (files) => {
+    const {
+      maxSize,
+    } = this.props;
+    return files.map(file => ({
+      ref: file,
+      status: file.size <= maxSize ? 'NEW' : 'ERROR',
+      errorMessage: file.size > maxSize ? `File size exceeds ${formatFileSize(maxSize)}` : undefined,
+      progress: 0,
+    }));
+  };
+
   deleteFile = (file) => {
-    console.log('file', file);
     const {
       files,
     } = this.state;
@@ -82,29 +93,46 @@ class FileUpload extends Component {
     });
   };
 
+  getMessage = (errorMessage) => {
+    const {
+      numFiles,
+    } = this.props;
+    if (isEmpty(errorMessage)) {
+      return numFiles > 1 ? 'Please select files' : 'Please choose a file';
+    }
+    return <div className="error">{errorMessage}</div>;
+  };
+
   render() {
     const {
       title,
       description,
       fileTypes,
+      numFiles,
     } = this.props;
     const {
       files,
       onDrag,
+      errorMessage,
     } = this.state;
     return (
-      <div className={`fileUploadWrapper ${onDrag ? 'onDrag' : ''}`} onDragOver={this.onDrag} onDrop={this.onDrop}>
+      <div className="fileUploadWrapper" onDragOver={this.onDrag} onDrop={this.onDrop}>
+        <div className={`dragOverlay ${onDrag ? 'active' : ''}`}>
+          <i className="fa fa-download"></i> &nbsp; Drop your file(s) here
+        </div>
         <div className="uploadInfoPane">
           <div className="uploadTitle">{title}</div>
           <div className="infoRow">
             <div className="uploadDesc">{ description }</div>          
             { files.length === 0 &&
-              <div className="uploadPlaceholder">Please choose a file</div>
+              <div className="uploadPlaceholder">
+                { this.getMessage(errorMessage) }
+              </div>
             }
             <Button
               className="uploadBtn"
               type="primary"
-              text="Choose files"
+              text="Browse..."
               onClick={this.chooseFiles}
             />
           </div>
@@ -126,7 +154,7 @@ class FileUpload extends Component {
                     <div className="success">{file.status}</div>
                   }
                   { file.status === 'ERROR' &&
-                    <div className="error">{file.status}</div>
+                    <div className="error">{file.errorMessage}</div>
                   }
                 </div>
                 <div className="fileRowIcons">
@@ -146,7 +174,7 @@ class FileUpload extends Component {
           ref={this.uploadNode}
           onChange={this.onChange}
           accept={fileTypes.join(',')}
-          multiple
+          multiple={numFiles > 1}
         />
       </div>
     );
@@ -159,14 +187,18 @@ FileUpload.propTypes = {
   fileTypes: PropTypes.arrayOf(PropTypes.string),
   handleDrop: PropTypes.func,
   fileList: PropTypes.arrayOf(PropTypes.shape({})),
+  numFiles: PropTypes.number,
+  maxSize: PropTypes.number,
 };
 
 FileUpload.defaultProps = {
-  title: 'TITLE',
-  description: 'This is test description',
+  title: 'File Upload',
+  description: 'Please drag and drop or click browse button to select files',
   fileTypes: [],
   handleDrop: () => {},
   fileList: [],
+  numFiles: 1,
+  maxSize: 10485760,
 };
 
 export default FileUpload;

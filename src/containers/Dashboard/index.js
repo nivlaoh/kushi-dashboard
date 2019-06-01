@@ -9,7 +9,10 @@ const mapStateToProps = (state, ownProps) => {
   console.log('data', widgetData);
   return {
     widgets: widgetData,
-    user: { username: state.login.username },
+    user: {
+      username: state.login.username,
+      profilePic: state.settings.profilePic,
+    },
   };
 };
 

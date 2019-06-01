@@ -2,16 +2,19 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import Settings from '../../components/Settings';
-import operations from '../../ducks/Login/operations';
+import operations from '../../ducks/Settings/operations';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    user: { username: state.login.username },
+    user: {
+      username: state.login.username,
+      profilePic: state.settings.profilePic,
+    },
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  logout: (cb) => operations.logout(cb)(dispatch),
+const mapDispatchToProps = (dispatch) => ({
+  uploadProfilePic: (image) => operations.uploadProfilePic(image)(dispatch),
 });
 
 const SettingsContainer = connect(mapStateToProps, mapDispatchToProps)(withRouter(Settings));

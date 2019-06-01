@@ -1,28 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import './styles.scss';
 
-const Button = (props) => {
-  const {
-    text,
-    type,
-    onClick,
-    children,
-    className,
-  } = props;
+class Button extends Component {
+  constructor(props) {
+    super(props);
+    this.btnRef = React.createRef();
+  }
 
-  const buttonProps = {
-    ...props,
-    className: `${type} ${className}`,
-    type: 'button',
+  clickEvt = (e) => {
+    e.preventDefault();
+    const {
+      onClick,
+    } = this.props;
+    console.log('aaa');
+    this.btnRef.focus();
+    onClick(e);
   };
 
-	return (
-    <button type="button" className={type} onClick={onClick} {...buttonProps}>
-      { text || children }
-    </button>
-  );
+  render() {
+    const {
+      text,
+      type,
+      onClick,
+      children,
+      className,
+    } = this.props;
+
+    const buttonProps = {
+      ...this.props,
+      className: `${type} ${className}`,
+      type: 'button',
+    };
+
+  	return (
+      <button type="button" ref={this.btnRef} className={type} onClick={this.clickEvt} {...buttonProps}>
+        { text || children }
+      </button>
+    );
+  }
 }
 
 Button.propTypes = {
