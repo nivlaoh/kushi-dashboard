@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
+import moment from 'moment';
 
 import Button from '../Button';
 import ProgressBar from '../ProgressBar';
@@ -32,11 +33,21 @@ class FileUpload extends Component {
   };
 
   onChange = (e) => {
-    const files = [ ...e.target.files ];
-    const filesRef = this.checkAndInitFiles(files);
+    const filesRef = [ ...e.target.files ];
+    const {
+      handleDrop,
+      numFiles,
+    } = this.props;
+    if (filesRef.length > numFiles) {
+      this.setState({
+        errorMessage: `Please select not more than ${numFiles} file(s)`,
+      });
+      return;
+    }
+    const files = this.checkAndInitFiles(filesRef);
     this.setState({
-      files: filesRef,
-    });
+      files: [ ...files ],
+    }, () => { handleDrop(files); });
   };
 
   onDrag = (e) => {
@@ -97,7 +108,10 @@ class FileUpload extends Component {
     const {
       numFiles,
     } = this.props;
-    if (isEmpty(errorMessage)) {
+    const {
+      files,
+    } = this.state;
+    if (files.length === 0 && isEmpty(errorMessage)) {
       return numFiles > 1 ? 'Please select files' : 'Please choose a file';
     }
     return <div className="error">{errorMessage}</div>;
@@ -123,12 +137,10 @@ class FileUpload extends Component {
         <div className="uploadInfoPane">
           <div className="uploadTitle">{title}</div>
           <div className="infoRow">
-            <div className="uploadDesc">{ description }</div>          
-            { files.length === 0 &&
+            <div className="uploadDesc">{ description }</div>
               <div className="uploadPlaceholder">
                 { this.getMessage(errorMessage) }
               </div>
-            }
             <Button
               className="uploadBtn"
               type="primary"
@@ -151,7 +163,9 @@ class FileUpload extends Component {
                     <ProgressBar percentage={file.progress} showPercentage />
                   }
                   { file.status === 'UPLOADED' &&
-                    <div className="success">{file.status}</div>
+                    <div className="success">
+                      {file.status.toLowerCase()} {moment(file.uploadedAt).fromNow()}
+                    </div>
                   }
                   { file.status === 'ERROR' &&
                     <div className="error">{file.errorMessage}</div>

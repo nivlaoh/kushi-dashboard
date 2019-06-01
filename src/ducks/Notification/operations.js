@@ -1,7 +1,7 @@
 import actions from './actions';
 
 const getEmails = () => (dispatch) => {
-  const test = dispatch(actions.getEmails());
+  dispatch(actions.getEmails());
 };
 
 const sendEmail = (message) => (dispatch) => {

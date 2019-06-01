@@ -8,6 +8,9 @@ import Toast from '../../shared/components/Toast';
 class Notification extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      activeMessage: null,
+    };
   }
 
   componentDidMount() {
@@ -17,7 +20,18 @@ class Notification extends Component {
     getMessages();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.messages.length > 0) {
+      this.setState({
+        activeMessage: nextProps.messages.find(msg => msg.id === nextProps.match.params.msgId),
+      });
+    }
+  }
+
   render() {
+    const {
+      activeMessage,
+    } = this.state;
     const {
       showToast,
       messages,
@@ -35,6 +49,7 @@ class Notification extends Component {
             onRead={onRead}
             onSend={onSend}
             deleteMessage={deleteMessage}
+            active={activeMessage}
           />
         </div>
       </div>

@@ -24,6 +24,14 @@ class MessagePane extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.active !== this.props.active) {
+      this.setState({
+        activeMessage: nextProps.active,
+      });
+    }
+  }
+
   viewMessage = (msg) => {
     const {
       onRead,
@@ -266,6 +274,7 @@ MessagePane.propTypes = {
   onRead: PropTypes.func,
   onSend: PropTypes.func,
   deleteMessage: PropTypes.func,
+  active: PropTypes.shape({}),
 };
 
 MessagePane.defaultProps = {

@@ -28,6 +28,16 @@ class Header extends Component {
     document.addEventListener('mousedown', this.handleClick, false);
   }
 
+  componentDidMount() {
+    const {
+      user,
+      getProfilePic,
+    } = this.props;
+    if (user.profilePic === undefined) {
+      getProfilePic();
+    }
+  }
+
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClick, false);
   }
@@ -39,11 +49,11 @@ class Header extends Component {
     return `${baseClass} ${exit}`;
   }
 
-  navigateNotification = () => {
+  navigateNotification = (msg) => {
     const {
       history,
     } = this.props;
-    history.push('/notification');
+    history.push(`/notification/${msg.key}`);
   };
 
   handleClick(e) {
@@ -147,7 +157,7 @@ class Header extends Component {
           role="button"
           tabIndex="-1"
           onClick={this.toggleProfile}
-          style={{ background:  user.profilePic ? `url(${user.profilePic})` : '#ccc', backgroundSize: 'cover' }}
+          style={{ backgroundImage: user.profilePic ? `url(${user.profilePic.ref.payload})` : 'none' }}
         >
           { !user.profilePic &&
             <i className="fa fa-user"></i>

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import { Tab, Tabs } from '../../shared/components/Tabs';
 import FileUpload from '../../shared/components/FileUpload';
 import MultiSelect from '../../shared/components/MultiSelect';
+import TextBox from '../../shared/components/TextBox';
 import System from './System';
-import { getBase64 } from '../../utils/browserUtil';
 
 import './styles.scss';
 
@@ -16,6 +17,23 @@ class Settings extends Component {
     this.state = {
       files: [],
     };
+  }
+
+  componentDidMount() {
+    const {
+      getProfilePic,
+    } = this.props;
+    getProfilePic();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user.profilePic) {
+      this.setState({
+        files: [{
+          ...nextProps.user.profilePic,
+        }],
+      });
+    }
   }
 
   uploadFiles = (fileList) => {
@@ -35,7 +53,7 @@ class Settings extends Component {
         console.log('clear');
         clearInterval(this.increasePercentage);
         this.increasePercentage = null;
-        getBase64(files[0].ref).then(data => uploadProfilePic(data));
+        uploadProfilePic(files[0]);
       } else {
         const updatedFiles = files.map(file => {
           if (file.status === 'ERROR') {
@@ -48,6 +66,7 @@ class Settings extends Component {
             ...file,
             progress: file.progress + progressIncrement > 100 ? 100 : file.progress + progressIncrement,
             status: file.progress + progressIncrement >= 100 ? 'UPLOADED' : 'NEW',
+            uploadedAt: moment().format(),
           };
         });
         this.setState({
@@ -81,6 +100,11 @@ class Settings extends Component {
         <div className="settingsWrapper">
           <Tabs type="horizontal" style={settingsStyle}>
             <Tab title="Profile" active>
+              <div className="infoRow">
+                <TextBox label="First Name" placeholder="First Name" />
+                <TextBox label="Last Name" placeholder="Last Name" />
+              </div>
+              <TextBox label="Email Address" type="email" placeholder="Email Address" />
               <FileUpload
                 title="Upload Profile Picture"
                 description="Please upload an image for your profile picture"
@@ -104,10 +128,12 @@ class Settings extends Component {
 Settings.propTypes = {
   user: PropTypes.shape({}).isRequired,
   uploadProfilePic: PropTypes.func,
+  getProfilePic: PropTypes.func,
 };
 
 Settings.defaultProps = {
   uploadProfilePic: () => {},
+  getProfilePic: () => {},
 };
 
 export default Settings;

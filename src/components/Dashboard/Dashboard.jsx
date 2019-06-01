@@ -83,7 +83,10 @@ class Dashboard extends Component {
           <Route path='/settings' render={(routeProps) => (
             <Settings {...routeProps} />
           )} />
-          <Route path='/notification' render={(routeProps) => (
+          <Route path='/notification' exact render={(routeProps) => (
+            <Notification {...routeProps} />
+          )} />
+          <Route path='/notification/:msgId' render={(routeProps) => (
             <Notification {...routeProps} />
           )} />
         </div>

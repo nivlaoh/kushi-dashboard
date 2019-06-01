@@ -15,7 +15,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  getMessages: () => operations.getEmails()(dispatch),
+  getMessages: (cb) => operations.getEmails(cb)(dispatch),
   deleteMessage: (message) => operations.deleteEmail(message)(dispatch),
   onRead,
   onSend: (message) => operations.sendEmail(message)(dispatch),

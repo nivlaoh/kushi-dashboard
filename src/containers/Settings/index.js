@@ -15,6 +15,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => ({
   uploadProfilePic: (image) => operations.uploadProfilePic(image)(dispatch),
+  getProfilePic: () => operations.getProfilePic()(dispatch),
 });
 
 const SettingsContainer = connect(mapStateToProps, mapDispatchToProps)(withRouter(Settings));
