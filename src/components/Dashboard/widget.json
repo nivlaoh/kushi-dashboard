@@ -10,12 +10,10 @@
 	},
 	{
     	"id": "2",
-    	"rows": 1,
-    	"columns": 1,
+    	"rows": 2,
+    	"columns": 3,
     	"background": "pink",
-    	"color": "white",
-    	"type": "site",
-    	"url": "https://www.google.com"
+    	"color": "white"
 	},
 	{
     	"id": "3",

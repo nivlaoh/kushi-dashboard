@@ -20,6 +20,6 @@ const Root = ({ store }) => (
 
 const store = createStore(rootReducer, applyMiddleware(logger));
 
-store.subscribe(() => { console.log('store', store.getState()); });
+// store.subscribe(() => { console.log('store', store.getState()); });
 
 ReactDOM.render(<Root store={store} />, document.getElementById('root'));

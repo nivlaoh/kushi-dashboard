@@ -137,6 +137,7 @@ class MultiSelect extends Component {
   render() {
     const {
       placeholder,
+      label,
       options,
       selected,
       readonly,
@@ -188,54 +189,59 @@ class MultiSelect extends Component {
     };
 
     return (
-      <div className="select-container" ref={this.node}>
-        <div className="selectedTags">
-          { this.showSelectedTags().map(opt =>
-            <div key={opt.key} className="selectedTag">
-              <i className="fa fa-close" refkey={opt.key} onClick={this.selectOption}></i> &nbsp;{opt.value}
-            </div>
-          )}
-        </div>
-        <input
-          type="text"
-          ref={this.searchBox}
-          placeholder={placeholder}
-          onClick={this.showDropdown}
-          onChange={searchUpdate.bind(this)}
-          onKeyDown={this.handleKeyDown}
-          defaultValue={value}
-          disabled={readonly}
-        />
-        <div className="select-arrow">
-          <i className="fa fa-caret-down"></i>
-        </div>
-        { dropdownVisible &&
-          <div className="select-dropdown" style={dropdownStyle}>
-            { filteredOptions.map((option, index) => (
-              <div
-                key={option.key}
-                id={option.key}
-                refkey={option.key}
-                role="row"
-                tabIndex={index}
-                className={`select-option${index === cursor ? ' active' : ''}`}
-                onMouseEnter={() => this.hoverOption(index)}
-                onClick={this.selectOption}
-              >
-                <div className="option-value">
-                  {option.value}
-                </div>
-                { multi &&
-                  (<Checkbox
-                    checked={selectedOptions.filter(selectedOpt => selectedOpt.key === option.key).length >= 1}
-                    refkey={option.key}
-                   />)
-                }
-              </div>
-            ))
-            }
-          </div>
+      <div className="selectWrapper">
+        { label &&
+          <div className="label">{label}</div>
         }
+        <div className="select-container" ref={this.node}>
+          <div className="selectedTags">
+            { this.showSelectedTags().map(opt =>
+              <div key={opt.key} className="selectedTag">
+                <i className="fa fa-close" refkey={opt.key} onClick={this.selectOption}></i> &nbsp;{opt.value}
+              </div>
+            )}
+          </div>
+          <input
+            type="text"
+            ref={this.searchBox}
+            placeholder={placeholder}
+            onClick={this.showDropdown}
+            onChange={searchUpdate.bind(this)}
+            onKeyDown={this.handleKeyDown}
+            defaultValue={value}
+            disabled={readonly}
+          />
+          <div className="select-arrow">
+            <i className="fa fa-caret-down"></i>
+          </div>
+          { dropdownVisible &&
+            <div className="select-dropdown" style={dropdownStyle}>
+              { filteredOptions.map((option, index) => (
+                <div
+                  key={option.key}
+                  id={option.key}
+                  refkey={option.key}
+                  role="row"
+                  tabIndex={index}
+                  className={`select-option${index === cursor ? ' active' : ''}`}
+                  onMouseEnter={() => this.hoverOption(index)}
+                  onClick={this.selectOption}
+                >
+                  <div className="option-value">
+                    {option.value}
+                  </div>
+                  { multi &&
+                    (<Checkbox
+                      checked={selectedOptions.filter(selectedOpt => selectedOpt.key === option.key).length >= 1}
+                      refkey={option.key}
+                     />)
+                  }
+                </div>
+              ))
+              }
+            </div>
+          }
+        </div>
       </div>
     );
   }
@@ -251,6 +257,7 @@ MultiSelect.propTypes = {
     value: PropTypes.string,
   }),
   placeholder: PropTypes.string,
+  label: PropTypes.string,
   multi: PropTypes.bool,
   readonly: PropTypes.bool,
   async: PropTypes.bool,
@@ -265,6 +272,7 @@ MultiSelect.defaultProps = {
   options: [],
   selected: null,
   placeholder: null,
+  label: null,
   multi: false,
   readonly: false,
   async: false,

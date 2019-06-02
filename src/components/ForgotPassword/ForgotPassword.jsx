@@ -8,6 +8,8 @@ import Button from '../../shared/components/Button';
 import { Card, CardBody, CardFooter } from '../../shared/components/Card';
 import TextBox from '../../shared/components/TextBox';
 
+import { validateEmail } from '../../utils/stringUtil';
+
 import './styles.scss';
 
 class ForgotPassword extends Component {
@@ -28,8 +30,7 @@ class ForgotPassword extends Component {
     const {
       emailAddress,
     } = this.state;
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (re.test(emailAddress.toLowerCase())) {
+    if (validateEmail(emailAddress)) {
       resetPassword(emailAddress, () => {
         console.log('reset');
         this.setState({

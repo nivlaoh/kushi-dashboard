@@ -176,6 +176,31 @@
 	}
 }
 
+.dropdownHeader {
+	background: white;
+	text-align: left;
+	width: 100%;
+	padding: 10px;
+	font-weight: bold;
+	color: $linkBlue;
+	box-shadow: 0 2px 5px #ccc;
+	display: flex;
+}
+
+.dropdownActions {
+	padding: 10px;
+	text-align: center;
+	background: white;
+	width: 100%;
+	border-top: solid 1px #ccc;
+	button {
+		background: none;
+		outline: none;
+		border: none;
+		cursor: pointer;
+	}
+}
+
 .sender {
 	display: flex;
 	padding: 1rem;

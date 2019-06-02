@@ -21,8 +21,25 @@ const resetPassword = (email) => {
   };
 }
 
+const getUserInfo = (user) => {
+  return {
+    type: types.GET_USER_INFO,
+    user,
+  };
+};
+
+const updateUserInfo = (field, value) => {
+  return {
+    type: types.UPDATE_USER_INFO,
+    field,
+    value,
+  };
+}
+
 export default {
   login,
   logout,
   resetPassword,
+  getUserInfo,
+  updateUserInfo,
 };

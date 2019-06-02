@@ -4,7 +4,7 @@ import { getBase64 } from '../../utils/browserUtil';
 const getProfilePic = () => (dispatch) => {
   const profilePicFile = JSON.parse(localStorage.getItem('profilePic'));
   if (profilePicFile === null) {
-    console.log('no profile pic');
+    console.log('No profile pic found');
     return;
   }
   const restoredProfilePic = {
@@ -17,7 +17,6 @@ const getProfilePic = () => (dispatch) => {
 };
 
 const uploadProfilePic = (file) => (dispatch) => {
-  console.log('here', file);
   getBase64(file.ref).then(data => {
     const saveValue = {
       ...file,

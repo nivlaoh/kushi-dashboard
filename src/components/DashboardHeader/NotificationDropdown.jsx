@@ -14,6 +14,12 @@ class NotificationDropdown extends Component {
     } = this.props;
 
     const options = messages.map(msg => ({ key: msg.id, message: msg }));
+    const header = (props) => (<div className="dropdownHeader">Notifications</div>);
+    const footer = (props) => (
+      <div className="dropdownActions">
+        <button type="button">Dismiss All</button>
+      </div>
+    );
     const comp = ({ option, onClick }) => {
       const {
         message,
@@ -48,6 +54,8 @@ class NotificationDropdown extends Component {
           onSelected={onSelected}
           width={300}
           RowComponent={comp}
+          Header={header}
+          Footer={footer}
         />
       </div>
     );

@@ -129,7 +129,7 @@ class Header extends Component {
     ];
     const search = (e) => {
       this.setState({
-        searchOptions: options.filter(option => option.value.toLowerCase().includes(e.target.value))
+        searchOptions: options.filter(option => option.value.toLowerCase().includes(e.target.value.toLowerCase()))
       });
     }
 

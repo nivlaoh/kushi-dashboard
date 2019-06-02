@@ -16,13 +16,31 @@ const logout = (cb) => (dispatch) => {
   fakeAuth.signout(cb);
 };
 
-const resetPassword = (email, cb) => (dispatch) => {
+const resetPassword = (email, cb = () => {}) => (dispatch) => {
   dispatch(actions.resetPassword(email));
   cb();
+};
+
+const getUserInfo = () => (dispatch) => {
+  const username = localStorage.getItem('username');
+  const firstName = localStorage.getItem('firstName');
+  const lastName = localStorage.getItem('lastName');
+  dispatch(actions.getUserInfo({
+    username,
+    firstName,
+    lastName,
+  }));
+};
+
+const updateUserInfo = (field, value) => (dispatch) => {
+  localStorage.setItem(field, value);
+  dispatch(actions.updateUserInfo(field, value));
 };
 
 export default {
   login,
   logout,
   resetPassword,
+  getUserInfo,
+  updateUserInfo,
 };

@@ -121,6 +121,8 @@ class Dropdown extends Component {
       truncateOption,
       width,
       RowComponent,
+      Header,
+      Footer,
     } = this.props;
     const {
       showDropdown,
@@ -137,7 +139,11 @@ class Dropdown extends Component {
     };
 
     return showDropdown ? (
-      <div className="dropdownMenu" style={dropdownStyle} ref={this.dropdownNode}>
+      <div className="dropdownWrapper" style={dropdownStyle} ref={this.dropdownNode}>
+      <div className="dropdownMenu">
+        { Header &&
+          <Header />
+        }
         { RowComponent === null && options.map(option =>
           <div
             key={option.key}
@@ -157,6 +163,10 @@ class Dropdown extends Component {
             onClick={e => { this.selectOption(e, option); }}
           />)
         }
+        { Footer &&
+          <Footer />
+        }
+      </div>
       </div>
     ) : null;
   }
@@ -171,6 +181,8 @@ Dropdown.propTypes = {
   width: PropTypes.number,
   truncateOption: PropTypes.bool,
   RowComponent: PropTypes.func,
+  Header: PropTypes.func,
+  Footer: PropTypes.func,
 };
 
 Dropdown.defaultProps = {
@@ -181,6 +193,8 @@ Dropdown.defaultProps = {
   width: 150,
   truncateOption: true,
   RowComponent: null,
+  Header: null,
+  Footer: null,
 };
 
 export default Dropdown;

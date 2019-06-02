@@ -8,16 +8,22 @@ import Button from '../../shared/components/Button';
 import { Card, CardBody, CardFooter } from '../../shared/components/Card';
 import TextBox from '../../shared/components/TextBox';
 
+import { validateEmail } from '../../utils/stringUtil';
+
 import './styles.scss';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: 'Hi',
-      password: 'pass',
+      username: 'test@test.com',
+      password: 'password',
       errorMessage: null,
       loginDone: false,
+      form: {
+        username: true,
+        password: true,
+      },
     };
 
     this.updateVal = this.updateVal.bind(this);
@@ -33,15 +39,53 @@ class Login extends Component {
     const {
       username,
       password,
+      form,
     } = this.state;
 
     console.log('from', location.state);
-    login(username, password, () => {
-      this.setState({
-        loginDone: true,
+    if (Object.values(form).every(item => item)) {
+      login(username, password, () => {
+        this.setState({
+          loginDone: true,
+        });
       });
-    });
+    }
   }
+
+  validateField = (fieldKey, fieldValue) => {
+    if (fieldKey === 'email') {
+      const result = validateEmail(fieldValue);
+      return {
+        success: result,
+        message: 'Please enter a valid email address',
+      };
+    }
+    if (fieldKey === 'password') {
+      if (fieldValue.length < 3) {
+        return {
+          success: false,
+          message: 'Password is too short',
+        };
+      }
+      return {
+        success: true,
+      };
+    }
+    return null;
+  };
+
+  updateForm = (fieldKey, result) => {
+    const {
+      form,
+    } = this.state;
+
+    this.setState({
+      form: {
+        ...form,
+        [fieldKey]: result,
+      },
+    });
+  };
 
   updateVal(field, val) {
     this.setState({
@@ -54,6 +98,7 @@ class Login extends Component {
       errorMessage: null,
     });
   }
+  
 
   render() {
     const {
@@ -61,6 +106,7 @@ class Login extends Component {
       password,
       errorMessage,
       loginDone,
+      form,
     } = this.state;
     const {
       location,
@@ -81,21 +127,28 @@ class Login extends Component {
               Welcome
             </div>
             <TextBox
+              type="email"
+              formData={form}
+              fieldKey="email"
               value={username}
               onChange={e => this.updateVal('username', e.target.value)}
               placeholder="Username"
               label="Username:"
               fluid
-              icon="fa fa-user"
+              onValidate={this.validateField}
+              onError={this.updateForm}
             />
             <TextBox
               type="password"
+              formData={form}
+              fieldKey="password"
               value={password}
               onChange={e => this.updateVal('password', e.target.value)}
               placeholder="Password"
               label="Password:"
               fluid
-              icon="fa fa-key"
+              onValidate={this.validateField}
+              onError={this.updateForm}
             />
             <Link to="/forgot-password">Forgot your password here?</Link>
             { !isEmpty(errorMessage) &&

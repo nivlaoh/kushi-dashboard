@@ -22,8 +22,10 @@ class Settings extends Component {
   componentDidMount() {
     const {
       getProfilePic,
+      getUserInfo,
     } = this.props;
     getProfilePic();
+    getUserInfo();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -92,8 +94,13 @@ class Settings extends Component {
       { key: 'test9', value: 'mysteak' }
     ];
     const {
+      user,
+      updateUserInfo,
+    } = this.props;
+    const {
       files,
     } = this.state;
+
     return (
       <div className="content-wrapper">
         <div className="pageTitle">Settings</div>
@@ -101,10 +108,26 @@ class Settings extends Component {
           <Tabs type="horizontal" style={settingsStyle}>
             <Tab title="Profile" active>
               <div className="infoRow">
-                <TextBox label="First Name" placeholder="First Name" />
-                <TextBox label="Last Name" placeholder="Last Name" />
+                <TextBox
+                  label="First Name"
+                  placeholder="First Name"
+                  value={user.firstName}
+                  onChange={e => { updateUserInfo('firstName', e.target.value); }}
+                />
+                <TextBox
+                  label="Last Name"
+                  placeholder="Last Name"
+                  value={user.lastName}
+                  onChange={e => { updateUserInfo('lastName', e.target.value); }}
+                />
               </div>
-              <TextBox label="Email Address" type="email" placeholder="Email Address" />
+              <TextBox
+                label="Email Address"
+                type="email"
+                placeholder="Email Address"
+                value={user.username}
+                readOnly
+              />
               <FileUpload
                 title="Upload Profile Picture"
                 description="Please upload an image for your profile picture"
@@ -114,7 +137,13 @@ class Settings extends Component {
               />
             </Tab>
             <Tab title="System">
-              <MultiSelect placeholder="Enter option" multi options={options} searchCallback={()=>{}} />
+              <MultiSelect
+                placeholder="Enter option"
+                label="Test multi select"
+                multi
+                options={options}
+                searchCallback={()=>{}}
+              />
               <System />
             </Tab>
             <Tab title="Third">Hello3</Tab>
@@ -129,11 +158,15 @@ Settings.propTypes = {
   user: PropTypes.shape({}).isRequired,
   uploadProfilePic: PropTypes.func,
   getProfilePic: PropTypes.func,
+  getUserInfo: PropTypes.func,
+  updateUserInfo: PropTypes.func,
 };
 
 Settings.defaultProps = {
   uploadProfilePic: () => {},
   getProfilePic: () => {},
+  getUserInfo: () => {},
+  updateUserInfo: () => {},
 };
 
 export default Settings;

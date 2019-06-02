@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 const logger = store => next => action => {
   console.group(action.type);
   console.info('dispatching', action);
   const result = next(action);
-  console.log('next state', store.getState());
+  console.log('updated state', store.getState());
   console.groupEnd();
   return result;
 }

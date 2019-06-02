@@ -1,9 +1,17 @@
-.dropdownMenu {
+.dropdownWrapper {
 	background: white;
 	border: solid 1px #ccc;
 	box-shadow: 0 2px 8px #ccc;
 	position: absolute;
 	z-index: 80;
+	overflow-y: auto;
+	height: 300px;
+}
+
+.dropdownMenu {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
 	overflow-y: auto;
 }
 

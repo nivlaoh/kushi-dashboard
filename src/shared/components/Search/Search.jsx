@@ -97,7 +97,6 @@ class Search extends Component {
       inputValue,
       dropdownVisible,
     } = this.state;
-    const textStyle = 'search';
     const resultStyle = {
       width: this.searchBox.current === null ? 'auto' : this.searchBox.current.clientWidth,
     };
@@ -107,7 +106,7 @@ class Search extends Component {
           <input
             type="text"
             ref={this.searchBox}
-            className={textStyle}
+            className="search"
             value={inputValue}
             onChange={this.asyncSearch}
             onKeyDown={this.checkKeystroke}
