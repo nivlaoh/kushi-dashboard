@@ -1,6 +1,6 @@
 # Kushi Dashboard
 
-[![Build Status](https://travis-ci.org/nivlaoh/kushi-dashboard.svg?branch=master)](https://travis-ci.org/nivlaoh/kushi-dashboard)
+[![Build Status](https://travis-ci.org/nivlaoh/kushi-dashboard.svg?branch=master)](https://travis-ci.com/nivlaoh/kushi-dashboard.svg?branch=master)
 
 Kushi Dashboard is a general purpose admin dashboard, React-redux powered.
 

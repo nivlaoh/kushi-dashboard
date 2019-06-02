@@ -176,9 +176,9 @@ class MultiSelect extends Component {
         console.log('searching...', e);
         searchCallback(e);
       } else {
-       console.log(e);
         this.setState({
-          filteredOptions: options.filter(option => option.value.toLowerCase().includes(this.searchBox.current.value)),
+          filteredOptions: options.filter(option =>
+            option.value.toLowerCase().includes(this.searchBox.current.value)),
         });
       }
     }, searchDelay);
@@ -197,7 +197,14 @@ class MultiSelect extends Component {
           <div className="selectedTags">
             { this.showSelectedTags().map(opt =>
               <div key={opt.key} className="selectedTag">
-                <i className="fa fa-close" refkey={opt.key} onClick={this.selectOption}></i> &nbsp;{opt.value}
+                <i
+                  className="fa fa-close"
+                  refkey={opt.key}
+                  onClick={this.selectOption}
+                  role="button"
+                  tabIndex="0"
+                >
+                </i> &nbsp;{opt.value}
               </div>
             )}
           </div>
