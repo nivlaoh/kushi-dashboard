@@ -127,7 +127,7 @@ TextBox.propTypes = {
 TextBox.defaultProps = {
   type: 'text',
   fieldKey: undefined,
-  value: undefined,
+  value: '',
   onChange: () => {},
   onValidate: null,
   onError: () => {},

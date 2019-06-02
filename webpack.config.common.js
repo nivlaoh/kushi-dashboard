@@ -40,6 +40,7 @@ const postCSSLoader = {
 module.exports = {
   entry: {
     app: './src/index.js',
+    weather: './src/components/Weather/index.js'
   },
   plugins: [
     new Dotenv(),
@@ -57,7 +58,9 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
-        options: { presets: ['@babel/env'] }
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react']
+        }
       },
       {
         test: /\.css$/,
@@ -97,6 +100,7 @@ module.exports = {
   },
   output: {
     filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/')
   },
   optimization: {

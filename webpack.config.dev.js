@@ -16,9 +16,6 @@ module.exports = merge(common, {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
   ],
-  module: {
-    rules: []
-  },
   resolve: {
     extensions: ['*', '.js', '.jsx'],
     alias: {
@@ -27,6 +24,7 @@ module.exports = merge(common, {
   },
   output: {
     filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/'),
     publicPath: '/'
   },

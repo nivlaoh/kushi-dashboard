@@ -5,6 +5,9 @@ export const isAdvancedUpload = () => {
 
 export const formatFileSize = (size) => {
   const sizeInKb = size/1024;
+  if (sizeInKb >= 1048576) {
+    return `${Math.round(sizeInKb/1024/1024)} GB`;
+  }
   return sizeInKb < 1024 ? `${Math.round(sizeInKb)} kB` : `${Math.round(sizeInKb/1024)} MB`;
 };
 

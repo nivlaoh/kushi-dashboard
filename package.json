@@ -10,7 +10,8 @@
     "start": "webpack-dev-server --mode development --config webpack.config.dev.js --colors",
     "build": "webpack --config ./webpack.config.prod.js --progress --colors",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "visualise": "npx webpack --profile --json > stats.json"
   },
   "keywords": [
     "dashboard",
@@ -53,7 +54,8 @@
     "cssnano": "^4.1.10",
     "dotenv-webpack": "^1.7.0",
     "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.13.1",
+    "enzyme-adapter-react-16": "^1.13.2",
+    "enzyme-to-json": "^3.3.5",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.3.0",
