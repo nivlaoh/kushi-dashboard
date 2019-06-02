@@ -6,5 +6,8 @@ module.exports = {
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['\\\\node_modules\\\\'],
   testURL: 'http://localhost',
-  transformIgnorePatterns: ['./node_modules/']
+  transformIgnorePatterns: ['./node_modules/'],
+  "moduleNameMapper": {
+    "^.+\\.(css|less|scss)$": "babel-jest"
+  }
 };

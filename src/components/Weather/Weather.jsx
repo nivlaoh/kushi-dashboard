@@ -29,7 +29,11 @@ class Weather extends Component {
       return null;
     }
     const isDay = moment().hour() > 5 && moment().hour() < 18;
-    return <i className={`weatherIcon wi wi-${isDay ? 'day' : 'night'}-${forecast.toLowerCase()}`}></i>;
+    let description = forecast.replace(/\s+/g, '-').toLowerCase();
+    if (description.includes('cloudy')) {
+      description = 'cloudy';
+    }
+    return <i className={`weatherIcon wi wi-${isDay ? 'day' : 'night'}-${description}`}></i>;
   };
 
   render() {
