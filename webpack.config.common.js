@@ -40,7 +40,8 @@ const postCSSLoader = {
 module.exports = {
   entry: {
     app: './src/index.js',
-    weather: './src/components/Weather/index.js'
+    weather: './src/components/Weather/index.js',
+    map: './src/components/Map/index.js'
   },
   plugins: [
     new Dotenv(),
@@ -90,16 +91,20 @@ module.exports = {
       },
       {
         test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-        use: 'file-loader',
+        use: 'file-loader?name=[name].[ext]',
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i, 
-        loader: 'file-loader?name=[name]-[hash].[ext]'
+        loader: 'file-loader?name=[name].[ext]'
       },
+      {
+        test: /\.geojson$/i,
+        loader: 'json-loader'
+      }
     ],
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name]-[chunkhash].bundle.js',
     chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/')
   },

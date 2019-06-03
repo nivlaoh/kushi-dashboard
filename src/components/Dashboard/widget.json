@@ -12,8 +12,10 @@
     	"id": "2",
     	"rows": 2,
     	"columns": 3,
-    	"background": "pink",
-    	"color": "white"
+    	"background": "#00bcd4",
+    	"color": "white",
+        "type": "component",
+        "componentSrc": "Map"
 	},
 	{
     	"id": "3",

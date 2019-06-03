@@ -2,15 +2,15 @@ import axios from 'axios';
 
 import actions from './actions';
 import { getLocation, getNearestArea } from '../../utils/geolocation';
+import logger from '../../utils/logger';
 
 const getAirTemperature = () => (dispatch) => {
   axios.get('https://api.data.gov.sg/v1/environment/air-temperature')
     .then((response) => {
-      console.log(response);
       dispatch(actions.getAirTemperature(response.data.items[0].readings[0].value));
     })
     .catch((error) => {
-      console.log('error', error);
+      logger(error, 'ERROR');
     });
 };
 
@@ -21,7 +21,7 @@ const getWeatherForecast = () => (dispatch) => {
     longitude: 103.839,
   };
   const locationCallback = (position) => {
-    console.log('location', position);
+    logger(`location ${position}`);
     const {
       coords,
     } = position;
@@ -31,7 +31,6 @@ const getWeatherForecast = () => (dispatch) => {
   };
   axios.get('https://api.data.gov.sg/v1/environment/2-hour-weather-forecast')
     .then((response) => {
-      console.log('forecast', response);
       getLocation(locationCallback);
       area = getNearestArea(myCoords, response.data.area_metadata);
       const areaForecast = response.data.items[0].forecasts.filter(forecast => forecast.area === area);
@@ -39,7 +38,7 @@ const getWeatherForecast = () => (dispatch) => {
         response.data.items[0].forecasts[0]));
     })
     .catch((error) => {
-      console.log('error', error);
+      logger(error, 'ERROR');
     });
 };
 

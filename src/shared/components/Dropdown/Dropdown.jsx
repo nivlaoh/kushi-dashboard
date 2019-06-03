@@ -23,7 +23,6 @@ class Dropdown extends Component {
       event,
     } = this.props;
     if (!isEmpty(target) && !isEmpty(target.current)) {
-      console.log('attaching click', target.current);
       target.current.addEventListener(event, this.openDropdown, false);
     }
     document.addEventListener('mousedown', this.closeDropdown, false);

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 
+import logger from '../../../utils/logger';
+
 import './styles.scss';
 
 class Loader extends Component {
@@ -37,7 +39,7 @@ class Loader extends Component {
   }
 
   componentWillUnmount() {
-    console.log('unmount');
+    logger('unmount');
     clearTimeout(this.timer);
     clearTimeout(this.loaderTimer);
   }
@@ -45,7 +47,7 @@ class Loader extends Component {
   dismissLoader(props) {
     if (isEmpty(this.timer) && props.timeout !== -1) {
       this.timer = setTimeout(() => {
-        console.log('clear timer');
+        logger('clear timer');
         props.timeoutFn();
         clearTimeout(this.timer);
         this.timer = null;

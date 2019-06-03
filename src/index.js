@@ -8,7 +8,7 @@ import 'font-awesome/css/font-awesome.css';
 
 import rootReducer from './reducers';
 import Routes from './router';
-import logger from './utils/logger';
+import logger from './middlewares/logger';
 
 const Root = ({ store }) => (
   <Provider store={store}>
