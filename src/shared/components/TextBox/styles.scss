@@ -42,7 +42,7 @@
 			border: solid 1px $textBoxHover;
 			background: #eee;
 		}
-		&:focus {
+		&:not(:read-only):focus {
 			border: solid 1px $textBoxHover;
 		}
 		&::placeholder {

@@ -38,10 +38,12 @@
 	min-width: 250px;
 	min-height: 200px;
 	border-radius: 6px;
-	padding: 1rem;
 	margin-bottom: 15px;
 	& + & {
 		margin-left: 15px;
+	}
+	&.padding {
+		padding: 1rem;
 	}
 }
 

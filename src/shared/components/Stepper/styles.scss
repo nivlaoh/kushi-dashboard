@@ -1,0 +1,105 @@
+@import "../../../variables.scss";
+
+.stepperContainer {
+	display: flex;
+	flex: 1;
+	margin-right: 30px;
+	.step {
+		background: #0277bd;
+		color: #ddd;
+		min-height: 100px;
+		display: flex;
+		flex: 1;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		position: relative;
+		&:first-child {
+			.stepTitle {
+				margin-left: 0;
+			}
+			.description {
+				margin-left: 0;
+			}
+		}
+		&.next {
+			cursor: pointer;
+			color: white;
+			background: $linkBlue;
+			&:after {
+				background: $linkBlue;
+			}
+			&:active {
+				background: #004c8c;
+				&:after {
+					background: #004c8c;
+				}
+			}
+			.stepCount {
+				background: white;
+			}
+		}
+		&:after {
+			content: '';
+			width: 70px;
+			height: 70px;
+			background: #0277bd;
+			border-top: solid 1px #bbb;
+			border-right: solid 1px #bbb;
+			position: absolute;
+			right: 0;
+			top: 15px;
+			transform: translateX(35px) rotateY(55deg) rotateZ(45deg);
+			z-index: 2;
+		}
+		&.active {
+			background: #58a5f0;
+			color: white;
+			&:after {
+				background: #58a5f0;
+			}
+			.stepCount {
+				background: white;
+			}
+		}
+		.stepCount {
+			position: absolute;
+			right: 20px;
+			top: 10px;
+			background: #ddd;
+			color: #0277bd;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 20px;
+			height: 20px;
+			border-radius: 100%;
+			pointer-events: none;
+		}
+		.stepTitle {
+			display: flex;
+			justify-content: center;
+			align-items: flex-end;
+			width: 100%;
+			max-width: 150px;
+			font-weight: bold;
+			font-size: 1.3rem;
+			margin-left: 20px;
+			pointer-events: none;
+		}
+		.description {
+			display: flex;
+			justify-content: center;
+			width: 100%;
+			max-width: 145px;
+			font-size: 1.1rem;
+			margin-left: 20px;
+			pointer-events: none;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			max-height: 2.8rem;
+		}
+	}
+}

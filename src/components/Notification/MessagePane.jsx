@@ -235,7 +235,7 @@ class MessagePane extends Component {
           </div>
           {reply &&
             <div className={`replyPane ${closingReply ? 'closing' : ''}`}>
-              <textarea ref={this.replyRef}></textarea>
+              <textarea ref={this.replyRef} placeholder="Type your reply here..."></textarea>
               <div className="closeReplyPane" role="button" tabIndex="0" onClick={this.closeReplyPane}>
                 <i className="fa fa-close"></i>
               </div>

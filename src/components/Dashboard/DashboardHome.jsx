@@ -24,7 +24,7 @@ class DashboardHome extends Component {
       <div className="content" onDragOver={this.allowDrop} onDrop={this.drop}>
         { widgets &&
           widgets.map(widget =>
-            <Widget key={`wid.${widget.id}`} widget={widget} />)
+            <Widget key={`wid.${widget.id}`} widget={widget} hasPadding={widget.hasPadding} />)
         }
       </div>
     );

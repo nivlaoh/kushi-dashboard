@@ -41,11 +41,15 @@
 	transition: all 0.2s ease-out;
 	color: #333;
 	border: solid 1px $formWidgetBorder;
-	&:hover {
+	&:read-only {
+		background: #eee;
+		color: #999;
+	}
+	&:not(:read-only):hover {
 		border: solid 1px $textBoxHover;
 		background: #eee;
 	}
-	&:focus {
+	&:not(:read-only):focus {
 		border: solid 1px $textBoxHover;
 	}
 }

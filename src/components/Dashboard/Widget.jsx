@@ -57,6 +57,7 @@ class Widget extends Component {
     const {
       widget,
       draggable,
+      hasPadding,
     } = this.props;
 
     const style = {
@@ -74,7 +75,7 @@ class Widget extends Component {
       <div
         key={`wid-${widget.id}`}
         id={`wid-${widget.id}`}
-        className="widget"
+        className={`widget ${hasPadding ? 'padding' : ''}`}
         style={style}
         draggable={draggable}
         onDragStart={this.onDrag}
@@ -88,10 +89,12 @@ class Widget extends Component {
 Widget.propTypes = {
   widget: WidgetModel.isRequired,
   draggable: PropTypes.bool,
+  hasPadding: PropTypes.bool,
 };
 
 Widget.defaultProps = {
   draggable: false,
+  hasPadding: true,
 };
 
 export default Widget;

@@ -6,6 +6,7 @@ import { Tab, Tabs } from '../../shared/components/Tabs';
 import FileUpload from '../../shared/components/FileUpload';
 import MultiSelect from '../../shared/components/MultiSelect';
 import TextBox from '../../shared/components/TextBox';
+import Stepper from '../../shared/components/Stepper';
 import System from './System';
 
 import './styles.scss';
@@ -93,6 +94,11 @@ class Settings extends Component {
       { key: 'test8', value: '329fs09' },
       { key: 'test9', value: 'mysteak' }
     ];
+    const steps = [
+      { title: 'Hey', description: 'Hello there' },
+      { title: 'Step 2', description: 'Fill in' },
+      { title: 'Step 3 Long Title Here', description: 'Sign and Print and many other procedures' },
+    ];
     const {
       user,
       updateUserInfo,
@@ -146,7 +152,9 @@ class Settings extends Component {
               />
               <System />
             </Tab>
-            <Tab title="Third">Hello3</Tab>
+            <Tab title="Third">
+              <Stepper steps={steps} />
+            </Tab>
           </Tabs>
         </div>
       </div>

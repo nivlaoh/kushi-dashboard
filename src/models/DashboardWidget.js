@@ -9,6 +9,7 @@ const DashboardWidget = PropTypes.shape({
   type: PropTypes.oneOf(['site', 'plugin', 'component']),
   url: PropTypes.string,
   componentSrc: PropTypes.string,
+  hasPadding: PropTypes.bool,
 });
 
 export default DashboardWidget;

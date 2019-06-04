@@ -32,10 +32,10 @@ class Map extends Component {
 
     d3.select('#content').append('rect')
       .attr('class', 'mouse-capture')
-      .attr('x', 0)//-5000)
-      .attr('y', 0)//-5000)
-      .attr('width', 750)//15000)
-      .attr('height', 360)//15000)
+      .attr('x', -5000)
+      .attr('y', -5000)
+      .attr('width', 15000)
+      .attr('height', 15000)
       .style('fill', 'transparent')
       .lower()
       .call(zoom);
@@ -74,8 +74,8 @@ class Map extends Component {
       translate,
     } = this.state;
 
-    const width = 720;
-    const height = 360;
+    const width = 748;
+    const height = 398;
 
     const projection = d3.geoEquirectangular()
       .scale(scale)
@@ -132,10 +132,10 @@ class Map extends Component {
   render() {
     return (
       <div className="mapContainer">
-        Map
+        <div className="widgetTitle">Map</div>
         <svg
-          width="720"
-          height="360"
+          width="748"
+          height="398"
           id="content"
           preserveAspectRatio="xMidYMid meet"
         >

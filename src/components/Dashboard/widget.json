@@ -15,7 +15,8 @@
     	"background": "#00bcd4",
     	"color": "white",
         "type": "component",
-        "componentSrc": "Map"
+        "componentSrc": "Map",
+        "hasPadding": false
 	},
 	{
     	"id": "3",
