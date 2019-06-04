@@ -7,6 +7,7 @@ import FileUpload from '../../shared/components/FileUpload';
 import MultiSelect from '../../shared/components/MultiSelect';
 import TextBox from '../../shared/components/TextBox';
 import Stepper from '../../shared/components/Stepper';
+import Popup from '../../shared/components/Popup';
 import System from './System';
 
 import './styles.scss';
@@ -17,6 +18,7 @@ class Settings extends Component {
     this.acceptedTypes = ['image/png', 'image/gif', 'image/jpeg'];
     this.state = {
       files: [],
+      showDialog: false,
     };
   }
 
@@ -79,6 +81,12 @@ class Settings extends Component {
     }, 1000);
   };
 
+  dismissDialog = () => {
+    this.setState({
+      showDialog: false,
+    });
+  };
+
   render() {
     const settingsStyle = {
       maxWidth: '700px',
@@ -105,6 +113,7 @@ class Settings extends Component {
     } = this.props;
     const {
       files,
+      showDialog,
     } = this.state;
 
     return (
@@ -154,6 +163,8 @@ class Settings extends Component {
             </Tab>
             <Tab title="Third">
               <Stepper steps={steps} />
+              <button type="button" onClick={() => {this.setState({ showDialog: true })}}>Show</button>
+              <Popup text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, laudantium! Laborum in quibusdam iure labore impedit explicabo ea ipsum, corrupti odio blanditiis qui, facere voluptates assumenda, perferendis optio! Fuga, corporis!" show={showDialog} onConfirm={this.dismissDialog} onDismiss={this.dismissDialog} />
             </Tab>
           </Tabs>
         </div>

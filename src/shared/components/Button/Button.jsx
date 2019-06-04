@@ -9,16 +9,6 @@ class Button extends Component {
     this.btnRef = React.createRef();
   }
 
-  clickEvt = (e) => {
-    e.preventDefault();
-    const {
-      onClick,
-    } = this.props;
-    console.log('aaa');
-    this.btnRef.focus();
-    onClick(e);
-  };
-
   render() {
     const {
       text,
@@ -35,7 +25,7 @@ class Button extends Component {
     };
 
   	return (
-      <button type="button" ref={this.btnRef} className={type} onClick={this.clickEvt} {...buttonProps}>
+      <button type="button" ref={this.btnRef} className={type} onClick={onClick} {...buttonProps}>
         { text || children }
       </button>
     );

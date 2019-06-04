@@ -56,6 +56,24 @@ $pageTitle: #696969;
 	}
 }
 
+@keyframes fadeIn {
+    0% {
+    	opacity: 0;
+    }
+    100% {
+    	opacity: 0.8;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+    	opacity: 0.8;
+    }
+    100% {
+    	opacity: 0;
+    }
+}
+
 .infoRow {
 	display: flex;
 }

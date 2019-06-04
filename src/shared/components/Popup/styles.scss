@@ -1,0 +1,51 @@
+@import "../../../variables.scss";
+
+.popupContainer {
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 20;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(0,0,0, 0.5);
+	animation: fadeIn 0.4s ease-out;
+	.popup {
+		display: flex;
+		flex-direction: column;
+		background: white;
+		border: solid 1px #ccc;
+		min-width: 350px;
+		min-height: 250px;
+		max-height: 100vh;
+		max-width: 600px;
+		border-radius: 5px;
+		box-shadow: 0 2px 25px #888;
+		overflow-y: auto;
+		.popupTitle {
+			display: flex;
+			justify-content: center;
+			text-transform: uppercase;
+			padding: 1rem 1rem 0 1rem;
+			font-weight: bold;
+			font-size: 1.2rem;
+			font-family: Verdana, Arial, sans-serif;
+		}
+		.popupText {
+			display: flex;
+			flex: 1;
+			padding: 1rem 2rem;
+			font-size: 1.1rem;
+		}
+		.popupReply {
+			margin-left: 2rem;
+			margin-right: 2rem;
+		}
+		.buttonsControl {
+			display: flex;
+			justify-content: flex-end;
+		}
+	}
+}

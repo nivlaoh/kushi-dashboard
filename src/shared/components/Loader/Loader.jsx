@@ -73,13 +73,9 @@ class Loader extends Component {
     } = this.state;
 
     const loaderClasses = !activate ? 'loader-container fadeOut' : 'loader-container';
-    const loaderStyle = {
-      left: document.body.scrollLeft,
-      top: document.body.scrollTop,
-    };
     return (
       !offLoader ?
-      <div className={loaderClasses} style={loaderStyle}>
+      <div className={loaderClasses}>
         <i className="fa fa-circle-o-notch fa-3x fa-spin fa-fw"></i>
       </div> :
       null

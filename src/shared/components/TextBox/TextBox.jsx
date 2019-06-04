@@ -62,6 +62,21 @@ class TextBox extends Component {
     return null;
   };
 
+  getTextClasses = () => {
+    const {
+      fluid,
+      className,
+    } = this.props;
+    let textClass = 'text';
+    if (fluid) {
+      textClass += ' full';
+    }
+    if (className !== '') {
+      textClass += ` ${className}`;
+    }
+    return textClass;
+  };
+
   render() {
     const {
       type,
@@ -69,7 +84,6 @@ class TextBox extends Component {
       maxlength,
       placeholder,
       label,
-      fluid,
       readOnly,
     } = this.props;
     const {
@@ -77,7 +91,6 @@ class TextBox extends Component {
       validationMessage,
     } = this.state;
 
-    const textStyle = fluid ? 'text full' : 'text';
     const fieldIcon = this.getFieldIcon();
 
     return (
@@ -88,7 +101,7 @@ class TextBox extends Component {
         <div className="textboxRow">
           <input
             type={type}
-            className={textStyle}
+            className={this.getTextClasses()}
             value={value}
             onChange={this.textChange}
             maxLength={maxlength}
@@ -112,6 +125,7 @@ class TextBox extends Component {
 TextBox.propTypes = {
   type: PropTypes.oneOf(['text', 'number', 'email', 'password']),
   fieldKey: PropTypes.string,
+  className: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
   onValidate: PropTypes.func,
@@ -127,6 +141,7 @@ TextBox.propTypes = {
 TextBox.defaultProps = {
   type: 'text',
   fieldKey: undefined,
+  className: '',
   value: '',
   onChange: () => {},
   onValidate: null,
