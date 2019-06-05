@@ -6,7 +6,9 @@
 	padding: 0.8rem;
 	border: solid 1px $btnDefault;
 	border-radius: 5px;
+	color: #666;
 	margin: 0.4rem;
+	min-width: 70px;
 	max-width: 150px;
 	transition: all 0.3s ease-out;
 	font-weight: bold;
@@ -14,7 +16,8 @@
 	overflow: hidden;
 	outline: none;
 	&:hover {
-		background-color: #ddd;
+		background-color: #eee;
+		border-color: #aaa;
 		cursor: pointer;
 	}
 	&:after {
@@ -44,5 +47,25 @@
 		background-color: white;
 		color: gray;
 		border-color: gray;
+	}
+}
+
+.icon-clear {
+	@extend .default;
+	background: none;
+	border: none;
+}
+
+.rounded {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: auto;
+	width: 35px;
+	height: 35px;
+	border-radius: 100%;
+	margin: 0.3rem;
+	&:hover {
+		background-color: #ccc;
 	}
 }

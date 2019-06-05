@@ -11,6 +11,7 @@ const mapStateToProps = (state, ownProps) => {
       ...state.login,
       profilePic: state.settings.profilePic,
     },
+    countries: state.settings.countries,
   };
 };
 
@@ -19,6 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
   getProfilePic: () => operations.getProfilePic()(dispatch),
   getUserInfo: () => loginOperations.getUserInfo()(dispatch),
   updateUserInfo: (field, value) => loginOperations.updateUserInfo(field, value)(dispatch),
+  getCountries: () => operations.getCountries()(dispatch),
 });
 
 const SettingsContainer = connect(mapStateToProps, mapDispatchToProps)(withRouter(Settings));

@@ -92,6 +92,7 @@ class Header extends Component {
     const {
       user,
       toggleSidebar,
+      title,
     } = this.props;
 
     const profileContentStyle = showProfileDetails ?
@@ -139,7 +140,7 @@ class Header extends Component {
           <i className="fa fa-bars"></i>
         </div>
         <div className="dashboard-title">
-          Dashboard
+          {title}
         </div>
         <Search onChange={search} onSearch={search} options={searchOptions} />
         <div className="notification-icon" ref={this.notificationIcon}>
@@ -172,11 +173,13 @@ class Header extends Component {
 Header.propTypes = {
   toggleSidebar: PropTypes.func,
   profilePic: PropTypes.string,
+  title: PropTypes.string,
 };
 
 Header.defaultProps = {
   toggleSidebar: () => {},
   profilePic: null,
+  title: 'Dashboard',
 };
 
 export default Header;

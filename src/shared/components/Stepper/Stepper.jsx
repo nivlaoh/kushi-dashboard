@@ -13,18 +13,25 @@ class Stepper extends Component {
     };
   }
 
+  onFocus = () => {};
+
+  onBlur = () => {};
+
   goNextStep = (e) => {
+    const {
+      interactive,
+    } = this.props;
     const {
       active,
     } = this.state;
-    if (parseInt(e.target.id, 10) === active + 1) {
+    if (interactive && parseInt(e.target.id, 10) === active + 1) {
       this.setState({
         focus: active + 1,
       });
     }
   };
 
-  deactivate = (e) => {
+  deactivate = () => {
     this.setState({
       focus: -1,
     });
@@ -59,9 +66,13 @@ class Stepper extends Component {
             id={index}
             key={step.title}
             className={this.getStepClasses(index)}
+            role="button"
+            tabIndex={index}
             onMouseOver={this.goNextStep}
             onMouseOut={this.deactivate}
-            onClick={this.nextStep}
+            onClick={nextStep}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
           >
             <div className="stepCount">{index + 1}</div>
             <div className="stepTitle">{step.title}</div>
@@ -77,11 +88,13 @@ class Stepper extends Component {
 Stepper.propTypes = {
   steps: PropTypes.arrayOf(PropTypes.shape({})),
   nextStep: PropTypes.func,
+  interactive: PropTypes.bool,
 };
 
 Stepper.defaultProps = {
   steps: [],
   nextStep: () => {},
+  interactive: true,
 };
 
 export default Stepper;

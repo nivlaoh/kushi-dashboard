@@ -28,10 +28,14 @@
 			display: flex;
 			justify-content: center;
 			text-transform: uppercase;
-			padding: 1rem 1rem 0 1rem;
+			padding: 1rem 1rem 0.5rem 1rem;
 			font-weight: bold;
 			font-size: 1.2rem;
-			font-family: Verdana, Arial, sans-serif;
+			font-family: Arial, sans-serif;
+		}
+		.popupContent {
+			display: flex;
+			flex: 1;
 		}
 		.popupText {
 			display: flex;

@@ -14,7 +14,15 @@ const uploadProfilePicture = (file) => {
   };
 };
 
+const getCountries = (countries) => {
+  return {
+    type: types.GET_COUNTRIES,
+    countries,
+  };
+}
+
 export default {
   getProfilePicture,
   uploadProfilePicture,
+  getCountries,
 };

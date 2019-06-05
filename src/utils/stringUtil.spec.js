@@ -1,4 +1,4 @@
-import { validateEmail } from './stringUtil';
+import { validateEmail, accentFold } from './stringUtil';
 
 describe('stringUtil', () => {
   describe('validateEmail', () => {
@@ -16,6 +16,12 @@ describe('stringUtil', () => {
 
     it('should return false for invalid characters in local part', () => {
       expect(validateEmail('<>@test.com')).toBe(false);
+    });
+  });
+
+  describe('accentFold', () => {
+    it('should return unaccented character', () => {
+      expect(accentFold('Åland')).toEqual('Aland');
     });
   });
 });

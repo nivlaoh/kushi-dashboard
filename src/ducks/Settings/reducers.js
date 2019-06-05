@@ -1,4 +1,4 @@
-import { GET_PROFILE_PIC, UPLOAD_PROFILE_PIC } from './types';
+import { GET_PROFILE_PIC, UPLOAD_PROFILE_PIC, GET_COUNTRIES } from './types';
 
 const reducer = (state = {}, action) => {
   switch (action.type) {
@@ -11,6 +11,11 @@ const reducer = (state = {}, action) => {
       return {
         ...state,
         profilePic: action.image,
+      };
+    case GET_COUNTRIES:
+      return {
+        ...state,
+        countries: action.countries,
       };
     default:
       return state;

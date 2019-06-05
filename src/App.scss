@@ -43,3 +43,23 @@ a {
 .noscroll {
 	overflow: hidden;
 }
+
+.content-wrapper {
+	display: flex;
+	padding: 15px;
+	flex-direction: column;
+	flex: 1;
+}
+
+.pageTitle {
+	font-size: 2rem;
+	font-weight: bold;
+	margin-bottom: 1.2rem;
+	color: $pageTitle;
+	display: flex;
+	span {
+		font-size: 2rem;
+		font-weight: bold;
+		flex: 1;
+	}
+}

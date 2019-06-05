@@ -7,7 +7,7 @@ import FileUpload from '../../shared/components/FileUpload';
 import MultiSelect from '../../shared/components/MultiSelect';
 import TextBox from '../../shared/components/TextBox';
 import Stepper from '../../shared/components/Stepper';
-import Popup from '../../shared/components/Popup';
+import Dialog from '../../shared/components/Dialog';
 import System from './System';
 
 import './styles.scss';
@@ -26,9 +26,12 @@ class Settings extends Component {
     const {
       getProfilePic,
       getUserInfo,
+      getCountries,
     } = this.props;
+    
     getProfilePic();
     getUserInfo();
+    getCountries();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -110,6 +113,7 @@ class Settings extends Component {
     const {
       user,
       updateUserInfo,
+      countries,
     } = this.props;
     const {
       files,
@@ -143,6 +147,11 @@ class Settings extends Component {
                 value={user.username}
                 readOnly
               />
+              <MultiSelect
+                label="Country of Residence"
+                placeholder="Please select your country of residence"
+                options={countries}
+              />
               <FileUpload
                 title="Upload Profile Picture"
                 description="Please upload an image for your profile picture"
@@ -164,7 +173,7 @@ class Settings extends Component {
             <Tab title="Third">
               <Stepper steps={steps} />
               <button type="button" onClick={() => {this.setState({ showDialog: true })}}>Show</button>
-              <Popup text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, laudantium! Laborum in quibusdam iure labore impedit explicabo ea ipsum, corrupti odio blanditiis qui, facere voluptates assumenda, perferendis optio! Fuga, corporis!" show={showDialog} onConfirm={this.dismissDialog} onDismiss={this.dismissDialog} />
+              <Dialog text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, laudantium! Laborum in quibusdam iure labore impedit explicabo ea ipsum, corrupti odio blanditiis qui, facere voluptates assumenda, perferendis optio! Fuga, corporis!" show={showDialog} onConfirm={this.dismissDialog} onDismiss={this.dismissDialog} />
             </Tab>
           </Tabs>
         </div>
@@ -175,6 +184,7 @@ class Settings extends Component {
 
 Settings.propTypes = {
   user: PropTypes.shape({}).isRequired,
+  countries: PropTypes.arrayOf(),
   uploadProfilePic: PropTypes.func,
   getProfilePic: PropTypes.func,
   getUserInfo: PropTypes.func,
@@ -182,6 +192,7 @@ Settings.propTypes = {
 };
 
 Settings.defaultProps = {
+  countries: [],
   uploadProfilePic: () => {},
   getProfilePic: () => {},
   getUserInfo: () => {},

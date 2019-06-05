@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { debounce, isEmpty, isFunction } from 'lodash';
 
 import Checkbox from '../Checkbox';
+import { accentFold } from '../../../utils/stringUtil';
 
 import './styles.scss';
 
@@ -178,7 +179,7 @@ class MultiSelect extends Component {
       } else {
         this.setState({
           filteredOptions: options.filter(option =>
-            option.value.toLowerCase().includes(this.searchBox.current.value)),
+            accentFold(option.value).toLowerCase().includes(this.searchBox.current.value)),
         });
       }
     }, searchDelay);
@@ -217,6 +218,7 @@ class MultiSelect extends Component {
             onKeyDown={this.handleKeyDown}
             defaultValue={value}
             disabled={readonly}
+            autoComplete="off"
           />
           <div className="select-arrow">
             <i className="fa fa-caret-down"></i>

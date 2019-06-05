@@ -15,36 +15,27 @@
 	background: $pageGray;
 }
 
-.content-wrapper {
-	display: flex;
-	padding: 15px;
-	flex-direction: column;
-	flex: 1;
-}
-
-.content {
-	display: flex;
-	flex: 1 0 0;
-	padding: 15px;
-	align-items: flex-start;
-	flex-wrap: wrap;
+.widgetsWrapper {
+	width: 100%;
+	position: relative;
 }
 
 .widget {
-	display: flex;
+	position: absolute;
 	border: solid 1px white;
 	box-shadow: 0 1px 5px #888;
 	background: white;
 	min-width: 250px;
 	min-height: 200px;
 	border-radius: 6px;
-	margin-bottom: 15px;
-	& + & {
-		margin-left: 15px;
-	}
 	&.padding {
 		padding: 1rem;
 	}
+}
+
+.widgetsControl {
+	display: flex;
+	align-self: flex-end;
 }
 
 [draggable=true] {

@@ -6,7 +6,7 @@ import TextBox from '../TextBox';
 
 import './styles.scss';
 
-class Popup extends Component {
+class Dialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,6 +43,7 @@ class Popup extends Component {
       btn2Text,
       onDismiss,
       defaultPrompt,
+      children,
     } = this.props;
     const {
       promptText,
@@ -56,16 +57,21 @@ class Popup extends Component {
       <div className="popupContainer">
         <div className="popup">
           <div className="popupTitle">{title}</div>
-          <div className="popupText">{text}</div>
-          { mode === 'prompt' &&
-            <TextBox
-              type="text"
-              className="popupReply"
-              placeholder={defaultPrompt}
-              value={promptText}
-              onChange={this.updatePromptText}
-            />
+          { children === null &&
+            <div className="popupContent">
+              <div className="popupText">{text}</div>
+              { mode === 'prompt' &&
+                <TextBox
+                  type="text"
+                  className="popupReply"
+                  placeholder={defaultPrompt}
+                  value={promptText}
+                  onChange={this.updatePromptText}
+                />
+              }
+            </div>
           }
+          { children && <div className="popupText">{children}</div> }
           <div className="buttonsControl">
             { (mode === 'confirm' || mode === 'prompt') &&
               <Button onClick={onDismiss} style={btnStyles}>{btn2Text}</Button>
@@ -78,27 +84,30 @@ class Popup extends Component {
   }
 };
 
-Popup.propTypes = {
+Dialog.propTypes = {
   mode: PropTypes.oneOf(['alert', 'confirm', 'prompt']),
   show: PropTypes.bool,
   title: PropTypes.string,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   defaultPrompt: PropTypes.string,
   btn1Text: PropTypes.string,
   btn2Text: PropTypes.string,
   onConfirm: PropTypes.func,
   onDismiss: PropTypes.func,
+  children: PropTypes.node,
 };
 
-Popup.defaultProps = {
+Dialog.defaultProps = {
   mode: 'alert',
   show: false,
   title: 'Hello',
+  text: null,
   defaultPrompt: null,
   btn1Text: 'Ok',
   btn2Text: 'Cancel',
   onConfirm: () => {},
   onDismiss: () => {},
+  children: null,
 };
 
-export default Popup;
+export default Dialog;
