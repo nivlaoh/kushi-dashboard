@@ -37,6 +37,8 @@
 	padding-top: 0.1rem;
 	padding-bottom: 0.1rem;
 	padding-left: 0.1rem;
+	min-height: 35px;
+	vertical-align: middle;
 }
 .footer.right {
 	text-align: right;

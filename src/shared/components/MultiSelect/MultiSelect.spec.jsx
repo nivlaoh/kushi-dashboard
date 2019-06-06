@@ -44,7 +44,7 @@ describe('MultiSelect component', () => {
 
     it('should display selected and close dropdown when option is selected', () => {
       const onChange = jest.fn();
-      const component = wrapper({ options, onChange });
+      const component = realWrapper({ options, onChange });
       const input = component.find('.select-container input');
       input.simulate('click');
       const results = component.find('.select-dropdown');

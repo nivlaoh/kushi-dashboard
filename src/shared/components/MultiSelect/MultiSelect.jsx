@@ -134,7 +134,6 @@ class MultiSelect extends Component {
     const {
       selectedOptions,
     } = this.state;
-    e.persist();
     const selectedOption = options.filter(option => option.key === e.target.getAttribute('refkey'))[0];
     if (multi) {
       const newSelected = selectedOptions.filter(s => s.key === selectedOption.key).length >= 1 ?

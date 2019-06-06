@@ -134,8 +134,8 @@ class Map extends Component {
       <div className="mapContainer">
         <div className="widgetTitle">Map</div>
         <svg
-          width="748"
-          height="398"
+          width="780"
+          height="413"
           id="content"
           preserveAspectRatio="xMidYMid meet"
         >

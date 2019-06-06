@@ -57,7 +57,7 @@ class Dropdown extends Component {
       target,
       event,
     } = this.props;
-    if (!isEmpty(target.current)) {
+    if (!isEmpty(target) && !isEmpty(target.current)) {
       target.current.removeEventListener(event, this.openDropdown, false);
     }
     document.removeEventListener('mousedown', this.closeDropdown, false);
@@ -174,8 +174,10 @@ class Dropdown extends Component {
 Dropdown.propTypes = {
   target: PropTypes.shape({}).isRequired,
   event: PropTypes.oneOf(['mousedown', 'contextmenu']),
+  /** Menu items **/
   options: PropTypes.arrayOf(PropTypes.shape({})),
   onSelected: PropTypes.func,
+  /** Number of items shown at one time **/
   maxShown: PropTypes.number,
   width: PropTypes.number,
   truncateOption: PropTypes.bool,

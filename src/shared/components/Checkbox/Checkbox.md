@@ -1,7 +1,15 @@
+Unchecked box
 ```jsx
 import Checkbox from './Checkbox';
-<div>
-<Checkbox label="Option 1" />
-<Checkbox label="Option 2" checked />
-</div>
+<Checkbox label="Unchecked label" />
+```
+Checked box
+```jsx
+import Checkbox from './Checkbox';
+<Checkbox label="Checked label" checked />
+```
+Round checked box
+```jsx
+import Checkbox from './Checkbox';
+<Checkbox label="Checked label" checked shape='circle' />
 ```
