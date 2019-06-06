@@ -10,8 +10,8 @@ class DashboardHome extends Component {
   constructor(props) {
     super(props);
     
-    this.spaceWidth = window.innerWidth;
     this.widgetWidth = 250;
+    this.spaceWidth = window.innerWidth - (props.sidebarVisible ? this.widgetWidth : 0);
     this.widgetHeight = 200;
     this.margin = 15;
 

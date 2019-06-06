@@ -27,7 +27,7 @@
 	border: solid 1px $linkBlue;
 	max-width: 1000px;
 	width: 500px;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: calc(50% - 500px);
 	z-index: 80;

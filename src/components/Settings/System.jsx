@@ -19,7 +19,7 @@ class System extends Component {
     ];
     return (
       <div>
-        <MultiSelect placeholder="Select timing" label="Login Session" options={sessionLengths} />
+        <MultiSelect placeholder="Select timing" label="Login Session" options={sessionLengths} searchable={false} />
       </div>
     );
   }

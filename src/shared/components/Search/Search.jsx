@@ -125,12 +125,15 @@ class Search extends Component {
               <div key={result.key}
                 role="button"
                 tabIndex={resultIndex}
-                className="searchResultRow"
+                className="searchResultRow valid"
                 onClick={() => { this.chooseResult(result) }}
               >
                 { result.value }
               </div>
             )}
+            { options.length === 0 &&
+              <div className="searchResultRow">No results found</div>
+            }
           </div>
         }
       </div>

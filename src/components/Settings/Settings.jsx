@@ -18,6 +18,7 @@ class Settings extends Component {
     this.acceptedTypes = ['image/png', 'image/gif', 'image/jpeg'];
     this.state = {
       files: [],
+      selectedCountry: null,
       showDialog: false,
     };
   }
@@ -43,6 +44,12 @@ class Settings extends Component {
       });
     }
   }
+
+  selectCountry = (selected) => {
+    this.setState({
+      selectedCountry: selected,
+    });
+  };
 
   uploadFiles = (fileList) => {
     console.log('Uploading...', fileList);
@@ -117,6 +124,7 @@ class Settings extends Component {
     } = this.props;
     const {
       files,
+      selectedCountry,
       showDialog,
     } = this.state;
 
@@ -151,6 +159,8 @@ class Settings extends Component {
                 label="Country of Residence"
                 placeholder="Please select your country of residence"
                 options={countries}
+                onChange={this.selectCountry}
+                selected={selectedCountry}
               />
               <FileUpload
                 title="Upload Profile Picture"
@@ -184,7 +194,7 @@ class Settings extends Component {
 
 Settings.propTypes = {
   user: PropTypes.shape({}).isRequired,
-  countries: PropTypes.arrayOf(),
+  countries: PropTypes.arrayOf(PropTypes.shape({})),
   uploadProfilePic: PropTypes.func,
   getProfilePic: PropTypes.func,
   getUserInfo: PropTypes.func,

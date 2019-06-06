@@ -25,10 +25,12 @@
 		box-shadow: 0 2px 8px #ccc;
 		.searchResultRow {
 			padding: 12px;
-			cursor: pointer;
 			outline: none;
-			&:hover {
-				background: #ccc;
+			&.valid {
+				cursor: pointer;
+				&:hover {
+					background: #ccc;
+				}
 			}
 		}
 	}

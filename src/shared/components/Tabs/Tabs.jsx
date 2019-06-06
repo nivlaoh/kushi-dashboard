@@ -12,9 +12,12 @@ class Tabs extends Component {
       body: tab.props.children,
       active: tab.props.active,
     }));
+    const activeTab = data.filter(tab => tab.active);
     this.state = {
       data,
-      active: data.filter(tab => tab.active)[0].title,
+      active: activeTab.length === 0 ?
+        props.children[0].title :
+        activeTab[0].title,
     };
   }
 

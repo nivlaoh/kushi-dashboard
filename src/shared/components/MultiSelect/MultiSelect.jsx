@@ -31,6 +31,24 @@ class MultiSelect extends Component {
     document.addEventListener('mousedown', this.handleClick, false);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const {
+      options,
+      selected,
+    } = this.props;
+    let stateChange = {};
+    if (nextProps.options.length !== options.length) {
+      stateChange = {
+        filteredOptions: nextProps.options,
+      };
+    }
+    if (nextProps.selected !== selected) {
+      stateChange['searchValue'] = '';
+    }
+    this.setState(stateChange);
+    return true;
+  }
+
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClick, false);
   }
@@ -116,6 +134,7 @@ class MultiSelect extends Component {
     const {
       selectedOptions,
     } = this.state;
+    e.persist();
     const selectedOption = options.filter(option => option.key === e.target.getAttribute('refkey'))[0];
     if (multi) {
       const newSelected = selectedOptions.filter(s => s.key === selectedOption.key).length >= 1 ?
@@ -126,12 +145,13 @@ class MultiSelect extends Component {
         selectedOptions: newSelected,
         searchValue: '',
         filteredOptions: options,
-      }, onChange);
+      }, () => { onChange(selectedOption); });
     } else {
+      this.searchBox.current.value = selectedOption.value;
       this.setState({
         searchValue: selectedOption.value,
         dropdownVisible: false,
-      }, onChange);
+      }, () => { onChange(selectedOption); });
     }
   }
 
@@ -145,6 +165,7 @@ class MultiSelect extends Component {
       multi,
       maxShown,
       searchDelay,
+      searchable,
     } = this.props;
     const {
       cursor,
@@ -162,7 +183,11 @@ class MultiSelect extends Component {
         value = selected.value;
       }
     } else {
-      value = searchValue;
+      if (isEmpty(selected)) {
+        value = searchValue;
+      } else {
+        value = selected.value;
+      }
     }
 
     const searchUpdate = debounce((e) => {
@@ -217,7 +242,7 @@ class MultiSelect extends Component {
             onChange={searchUpdate.bind(this)}
             onKeyDown={this.handleKeyDown}
             defaultValue={value}
-            disabled={readonly}
+            readOnly={readonly || !searchable}
             autoComplete="off"
           />
           <div className="select-arrow">
@@ -248,6 +273,9 @@ class MultiSelect extends Component {
                 </div>
               ))
               }
+              { filteredOptions.length === 0 &&
+                <div className="select-option">No option found</div>
+              }
             </div>
           }
         </div>
@@ -270,6 +298,7 @@ MultiSelect.propTypes = {
   multi: PropTypes.bool,
   readonly: PropTypes.bool,
   async: PropTypes.bool,
+  searchable: PropTypes.bool,
   searchCallback: PropTypes.func,
   onChange: PropTypes.func,
   minCharacters: PropTypes.number,
@@ -285,6 +314,7 @@ MultiSelect.defaultProps = {
   multi: false,
   readonly: false,
   async: false,
+  searchable: true,
   searchCallback: null,
   onChange: () => {},
   minCharacters: 1,
