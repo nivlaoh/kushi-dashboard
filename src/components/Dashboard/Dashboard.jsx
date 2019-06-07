@@ -23,6 +23,13 @@ class Dashboard extends Component {
     this.stopLoading = this.stopLoading.bind(this);
   }
 
+  componentDidMount() {
+    const {
+      getWidgets,
+    } = this.props;
+    getWidgets();
+  }
+
   toggleSidebar() {
     const {
       sidebarVisible,
@@ -43,6 +50,7 @@ class Dashboard extends Component {
       widgets,
       logout,
       history,
+      closeWidget,
     } = this.props;
     const {
       isLoading,
@@ -78,7 +86,12 @@ class Dashboard extends Component {
         <div className="dashboardContents">
           <Sidebar links={links} visible={sidebarVisible} />
           <Route path='/' exact render={(routeProps) => (
-            <DashboardHome {...routeProps} widgets={widgets} sidebarVisible={sidebarVisible} />
+            <DashboardHome
+              {...routeProps}
+              widgets={widgets}
+              closeWidget={closeWidget}
+              sidebarVisible={sidebarVisible}
+            />
           )} />
           <Route path='/settings' render={(routeProps) => (
             <Settings {...routeProps} />
@@ -99,11 +112,13 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
   logout: PropTypes.func.isRequired,
   widgets: PropTypes.arrayOf(DashboardWidget),
+  closeWidget: PropTypes.func,
   user: PropTypes.shape(),
 };
 
 Dashboard.defaultProps = {
   widgets: [],
+  closeWidget: () => {},
   user: null,
 };
 

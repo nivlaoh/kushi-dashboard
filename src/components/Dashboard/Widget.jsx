@@ -21,7 +21,10 @@ class Widget extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.widgetRender === null) {
+    const {
+      widget,
+    } = this.props;
+    if (this.widgetRender === null || nextProps.widget !== widget) {
       console.log('widget', nextProps);
       this.widgetRender = this.drawWidget(nextProps.widget);
     }
@@ -29,9 +32,9 @@ class Widget extends Component {
 
   onDrag = (e) => {
     const {
-      draggable,
+      editable,
     } = this.props;
-    if (!draggable) {
+    if (!editable) {
       return;
     }
     console.log('tata', e.target.id);
@@ -61,7 +64,9 @@ class Widget extends Component {
     } = this.props;
     const pos = gridData.map((rowArr, rowIndex) => [rowIndex, rowArr.findIndex(col => col === index)])
       .filter(pair => pair[1] !== -1)[0];
-    return pos[1] * (widgetWidth + margin);
+    if (pos === undefined)
+      console.log('aaa', gridData, index);
+    return pos === undefined ? 0 : pos[1] * (widgetWidth + margin);
   };
 
   calculateStartTop = (index) => {
@@ -72,18 +77,19 @@ class Widget extends Component {
     } = this.props;
     const pos = gridData.map((rowArr, rowIndex) => [rowIndex, rowArr.findIndex(col => col === index)])
       .filter(pair => pair[1] !== -1)[0];
-    return pos[0] * (widgetHeight + margin);
+    return pos === undefined ? 0 : pos[0] * (widgetHeight + margin);
   };
 
   render() {
     const {
       widget,
-      draggable,
+      editable,
       hasPadding,
       index,
       widgetWidth,
       widgetHeight,
       margin,
+      onClose,
     } = this.props;
 
     const style = {
@@ -104,10 +110,15 @@ class Widget extends Component {
         id={`wid-${widget.id}`}
         className={`widget ${hasPadding ? 'padding' : ''}`}
         style={style}
-        draggable={draggable}
+        draggable={editable}
         onDragStart={this.onDrag}
       >
         { this.widgetRender }
+        { editable &&
+          <button type="button" className="closeWidget" onClick={onClose}>
+            <i className="fa fa-times"></i>
+          </button>
+        }
       </div>
     );
   }
@@ -117,20 +128,22 @@ Widget.propTypes = {
   widget: WidgetModel.isRequired,
   index: PropTypes.number.isRequired,
   gridData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-  draggable: PropTypes.bool,
+  editable: PropTypes.bool,
   hasPadding: PropTypes.bool,
   widgetWidth: PropTypes.number,
   widgetHeight: PropTypes.number,
   margin: PropTypes.number,
+  onClose: PropTypes.func,
 };
 
 Widget.defaultProps = {
-  draggable: false,
+  editable: false,
   gridData: [],
   hasPadding: true,
   widgetWidth: 250,
   widgetHeight: 200,
   margin: 15,
+  onClose: () => {},
 };
 
 export default Widget;

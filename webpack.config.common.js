@@ -90,7 +90,7 @@ module.exports = {
         use: 'url-loader?limit=10000',
       },
       {
-        test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+        test: /\.(ttf|eot|otf)(\?[\s\S]+)?$/,
         use: 'file-loader?name=[name].[ext]',
       },
       {
@@ -104,13 +104,20 @@ module.exports = {
     ],
   },
   output: {
-    filename: '[name]-[chunkhash].bundle.js',
+    filename: '[name].[chunkhash].js',
     chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/')
   },
   optimization: {
+    runtimeChunk: 'single',
     splitChunks: {
-      chunks: 'all'
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
     }
   }
 };

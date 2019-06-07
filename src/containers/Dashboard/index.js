@@ -3,13 +3,12 @@ import { withRouter } from 'react-router-dom';
 
 import Dashboard from '../../components/Dashboard';
 import loginOperations from '../../ducks/Login/operations';
+import { operations as dashboardOperations } from '../../ducks/Dashboard';
 import settingsOperations from '../../ducks/Settings/operations';
-import widgetData from '../../components/Dashboard/widget.json';
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('data', widgetData);
   return {
-    widgets: widgetData,
+    widgets: state.dashboard.widgets,
     user: {
       username: state.login.username,
       profilePic: state.settings.profilePic,
@@ -17,9 +16,11 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   logout: (cb) => loginOperations.logout(cb)(dispatch),
   getProfilePic: () => settingsOperations.getProfilePic()(dispatch),
+  getWidgets: () => dashboardOperations.getWidgets()(dispatch),
+  closeWidget: (index) => dashboardOperations.closeWidget(index)(dispatch),
 });
 
 const DashboardContainer = connect(mapStateToProps, mapDispatchToProps)(withRouter(Dashboard));

@@ -1,4 +1,13 @@
+const path = require('path');
+
 module.exports = {
+  pagePerSection: process.env.NODE_ENV !== 'production',
+  require: [
+    path.join(__dirname, 'styleguide/styles.css')
+  ],
+  template: {
+    favicon: 'favicon.ico'
+  },
   sections: [
     {
       name: 'Documentation',
