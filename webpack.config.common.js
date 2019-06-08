@@ -41,7 +41,8 @@ module.exports = {
   entry: {
     app: './src/index.js',
     weather: './src/components/Weather/index.js',
-    map: './src/components/Map/index.js'
+    map: './src/components/Map/index.js',
+    gallery: './src/components/Gallery/index.js',
   },
   plugins: [
     new Dotenv(),

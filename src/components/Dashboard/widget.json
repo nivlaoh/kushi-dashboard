@@ -1,56 +1,58 @@
 [
-	{
-    	"id": "1",
-    	"rows": 1,
-    	"columns": 1,
-    	"background": "purple",
-    	"color": "white",
+    {
+        "id": "1",
+        "rows": 1,
+        "columns": 1,
+        "background": "purple",
+        "color": "white",
         "type": "component",
         "componentSrc": "Weather"
-	},
-	{
-    	"id": "2",
-    	"rows": 2,
-    	"columns": 3,
-    	"background": "#00bcd4",
-    	"color": "white",
+    },
+    {
+        "id": "2",
+        "rows": 2,
+        "columns": 3,
+        "background": "#00bcd4",
+        "color": "white",
         "type": "component",
         "componentSrc": "Map",
         "hasPadding": false
-	},
-	{
-    	"id": "3",
-    	"rows": 1,
-    	"columns": 1,
-    	"background": "green",
-    	"color": "white"
-	},
-	{
-    	"id": "4",
-    	"rows": 1,
-    	"columns": 1,
-    	"background": "blue",
-    	"color": "white"
-	},
-	{
-    	"id": "5",
-    	"rows": 1,
-    	"columns": 1,
-    	"background": "orange",
-    	"color": "white"
-	},
-	{
-    	"id": "6",
-    	"rows": 1,
-    	"columns": 1,
-    	"background": "green",
-    	"color": "white"
-	},
-	{
-    	"id": "7",
-    	"rows": 1,
-    	"columns": 1,
-    	"background": "indigo",
-    	"color": "white"
-	}
+    },
+    {
+        "id": "3",
+        "rows": 1,
+        "columns": 1,
+        "background": "brown",
+        "color": "white",
+        "type": "component",
+        "componentSrc": "Gallery"
+    },
+    {
+        "id": "4",
+        "rows": 1,
+        "columns": 1,
+        "background": "green",
+        "color": "white"
+    },
+    {
+        "id": "5",
+        "rows": 1,
+        "columns": 1,
+        "background": "orange",
+        "color": "white"
+    },
+    {
+        "id": "6",
+        "rows": 1,
+        "columns": 1,
+        "background": "pink",
+        "color": "white"
+    },
+    {
+        "id": "7",
+        "rows": 1,
+        "columns": 1,
+        "background": "indigo",
+        "color": "white"
+    }
 ]

@@ -17,7 +17,7 @@
 	}
 	.searchResults {
 		position: absolute;
-		z-index: 90;
+		z-index: -1;
 		border: solid 1px $formWidgetBorder;
 		background: white;
 		top: 46px;

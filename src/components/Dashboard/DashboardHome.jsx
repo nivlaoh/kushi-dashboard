@@ -18,7 +18,7 @@ class DashboardHome extends Component {
     this.state = {
       editable: false,
       showWidgetSettings: false,
-      grid: [],
+      grid: this.calculateGrid(props.widgets),
     };
   }
 
@@ -32,7 +32,7 @@ class DashboardHome extends Component {
       widgets,
     } = this.props;
     if (nextProps.sidebarVisible !== sidebarVisible) {
-      this.updateDimensions(nextProps.sidebarVisible ? this.widgetWidth : 0);
+      this.updateDimensions(null, nextProps.sidebarVisible ? this.widgetWidth : 0);
     }
     if (nextProps.widgets !== widgets || nextProps.widgets.length !== widgets.length) {
       this.setState({
@@ -62,36 +62,49 @@ class DashboardHome extends Component {
           }
         }
         if (grid[currRow].length < colPerRow) {
-          // console.log('here', grid[currRow].length, [currRow, currCol]);
+          // console.log('here', grid[currRow].length, [currRow, currCol], index);
           currCol += (grid[currRow].length - currCol);
         }
       }
     };
 
-    if (widgets.length > 0) {
-      widgets.forEach((widget, index) => {
-        if (grid[currRow].length < colPerRow) {
-          if (widget.rows > 1) {
-            // console.log('widget has more row space', currRow);
-            grid.push([]);
-          }
-          fillRow(widget, index);
-        } else {
-          currRow += 1;
-          currCol = 0;
-          if (grid[currRow] === undefined) {
-            // console.log('create new row', currRow);
-            grid.push([]);
-          }
-          fillRow(widget, index);
+    widgets.forEach((widget, index) => {
+      if (grid[currRow].length < colPerRow) {
+        if (widget.rows > 1) {
+          // console.log('widget has more row space', currRow, index);
+          grid.push([]);
         }
-      });
-    }
+        fillRow(widget, index);
+      } else {
+        currRow += 1;
+        currCol = 0;
+        if (grid[currRow] === undefined) {
+          // console.log('create new row', currRow);
+          grid.push([]);
+        } else {
+          let pushBehind = 0;
+          let count = 0;
+          for (let i = 0; i < colPerRow; i += 1) {
+            if (grid[currRow][i] !== undefined) {
+              count = 0;
+            } else {
+              count += 1;
+              if (count === widget.columns) {
+                pushBehind = i;
+                break;
+              }
+            }
+          }
+          currCol += pushBehind;
+        }
+        fillRow(widget, index);
+      }
+    });
     console.log('see grid', grid);
     return grid;
   };
 
-  updateDimensions = (offset = 0) => {
+  updateDimensions = (e, offset = 0) => {
     const {
       widgets,
     } = this.props;
@@ -99,18 +112,18 @@ class DashboardHome extends Component {
     this.setState({
       grid: this.calculateGrid(widgets),
     });
-  }
+  };
 
   allowDrop = (e) => {
     e.preventDefault();
-  }
+  };
 
   drop = (e) => {
     e.preventDefault();
     const data = e.dataTransfer.getData('text');
     console.log('dropping', data, e);
     e.target.appendChild(document.getElementById(data));
-  }
+  };
 
   toggleEdit = () => {
     const {

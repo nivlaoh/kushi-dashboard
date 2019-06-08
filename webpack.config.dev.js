@@ -23,7 +23,7 @@ module.exports = merge(common, {
     }
   },
   output: {
-    filename: '[name].[chunkhash].js',
+    filename: '[name].[hash].js',
     chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/'),
     publicPath: '/'

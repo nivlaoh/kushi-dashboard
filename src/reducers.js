@@ -4,6 +4,7 @@ import loginReducer from './ducks/Login';
 import dashboardReducer from './ducks/Dashboard';
 import notificationReducer from './ducks/Notification';
 import weatherReducer from './ducks/Weather';
+import galleryReducer from './ducks/Gallery';
 import settingReducer from './ducks/Settings';
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   dashboard: dashboardReducer,
   notification: notificationReducer,
   weather: weatherReducer,
+  gallery: galleryReducer,
   settings: settingReducer,
 });
 

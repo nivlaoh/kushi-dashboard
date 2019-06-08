@@ -4,6 +4,7 @@ import Loadable from 'react-loadable';
 import { isEmpty } from 'lodash';
 
 import { DashboardWidget as WidgetModel } from '../../models';
+import logger from '../../utils/logger';
 import './styles.scss';
 
 class Widget extends Component {
@@ -25,7 +26,7 @@ class Widget extends Component {
       widget,
     } = this.props;
     if (this.widgetRender === null || nextProps.widget !== widget) {
-      console.log('widget', nextProps);
+      logger('widget', 'INFO', nextProps);
       this.widgetRender = this.drawWidget(nextProps.widget);
     }
   }
@@ -37,7 +38,7 @@ class Widget extends Component {
     if (!editable) {
       return;
     }
-    console.log('tata', e.target.id);
+    logger('dragging', 'INFO', e.target.id);
     e.dataTransfer.setData('text', e.target.id);
   };
 
@@ -65,7 +66,7 @@ class Widget extends Component {
     const pos = gridData.map((rowArr, rowIndex) => [rowIndex, rowArr.findIndex(col => col === index)])
       .filter(pair => pair[1] !== -1)[0];
     if (pos === undefined)
-      console.log('aaa', gridData, index);
+      logger('calculateLeft', 'INFO', gridData, index);
     return pos === undefined ? 0 : pos[1] * (widgetWidth + margin);
   };
 
@@ -99,6 +100,7 @@ class Widget extends Component {
       height: `${widget.rows * widgetHeight + margin * (widget.rows - 1)}px`,
       left: `${this.calculateStartLeft(index)}px`,
       top: `${this.calculateStartTop(index)}px`,
+      pointerEvents: editable ? 'inherit' : 'auto',
     };
     if (this.widgetRender === null) {
       this.widgetRender = this.drawWidget(widget);
