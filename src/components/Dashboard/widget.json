@@ -22,10 +22,11 @@
         "id": "3",
         "rows": 1,
         "columns": 1,
-        "background": "brown",
+        "background": "black",
         "color": "white",
         "type": "component",
-        "componentSrc": "Gallery"
+        "componentSrc": "Gallery",
+        "hasPadding": false
     },
     {
         "id": "4",
