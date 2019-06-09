@@ -83,7 +83,7 @@ describe('MultiSelect component', () => {
       const tags = component.find('.select-container .selectedTags .selectedTag');
       expect(tags.length).toBe(2);
       expect(tags.first().text().includes('v1')).toBe(true);
-      expect(tags.first().find('.fas.fa-times').exists()).toEqual(true);
+      expect(tags.first().find('.fa-times').exists()).toEqual(true);
     });
 
     it('should hide dropdown results when clicked outside', () => {
