@@ -23,10 +23,16 @@ class Gallery extends Component {
   componentDidMount() {
     const {
       getImages,
+      getSubject,
+      getTransition,
+      getTiming,
     } = this.props;
     const {
       subject,
     } = this.state;
+    getSubject();
+    getTransition();
+    getTiming();
     this.loadImages = setInterval(() => {
       getImages(10, subject).then(() => {
         if (this.rotateImage) {
@@ -69,15 +75,29 @@ class Gallery extends Component {
     const {
       showingImage,
     } = this.state;
+    const {
+      subject,
+      transition,
+      timing,
+    } = this.props;
+    const newState = {};
     if (nextProps.images.length < nextProps.maxImages) {
       const sliceImages = nextProps.images
         .filter(image => image.id >= showingImage && image.id <= showingImage + (nextProps.imageBuffer - 1));
-      this.setState({
-        galleryImages: [
-          ...sliceImages,
-        ],
-      });
+      newState.galleryImages = [
+        ...sliceImages,
+      ];
     }
+    if (nextProps.subject !== subject) {
+      newState.selectedSubject = nextProps.subject;
+    }
+    if (nextProps.transition !== transition) {
+      newState.selectedTransition = nextProps.transition;
+    }
+    if (nextProps.timing !== timing) {
+      newState.selectedTiming = nextProps.timing;
+    }
+    this.setState(newState);
   }
 
   componentWillUnmount() {
@@ -88,6 +108,14 @@ class Gallery extends Component {
   }
 
   showDialog = () => {
+    const {
+      loadSubjects,
+      loadTransitions,
+      loadTimings,
+    } = this.props;
+    loadSubjects();
+    loadTransitions();
+    loadTimings();
     this.setState({
       showSettings: true,
     });
@@ -101,17 +129,48 @@ class Gallery extends Component {
 
   changeSettings = () => {
     console.log('change settings');
+    const {
+      setSubject,
+      setTransition,
+      setTiming,
+      subject,
+      clearImages,
+    } = this.props;
+    const {
+      selectedSubject,
+      selectedTransition,
+      selectedTiming,
+    } = this.state;
     this.setState({
       showSettings: false,
-      subject: 'cats',
+    });
+    if (subject !== selectedSubject) {
+      clearImages();
+    }
+    setSubject(selectedSubject);
+    setTransition(selectedTransition);
+    setTiming(selectedTiming);
+  };
+
+  selectOption = (option, selected) => {
+    this.setState({
+      [option]: selected,
     });
   };
 
   render() {
     const {
+      subjects,
+      transitions,
+      timings,
+    } = this.props;
+    const {
       showingImage,
       galleryImages,
       showSettings,
+      selectedSubject,
+      selectedTransition,
+      selectedTiming,
     } = this.state;
 
     return (
@@ -127,18 +186,40 @@ class Gallery extends Component {
             <div><i className="fa fa-2x fa-circle-o-notch fa-spin"></i></div>
           }
         </div>
-        <div className="infoRow">
+        <div className="widgetSettings">
           <Button type="icon-clear" onClick={this.showDialog} rounded>
             <i className="fa fa-cog"></i>
           </Button>
         </div>
         <Dialog mode="confirm"
           show={showSettings}
+          title="Gallery Settings"
           onConfirm={this.changeSettings}
           onDismiss={this.hideDialog}
         >
-          Subject
-          <MultiSelect placeholder="Please choose a subject" />
+          <div>
+            <MultiSelect
+              label="Subject"
+              placeholder="Choose a subject"
+              options={subjects}
+              onChange={(e) => { this.selectOption('selectedSubject', e); }}
+              selected={selectedSubject}
+            />
+            <MultiSelect
+              label="Transition"
+              placeholder="Choose a transition"
+              options={transitions}
+              onChange={(e) => { this.selectOption('selectedTransition', e); }}
+              selected={selectedTransition}
+            />
+            <MultiSelect
+              label="Timing"
+              placeholder="Choose a transition timing"
+              options={timings}
+              onChange={(e) => { this.selectOption('selectedTiming', e); }}
+              selected={selectedTiming}
+            />
+          </div>
         </Dialog>
       </div>
     );
@@ -153,12 +234,24 @@ Gallery.propTypes = {
   })),
   maxImages: PropTypes.number,
   imageBuffer: PropTypes.number,
+  loadSubjects: PropTypes.func,
+  loadTransitions: PropTypes.func,
+  loadTimings: PropTypes.func,
+  setSubject: PropTypes.func,
+  setTransition: PropTypes.func,
+  setTiming: PropTypes.func,
 };
 
 Gallery.defaultProps = {
   images: [],
   maxImages: 100,
   imageBuffer: 3,
+  loadSubjects: () => {},
+  loadTransitions: () => {},
+  loadTimings: () => {},
+  setSubject: () => {},
+  setTransition: () => {},
+  setTiming: () => {},
 };
 
 export default Gallery;

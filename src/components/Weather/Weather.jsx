@@ -3,13 +3,10 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
 
+import Button from '../../shared/components/Button';
 import './styles.scss';
 
 class Weather extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     console.log('mount');
     this.refreshWidget();
@@ -32,6 +29,8 @@ class Weather extends Component {
     let description = forecast.replace(/\s+/g, '-').toLowerCase();
     if (description.includes('cloudy')) {
       description = 'cloudy';
+    } else if (description.includes('light-rain')) {
+      description = 'rain-mix';
     }
     return <i className={`weatherIcon wi wi-${isDay ? 'day' : 'night'}-${description}`}></i>;
   };
@@ -46,8 +45,10 @@ class Weather extends Component {
       <div className="widgetWrapper">
         <div className="infoRow">
           <div className="widgetName">Weather</div>
-          <button type="button" className="refreshBtn fa fa-refresh" onClick={this.refreshWidget}>
-          </button>
+          <div className="widgetSettings">
+            <Button type="icon-clear" rounded className="refreshBtn fa fa-refresh" onClick={this.refreshWidget}>
+            </Button>
+          </div>
         </div>
         <div className="tempReading">{ temperature }{`\u00b0\u0043`}</div>
         <div className="infoRow">

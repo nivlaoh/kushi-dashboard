@@ -6,7 +6,14 @@
 	font-weight: bold;
 	z-index: 1;
 }
-
+.widgetSettings {
+	position: absolute;
+	right: 0;
+	i {
+		color: white;
+		text-shadow: 0 2px 2px black;
+	}
+}
 .gallery {
 	height: inherit;
 	position: relative;
@@ -28,6 +35,7 @@
 			width: 100%;
 			height: 100%;
 			background-size: cover;
+			border-radius: 6px;
 		}
 	}
 }
