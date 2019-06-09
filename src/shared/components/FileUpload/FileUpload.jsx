@@ -159,7 +159,7 @@ class FileUpload extends Component {
           <div className="fileList">
             { files.map(file =>
               <div key={file.ref.name} className="fileRow">
-                <FontAwesomeIcon className="docIcon" icon={getFileIcon(file.ref.name)} />
+                <FontAwesomeIcon className="docIcon" icon={getFileIcon(file.ref.name)} transform="down-2" />
                 <div className="fileDetails">
                   <div className="filename">{ file.ref.name }</div>
                   <div className="filesize">{ formatFileSize(file.ref.size) }</div>

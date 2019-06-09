@@ -6,7 +6,7 @@ const isFileOfExt = (exts, filename) => {
 
 export const getFileIcon = (filename) => {
   let fontIcon;
-  if (filename.endsWith('.pdf')) {
+  if (filename.toLowerCase().endsWith('.pdf')) {
     fontIcon = 'file-pdf';
   } else if (isFileOfExt(['.txt', '.log'], filename)) {
     fontIcon = 'file-alt';

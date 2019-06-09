@@ -1,7 +1,9 @@
 const path = require('path');
+const devWebpack = require('./webpack.config.dev.js');
 
 module.exports = {
   pagePerSection: process.env.NODE_ENV !== 'production',
+  skipComponentsWithoutExample: true,
   require: [
     path.join(__dirname, 'styleguide/styles.css')
   ],
@@ -33,5 +35,5 @@ module.exports = {
       components: 'src/shared/components/**/[A-Z]*.jsx'
     }
   ],
-  webpackConfig: require('./webpack.config.dev.js')
+  webpackConfig: devWebpack
 };

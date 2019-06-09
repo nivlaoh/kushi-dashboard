@@ -54,7 +54,7 @@ class TextBox extends Component {
     if (icon !== null) {
       return icon;
     }
-    if (type === 'phone') {
+    if (type === 'tel') {
       return 'phone';
     }
     if (type === 'email') {
@@ -127,22 +127,23 @@ class TextBox extends Component {
 }
 
 TextBox.propTypes = {
-  type: PropTypes.oneOf(['text', 'number', 'email', 'password']),
-  /** identifier to be used for form **/
+  /** Specifies input type of TextBox */
+  type: PropTypes.oneOf(['text', 'number', 'tel', 'email', 'password']),
+  /** identifier to be used for form */
   fieldKey: PropTypes.string,
-  /** class name to be added for styling **/
+  /** class name to be added for styling */
   className: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
-  /** Event handler for validation **/
+  /** Event handler for validation */
   onValidate: PropTypes.func,
   onError: PropTypes.func,
   maxlength: PropTypes.number,
   placeholder: PropTypes.string,
   label: PropTypes.string,
-  /** if it's fluid, it will take the entire width **/
+  /** if it's fluid, it will take the entire width */
   fluid: PropTypes.bool,
-  /** string for font icon **/
+  /** string for font icon */
   icon: PropTypes.string,
   readOnly: PropTypes.bool,
 };

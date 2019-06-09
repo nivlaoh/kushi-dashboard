@@ -8,29 +8,47 @@ Kushi Dashboard is a general purpose admin dashboard, React-redux powered.
   - Uses code splitting to load dynamic widgets
   - Uses subtle animations when navigating
 
-# Components
+## Demo
+
+[View Dasboard](https://nivlaoh.github.io/kushi-dashboard/)
+
+## Components
 
 This repository aims to showcase different common UI components. When the project gets more mature, each shared component will have its own docs.
 
-  - Loader
-  - TextBox
-  - MultiSelect/Dropdown
-  - Search
-  - Toast
   - Alert
-  - Tooltip
   - Button
   - Card
-  - ProgressBar
   - Checkbox
+  - Dialog
+  - FileUpload
+  - Loader
+  - MultiSelect/Dropdown
+  - ProgressBar
   - RadioButton
+  - Search
+  - Stepper
   - Tabs
+  - TextBox
+  - Toast
+  - Tooltip
 
-### Installation
+### Components - documentation
+
+This project uses react-styleguidist for dynamic generation of components documentation.
+Start the styleguide server below
+
+```sh
+$ npm run styleguide
+```
+
+Open `localhost:6060` to view the documentation
+
+## Installation
 
 Kushi Dashboard requires [Node.js](https://nodejs.org/) v8+ to run.
 
-Install the dependencies and devDependencies and start the server.
+Install the dependencies and devDependencies and start the server. Open `localhost:3020` to view it in development mode.
 
 ```sh
 $ cd kushi-dashboard
@@ -38,25 +56,25 @@ $ npm install
 $ npm start
 ```
 
-For production environments...
+For production environments. It serves the resources at context root `/kushi-dashboard`
 
 ```sh
 $ npm run build
 ```
 
-### Plugins
+## Plugins
 
 Kushi Dashboard is currently extended with the following plugins. Instructions on how to use them in your own application are linked below.
 
 | Plugin | README |
 | ------ | ------ |
 | Lodash | [https://lodash.com/][PlDb] |
-| Font Awesome Icons | [https://fontawesome.com/v4.7.0/][PlGh] |
+| Font Awesome Icons | [https://fontawesome.com/][PlGh] |
 | MomentJS | [https://momentjs.com/docs/][PlGd] |
 | Weather Icons | [https://erikflowers.github.io/weather-icons/][PlOd] |
 | Axios | [https://github.com/axios/axios/blob/master/README.md][PlMe] |
 
-### Test
+## Test
 
 Kushi Dashboard uses Jest as test runner and Enzyme for testing.
 
@@ -70,17 +88,18 @@ For test coverage
 $ npm run test:coverage
 ```
 
-### Building for Production
+## Building for Production
 For production release:
 ```sh
 $ npm run build
 ```
 
-### Todos
+## Todos
 
  - Increase test coverage
- - Dynamic Widget layout
+ - Widget drag and drop
  - Backend integration
+ - Minimise bundle sizing
 
 License
 ----
@@ -93,7 +112,7 @@ ISC
    [React]: <https://reactjs.org/>
 
    [PlDb]: <https://lodash.com/>
-   [PlGh]: <https://fontawesome.com/v4.7.0/>
+   [PlGh]: <https://fontawesome.com/>
    [PlGd]: <https://momentjs.com/docs/>
    [PlOd]: <https://erikflowers.github.io/weather-icons/>
    [PlMe]: <https://github.com/axios/axios/blob/master/README.md>
