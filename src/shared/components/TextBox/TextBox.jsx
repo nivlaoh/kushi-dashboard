@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isObject } from 'lodash';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEnvelope, faKey, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './styles.scss';
 
@@ -12,6 +15,7 @@ class TextBox extends Component {
       showError: false,
       validationMessage: null,
     };
+    library.add(faEnvelope, faKey, faPhone);
   }
 
   textChange = (e) => {
@@ -51,13 +55,13 @@ class TextBox extends Component {
       return icon;
     }
     if (type === 'phone') {
-      return 'fa fa-phone';
+      return 'phone';
     }
     if (type === 'email') {
-      return 'fa fa-envelope-o';
+      return 'envelope';
     }
     if (type === 'password') {
-      return 'fa fa-key';
+      return 'key';
     }
     return null;
   };
@@ -110,7 +114,7 @@ class TextBox extends Component {
           />
           { fieldIcon &&
             <div className="textboxIcon">
-              <i className={fieldIcon}></i>
+              <FontAwesomeIcon icon={fieldIcon} />
             </div>
           }
         </div>

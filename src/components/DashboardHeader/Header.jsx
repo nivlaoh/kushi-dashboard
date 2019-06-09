@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
+import { faBars, faBell, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { withTooltip } from '../../shared/components/Tooltip';
 import Search from '../../shared/components/Search';
@@ -137,14 +139,14 @@ class Header extends Component {
     return (
       <div className="header">
         <div className="menuToggle" role="button" tabIndex="0" onClick={toggleSidebar}>
-          <i className="fa fa-bars"></i>
+          <FontAwesomeIcon icon={faBars} />
         </div>
         <div className="dashboard-title">
           {title}
         </div>
         <Search onChange={search} onSearch={search} options={searchOptions} />
         <div className="notification-icon" ref={this.notificationIcon}>
-          <i className="fa fa-envelope"></i>
+          <FontAwesomeIcon icon={faEnvelope} />
           <div className="new">2</div>
         </div>
         <NotificationDropdown
@@ -152,7 +154,7 @@ class Header extends Component {
           onSelected={this.navigateNotification}
         />
         <div className="notification-icon">
-          <i className="fa fa-bell"></i>
+          <FontAwesomeIcon icon={faBell} />
         </div>
         <div className={profileIconStyle}
           role="button"
@@ -161,7 +163,7 @@ class Header extends Component {
           style={{ backgroundImage: user.profilePic ? `url(${user.profilePic.ref.payload})` : 'none' }}
         >
           { !user.profilePic &&
-            <i className="fa fa-user"></i>
+            <FontAwesomeIcon icon={faUser} />
           }
         </div>
         <ProfileWithTooltip text="Hello" />

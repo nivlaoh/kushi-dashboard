@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './styles.scss';
 
@@ -81,7 +83,7 @@ class Toast extends Component {
         <div className="toastMsg">{message}</div>
         { dismissible &&
           <button type="button" className="toastClose" onClick={this.closeToast}>
-            <i className="fa fa-close"></i>
+            <FontAwesomeIcon icon={faTimes} />
           </button>
         }
       </div>

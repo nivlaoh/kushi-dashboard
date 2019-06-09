@@ -3,7 +3,7 @@
     	"id": "1",
     	"senderName": "Alvin",
     	"senderEmail": "alvin@alvin.com",
-    	"senderIcon": "fa fa-gear",
+    	"senderIcon": "cog",
     	"toEmails": ["aa@aa.com"],
     	"ccEmails": ["bb@bb.com"],
     	"bccEmails": ["cc@cc.com"],

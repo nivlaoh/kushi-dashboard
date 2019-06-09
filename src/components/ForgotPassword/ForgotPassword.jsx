@@ -94,7 +94,6 @@ class ForgotPassword extends Component {
               placeholder="Email Address"
               label="Email Address:"
               fluid
-              icon="fa fa-envelope"
             />
             { !isEmpty(errorMessage) || showMsg &&
               <Alert

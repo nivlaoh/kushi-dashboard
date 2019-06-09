@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCaretDown, faReply, faReplyAll, faEnvelope, faShare, faTimes, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Button from '../../shared/components/Button';
 import Dropdown from '../../shared/components/Dropdown';
@@ -22,10 +25,14 @@ class MessagePane extends Component {
       compose: false,
       closingCompose: false,
     };
+    library.add(faUser);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.active !== this.props.active) {
+    const {
+      active,
+    } = this.props;
+    if (nextProps.active !== active) {
       this.setState({
         activeMessage: nextProps.active,
       });
@@ -159,7 +166,7 @@ class MessagePane extends Component {
           <div className="headerPane">
             <div className="title">Conversations</div>
             <button type="button" className="controlIcons" onClick={this.showComposeWindow}>
-              <i className="fa fa-envelope"></i>
+              <FontAwesomeIcon icon={faEnvelope} />
             </button>
           </div>
           <div className="recipientList">
@@ -172,7 +179,7 @@ class MessagePane extends Component {
                 tabIndex="0"
               >
                 <div className="senderIcon" style={{ backgroundColor: msg.colour }}>
-                  <i className={`${msg.senderIcon ? msg.senderIcon : 'fa fa-user'}`}></i>
+                  <FontAwesomeIcon icon={`${msg.senderIcon ? msg.senderIcon : 'user'}`} />
                 </div>
                 <div className="senderContents">
                   <div className="senderName">
@@ -212,13 +219,13 @@ class MessagePane extends Component {
               title="Reply"
               onClick={this.replyMessage}
             >
-              <i className="fa fa-reply"></i>
+              <FontAwesomeIcon icon={faReply} />
             </button>
             <button type="button" className="toolbarIcon" title="Reply All">
-              <i className="fa fa-reply-all"></i>
+              <FontAwesomeIcon icon={faReplyAll} />
             </button>
             <button type="button" className="toolbarIcon" title="Forward">
-              <i className="fa fa-share"></i>
+              <FontAwesomeIcon icon={faShare} />
             </button>
             <button
               type="button"
@@ -226,18 +233,18 @@ class MessagePane extends Component {
               title="Delete"
               onClick={this.deleteEmail}
             >
-              <i className="fa fa-trash"></i>
+              <FontAwesomeIcon icon={faTrash} />
             </button>
             <div className="spacer"></div>
             <button type="button" className="toolbarIcon more" title="More">
-              <i className="fa fa-caret-down"></i>
+              <FontAwesomeIcon icon={faCaretDown} />
             </button>
           </div>
           {reply &&
             <div className={`replyPane ${closingReply ? 'closing' : ''}`}>
               <textarea ref={this.replyRef} placeholder="Type your reply here..."></textarea>
               <div className="closeReplyPane" role="button" tabIndex="0" onClick={this.closeReplyPane}>
-                <i className="fa fa-close"></i>
+                <FontAwesomeIcon icon={faTimes} />
               </div>
               <Button type="primary" className="sendMsgBtn" onClick={this.sendEmail}>
                 Send

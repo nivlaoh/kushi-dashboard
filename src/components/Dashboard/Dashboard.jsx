@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faHome, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 import './styles.scss';
 import { DashboardWidget } from '../../models';
@@ -21,6 +23,7 @@ class Dashboard extends Component {
 
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.stopLoading = this.stopLoading.bind(this);
+    library.add(faHome, faCog, faSignOutAlt);
   }
 
   componentDidMount() {
@@ -61,17 +64,17 @@ class Dashboard extends Component {
       {
         label: 'Home',
         route: '/',
-        icon: 'fa fa-home'
+        icon: 'home'
       },
       {
         label: 'Settings',
         route: '/settings',
-        icon: 'fa fa-gear'
+        icon: 'cog'
       },
       {
         label: 'Logout',
         route: '/logout',
-        icon: 'fa fa-sign-out',
+        icon: 'sign-out-alt',
         run: () => {
           logout(() => {
             history.push('/logout');

@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faDownload, faFileAlt, faFileCsv, faFileCode, faFile, faFileImage, faFileExcel,
+  faFilePowerpoint, faFileWord, faFileVideo, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Button from '../Button';
 import ProgressBar from '../ProgressBar';
@@ -18,6 +22,8 @@ class FileUpload extends Component {
       files: props.fileList,
       onDrag: false,
     };
+    library.add(faFileAlt, faFileCsv, faFileCode, faFile, faFileImage, faFileExcel,
+      faFilePowerpoint, faFileWord, faFileVideo);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -132,7 +138,7 @@ class FileUpload extends Component {
     return (
       <div className="fileUploadWrapper" onDragOver={this.onDrag} onDrop={this.onDrop}>
         <div className={`dragOverlay ${onDrag ? 'active' : ''}`}>
-          <i className="fa fa-download"></i> &nbsp; Drop your file(s) here
+          <FontAwesomeIcon icon={faDownload} /> &nbsp; Drop your file(s) here
         </div>
         <div className="uploadInfoPane">
           <div className="uploadTitle">{title}</div>
@@ -153,7 +159,7 @@ class FileUpload extends Component {
           <div className="fileList">
             { files.map(file =>
               <div key={file.ref.name} className="fileRow">
-                <i className={`docIcon fa ${getFileIcon(file.ref.name)}`}></i>
+                <FontAwesomeIcon className="docIcon" icon={getFileIcon(file.ref.name)} />
                 <div className="fileDetails">
                   <div className="filename">{ file.ref.name }</div>
                   <div className="filesize">{ formatFileSize(file.ref.size) }</div>
@@ -172,11 +178,11 @@ class FileUpload extends Component {
                   }
                 </div>
                 <div className="fileRowIcons">
-                  {/* <i className="fa fa-pencil"></i> */}
                   <button type="button"
-                    className="rowIcon fa fa-trash"
+                    className="rowIcon"
                     title="Delete File"
                     onClick={() => { this.deleteFile(file); }}>
+                    <FontAwesomeIcon icon={faTrash} />
                   </button>
                 </div>
               </div>

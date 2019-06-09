@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import geoJson from '../../../public/data/Singapore.geojson';
 import logger from '../../utils/logger';
@@ -144,10 +146,10 @@ class Map extends Component {
         </svg>
         <div className="mapButtons">
           <div id="zoomIn" className="mapBtn" title="Zoom In" onClick={this.zoomIn}>
-            <i className="fa fa-plus"></i>
+            <FontAwesomeIcon icon={faPlus} />
           </div>
           <div id="zoomOut" className="mapBtn" title="Zoom Out" onClick={this.zoomOut}>
-            <i className="fa fa-minus"></i>
+            <FontAwesomeIcon icon={faMinus} />
           </div>
         </div>
       </div>

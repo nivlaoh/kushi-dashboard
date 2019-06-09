@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
+import { faSync, faMapMarker } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Button from '../../shared/components/Button';
 import './styles.scss';
@@ -46,7 +48,8 @@ class Weather extends Component {
         <div className="infoRow">
           <div className="widgetName">Weather</div>
           <div className="widgetSettings">
-            <Button type="icon-clear" rounded className="refreshBtn fa fa-refresh" onClick={this.refreshWidget}>
+            <Button type="icon-clear" rounded className="refreshBtn" onClick={this.refreshWidget}>
+              <FontAwesomeIcon icon={faSync} />
             </Button>
           </div>
         </div>
@@ -55,7 +58,7 @@ class Weather extends Component {
           { this.getWeatherIcon(forecast) }{ forecast }
         </div>
         <div className="infoRow">
-          <i className="marker fa fa-map-marker"></i> { area }
+          <FontAwesomeIcon className="marker" icon={faMapMarker} /> { area }
         </div>
       </div>
     );

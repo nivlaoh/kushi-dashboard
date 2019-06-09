@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Loadable from 'react-loadable';
 import { isEmpty } from 'lodash';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { DashboardWidget as WidgetModel } from '../../models';
 import logger from '../../utils/logger';
@@ -118,7 +120,7 @@ class Widget extends Component {
         { this.widgetRender }
         { editable &&
           <button type="button" className="closeWidget" onClick={onClose}>
-            <i className="fa fa-times"></i>
+            <FontAwesomeIcon icon={faTimes} />
           </button>
         }
       </div>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { debounce, isEmpty, isFunction } from 'lodash';
+import { faCaretDown, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Checkbox from '../Checkbox';
 import { accentFold } from '../../../utils/stringUtil';
@@ -222,14 +224,12 @@ class MultiSelect extends Component {
           <div className="selectedTags">
             { this.showSelectedTags().map(opt =>
               <div key={opt.key} className="selectedTag">
-                <i
-                  className="fa fa-close"
+                <FontAwesomeIcon
+                  icon={faTimes}
                   refkey={opt.key}
                   onClick={this.selectOption}
-                  role="button"
-                  tabIndex="0"
-                >
-                </i> &nbsp;{opt.value}
+                />
+                 &nbsp;{opt.value}
               </div>
             )}
           </div>
@@ -245,7 +245,7 @@ class MultiSelect extends Component {
             autoComplete="off"
           />
           <div className="select-arrow">
-            <i className="fa fa-caret-down"></i>
+            <FontAwesomeIcon icon={faCaretDown} />
           </div>
           { dropdownVisible &&
             <div className="select-dropdown" style={dropdownStyle}>

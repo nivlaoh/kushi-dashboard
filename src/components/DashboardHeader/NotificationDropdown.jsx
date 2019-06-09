@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCog, faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import messages from '../Dashboard/messages.json';
 import Dropdown from '../../shared/components/Dropdown';
@@ -7,6 +10,11 @@ import Dropdown from '../../shared/components/Dropdown';
 import './styles.scss';
 
 class NotificationDropdown extends Component {
+  constructor(props) {
+    super(props);
+    library.add(faCog, faUser);
+  }
+  
   render() {
     const {
       target,
@@ -32,7 +40,7 @@ class NotificationDropdown extends Component {
           tabIndex="0"
         >
           <div className="senderIcon" style={{ backgroundColor: message.colour }}>
-            <i className={`${message.senderIcon ? message.senderIcon : 'fa fa-user'}`}></i>
+            <FontAwesomeIcon icon={`${message.senderIcon ? message.senderIcon : 'user'}`} />
           </div>
           <div className="senderContents">
             <div className="senderName">

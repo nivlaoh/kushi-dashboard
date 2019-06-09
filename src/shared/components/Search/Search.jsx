@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
+import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './styles.scss';
 
@@ -98,7 +100,7 @@ class Search extends Component {
       dropdownVisible,
     } = this.state;
     const resultStyle = {
-      width: this.searchBox.current === null ? 'auto' : this.searchBox.current.clientWidth,
+      width: this.node.current === null ? 'auto' : this.node.current.clientWidth,
     };
     return (
       <div className="searchWrapper" ref={this.node}>
@@ -112,10 +114,10 @@ class Search extends Component {
             onKeyDown={this.checkKeystroke}
             placeholder={placeholder}
           />
-          <i className="innericon fa fa-search"></i>
+          <FontAwesomeIcon className="innericon" icon={faSearch} />
           { searching && showSearchIcon &&
             <div className="searchIcon">
-              <i className="fa fa-spinner fa-spin fa-fw"></i>
+              <FontAwesomeIcon icon={faSpinner} spin fixedWidth />
             </div>
           }
         </div>

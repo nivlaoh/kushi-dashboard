@@ -4,8 +4,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 
-import 'font-awesome/css/font-awesome.css';
-
 import rootReducer from './reducers';
 import Routes from './router';
 import logger from './middlewares/logger';

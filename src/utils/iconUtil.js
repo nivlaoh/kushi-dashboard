@@ -7,21 +7,25 @@ const isFileOfExt = (exts, filename) => {
 export const getFileIcon = (filename) => {
   let fontIcon;
   if (filename.endsWith('.pdf')) {
-    fontIcon = 'fa-file-pdf-o';
+    fontIcon = 'file-pdf';
   } else if (isFileOfExt(['.txt', '.log'], filename)) {
-    fontIcon = 'fa-file-text-o';
+    fontIcon = 'file-alt';
   } else if (isFileOfExt(['.jpg', '.jpeg', '.gif', '.png'], filename)) {
-    fontIcon = 'fa-file-image-o';
+    fontIcon = 'file-image';
   } else if (isFileOfExt(['.docx', '.doc'], filename)) {
-    fontIcon = 'fa-file-word-o';
+    fontIcon = 'file-word';
   } else if (isFileOfExt(['.xls', '.xlsx'], filename)) {
-    fontIcon = 'fa-file-excel-o';
+    fontIcon = 'file-excel';
   } else if (isFileOfExt(['.ppt', '.pptx'], filename)) {
-    fontIcon = 'fa-file-powerpoint-o';
+    fontIcon = 'file-powerpoint';
   } else if (isFileOfExt(['.html', '.htm', '.js', '.jsx'], filename)) {
-    fontIcon = 'fa-file-code-o';
+    fontIcon = 'file-code';
+  } else if (isFileOfExt(['.csv'], filename)) {
+    fontIcon = 'file-csv';
+  } else if (isFileOfExt(['.mp4', '.avi'], filename)) {
+    fontIcon = 'file-video';
   } else {
-    fontIcon = 'fa-file-o';
+    fontIcon = 'file';
   }
   return fontIcon;
 };

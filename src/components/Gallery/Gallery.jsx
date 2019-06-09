@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { faCog, faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Button from '../../shared/components/Button';
 import Dialog from '../../shared/components/Dialog';
@@ -183,12 +185,12 @@ class Gallery extends Component {
             </div>))
           }
           { galleryImages.length === 0 &&
-            <div><i className="fa fa-2x fa-circle-o-notch fa-spin"></i></div>
+            <div><FontAwesomeIcon icon={faCircleNotch} size="2x" spin /></div>
           }
         </div>
         <div className="widgetSettings">
           <Button type="icon-clear" onClick={this.showDialog} rounded>
-            <i className="fa fa-cog"></i>
+            <FontAwesomeIcon icon={faCog} />
           </Button>
         </div>
         <Dialog mode="confirm"

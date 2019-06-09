@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { faPencilAlt, faCog } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { DashboardWidget } from '../../models';
 import Widget from './Widget';
@@ -167,10 +169,10 @@ class DashboardHome extends Component {
           <span>Home</span>
           <div className="widgetsControl">
             <Button type="icon-clear" rounded onClick={this.toggleEdit} title="Edit Widget">
-              <i className="fa fa-pencil"></i>
+              <FontAwesomeIcon icon={faPencilAlt} />
             </Button>
             <Button type="icon-clear" rounded onClick={this.showDialog} title="Settings">
-              <i className="fa fa-gear"></i>
+              <FontAwesomeIcon icon={faCog} />
             </Button>
           </div>
         </div>

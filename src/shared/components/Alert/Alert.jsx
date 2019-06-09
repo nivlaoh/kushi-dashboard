@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './styles.css';
 
@@ -15,7 +17,7 @@ const Alert = (props) => {
       {errorMessage}
       {message}
       <div role="button" tabIndex={0} className="dismiss-icon" onClick={onDismiss}>
-        <i className="fa fa-times"></i>
+        <FontAwesomeIcon icon={faTimes} />
       </div>
     </div>
   );

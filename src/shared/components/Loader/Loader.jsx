@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import logger from '../../../utils/logger';
 
@@ -76,7 +78,7 @@ class Loader extends Component {
     return (
       !offLoader ?
       <div className={loaderClasses}>
-        <i className="fa fa-circle-o-notch fa-3x fa-spin fa-fw"></i>
+        <FontAwesomeIcon icon={faCircleNotch} size="3x" spin fixedWidth />
       </div> :
       null
     );

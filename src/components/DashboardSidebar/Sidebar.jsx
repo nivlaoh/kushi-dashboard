@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { SidebarLink } from '../../models';
 import './styles.scss';
@@ -53,7 +55,7 @@ class Sidebar extends Component {
             <Link key={`link.${link.label}`} to={link.route}>
               {link.icon &&
                 <div className="linkIcon">
-                  <i className={link.icon}></i>
+                  <FontAwesomeIcon icon={link.icon} fixedWidth />
                 </div>
               }
               {link.label}
@@ -61,7 +63,7 @@ class Sidebar extends Component {
             <a href="javascript:void(0)" tabIndex={linkIndex} onClick={link.run}>
               {link.icon &&
                 <div className="linkIcon">
-                  <i className={link.icon}></i>
+                  <FontAwesomeIcon icon={link.icon} fixedWidth />
                 </div>
               }
               {link.label}
