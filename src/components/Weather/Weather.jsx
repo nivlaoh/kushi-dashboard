@@ -19,8 +19,12 @@ class Weather extends Component {
       getAirTemperature,
       getWeatherForecast,
     } = this.props;
-    getAirTemperature();
-    getWeatherForecast();
+    if (getAirTemperature) {
+      getAirTemperature();
+    }
+    if (getWeatherForecast) {
+      getWeatherForecast();
+    }
   };
 
   getWeatherIcon = (forecast) => {

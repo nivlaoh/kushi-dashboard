@@ -36,7 +36,7 @@ class Gallery extends Component {
     getTransition();
     getTiming();
     this.loadImages = setInterval(() => {
-      getImages(10, subject).then(() => {
+      getImages && getImages(10, subject).then(() => {
         if (this.rotateImage) {
           clearInterval(this.rotateImage);
         }
@@ -242,6 +242,9 @@ Gallery.propTypes = {
   setSubject: PropTypes.func,
   setTransition: PropTypes.func,
   setTiming: PropTypes.func,
+  getSubject: PropTypes.func,
+  getTransition: PropTypes.func,
+  getTiming: PropTypes.func,
 };
 
 Gallery.defaultProps = {
@@ -254,6 +257,9 @@ Gallery.defaultProps = {
   setSubject: () => {},
   setTransition: () => {},
   setTiming: () => {},
+  getSubject: () => {},
+  getTransition: () => {},
+  getTiming: () => {},
 };
 
 export default Gallery;

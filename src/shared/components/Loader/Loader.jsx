@@ -4,8 +4,6 @@ import { isEmpty } from 'lodash';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import logger from '../../../utils/logger';
-
 import './styles.scss';
 
 class Loader extends Component {
@@ -31,25 +29,28 @@ class Loader extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {
-      activate,
-      timeout,
-    } = this.props;
-    if (activate && timeout !== -1) {
+    if (nextProps.activate) {
+      this.setState({
+        offLoader: !nextProps.activate,
+      });
+    }
+    if (nextProps.timeout !== -1) {
       this.dismissLoader(nextProps);
     }
   }
 
   componentWillUnmount() {
-    logger('unmount');
     clearTimeout(this.timer);
     clearTimeout(this.loaderTimer);
   }
 
   dismissLoader(props) {
-    if (isEmpty(this.timer) && props.timeout !== -1) {
+    if (!isEmpty(this.timer)) {
+      clearTimeout(this.timer);
+      this.timer = null;
+    }
+    if (props.timeout !== -1) {
       this.timer = setTimeout(() => {
-        logger('clear timer');
         props.timeoutFn();
         clearTimeout(this.timer);
         this.timer = null;

@@ -4,7 +4,7 @@ import { isEmpty } from 'lodash';
 import moment from 'moment';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faDownload, faFileAlt, faFileCsv, faFileCode, faFile, faFileImage, faFileExcel,
-  faFilePowerpoint, faFileWord, faFileVideo, faTrash } from '@fortawesome/free-solid-svg-icons';
+  faFilePowerpoint, faFileWord, faFilePdf, faFileVideo, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Button from '../Button';
@@ -23,7 +23,7 @@ class FileUpload extends Component {
       onDrag: false,
     };
     library.add(faFileAlt, faFileCsv, faFileCode, faFile, faFileImage, faFileExcel,
-      faFilePowerpoint, faFileWord, faFileVideo);
+      faFilePowerpoint, faFileWord, faFilePdf, faFileVideo);
   }
 
   componentWillReceiveProps(nextProps) {

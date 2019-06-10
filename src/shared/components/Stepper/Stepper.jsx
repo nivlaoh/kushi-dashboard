@@ -86,7 +86,10 @@ class Stepper extends Component {
 }
 
 Stepper.propTypes = {
-  steps: PropTypes.arrayOf(PropTypes.shape({})),
+  steps: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+  })),
   nextStep: PropTypes.func,
   interactive: PropTypes.bool,
 };

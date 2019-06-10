@@ -42,7 +42,7 @@ class Notification extends Component {
     return (
       <div className="content-wrapper">
         <div className="pageTitle">Notifications</div>
-        <Toast message="Email sent" show={showToast} />
+        <Toast message="Email sent" show={showToast} type="success" />
         <div className="messageContentWrapper">
           <MessagePane
             messages={messages}

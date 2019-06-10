@@ -15,34 +15,24 @@ class Toast extends Component {
     };
   }
 
-  componentDidMount() {
-    const {
-      show,
-      timeout,
-    } = this.props;
-    if (show && timeout !== -1) {
-      this.toastTimer = setTimeout(() => {
-        this.setState({
-          showToast: false,
-        }, () => {
-          clearTimeout(this.toastTimer);
-        });
-      }, timeout);
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
-    const {
-      show,
-    } = this.props;
-    if (nextProps.show !== show) {
-      this.setState({
-        showToast: nextProps.show,
-      });
-    }
+    this.setState({
+      showToast: nextProps.show,
+    }, () => {
+      if (!nextProps.dismissible) {
+        if (this.toastTimer) {
+          clearTimeout(this.toastTimer);
+          this.toastTimer = null;
+        }
+        this.toastTimer = setTimeout(() => {
+          this.closeToast();
+        }, nextProps.timeout);
+      }
+    });
   }
 
   componentWillUnmount() {
+    clearTimeout(this.toastTimer);
     this.toastTimer = null;
   }
 
@@ -56,18 +46,40 @@ class Toast extends Component {
       this.toastTimer = setTimeout(() => {
         this.setState({
           showToast: false,
+          dismissing: false,
         }, () => {
           clearTimeout(this.toastTimer);
+          this.toastTimer = null;
           onDismiss();
         });
       }, 400);
     });
   };
 
+  getToastIcon = () => {
+    const {
+      icon,
+      type,
+    } = this.props;
+    if (icon === null) {
+      if (type === 'success') {
+        return 'check-circle';
+      }
+      if (type === 'info') {
+        return 'info-circle';
+      }
+      if (type === 'error') {
+        return 'exclamation-circle';
+      }
+    }
+    return icon;
+  };
+
   render() {
     const {
       message,
       dismissible,
+      type,
     } = this.props;
     const {
       showToast,
@@ -78,8 +90,15 @@ class Toast extends Component {
       left: (document.documentElement.clientWidth / 2) - 250,
     };
 
+    const showIcon = this.getToastIcon();
+
     return showToast ? (
-      <div className={`toast ${dismissing ? 'dismiss' : ''}`} style={toastStyle}>
+      <div className={`toast ${type} ${dismissing ? 'dismiss' : ''}`} style={toastStyle}>
+        { showIcon &&
+          <div className="toastIcon">
+            <FontAwesomeIcon icon={showIcon} size="2x" />
+          </div>
+        }
         <div className="toastMsg">{message}</div>
         { dismissible &&
           <button type="button" className="toastClose" onClick={this.closeToast}>
@@ -97,13 +116,17 @@ Toast.propTypes = {
   show: PropTypes.bool,
   dismissible: PropTypes.bool,
   onDismiss: PropTypes.func,
+  type: PropTypes.oneOf(['info', 'success', 'error']),
+  icon: PropTypes.string,
 };
 
 Toast.defaultProps = {
-  timeout: -1,
+  timeout: 3000,
   show: false,
   dismissible: true,
   onDismiss: () => {},
+  type: 'success',
+  icon: null,
 };
 
 export default Toast;

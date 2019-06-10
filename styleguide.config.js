@@ -4,11 +4,24 @@ const devWebpack = require('./webpack.config.dev.js');
 module.exports = {
   pagePerSection: process.env.NODE_ENV !== 'production',
   skipComponentsWithoutExample: true,
-  require: [
-    path.join(__dirname, 'styleguide/styles.css')
-  ],
+  require: [path.resolve(__dirname, 'styleguidist/setup.js')],
   template: {
-    favicon: 'favicon.ico'
+    favicon: 'favicon.ico',
+    head: {
+      links: [
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css?family=Quicksand'
+        }
+      ]
+    }
+  },
+  styles: {
+    StyleGuide: {
+      '@global body': {
+        fontFamily: 'Quicksand, Arial, sans-serif'
+      }
+    }
   },
   sections: [
     {

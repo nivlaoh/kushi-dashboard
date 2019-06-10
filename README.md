@@ -10,7 +10,7 @@ Kushi Dashboard is a general purpose admin dashboard, React-redux powered.
 
 ## Demo
 
-[View Dasboard](https://nivlaoh.github.io/kushi-dashboard/)
+[View Dashboard](https://nivlaoh.github.io/kushi-dashboard/)
 
 ## Components
 

@@ -27,12 +27,22 @@
 	border: solid 1px $linkBlue;
 	max-width: 1000px;
 	width: 500px;
+	min-height: 55px;
 	position: fixed;
 	top: 0;
 	left: calc(50% - 500px);
 	z-index: 80;
 	box-shadow: 0 2px 5px #aaa;
 	animation: slideDown 0.4s forwards;
+	.toastIcon {
+		width: 55px;
+		height: 55px;
+		background: $linkBlue;
+		color: white;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 	&.dismiss {
 		animation: slideUp 0.4s ease-out forwards;
 	}
@@ -53,5 +63,38 @@
 		color: white;
 		border: none;
 		cursor: pointer;
+	}
+}
+
+.toast.info {
+	@extend .toast;
+	border: solid 1px $linkBlue;
+	.toastIcon {
+		background: $linkBlue;
+	}
+	.toastClose {
+		background: $linkBlue;
+	}
+}
+
+.toast.success {
+	@extend .toast;
+	border: solid 1px $green;
+	.toastIcon {
+		background: $green;
+	}
+	.toastClose {
+		background: $green;
+	}
+}
+
+.toast.error {
+	@extend .toast;
+	border: solid 1px $red;
+	.toastIcon {
+		background: $red;
+	}
+	.toastClose {
+		background: $red;
 	}
 }
