@@ -9,7 +9,8 @@ class Dropdown extends Component {
     super(props);
 
     this.dropdownNode = React.createRef();
-
+    this.xBuffer = 25;
+    this.yBuffer = 25;
     this.state = {
       showDropdown: false,
       x: 0,
@@ -65,10 +66,18 @@ class Dropdown extends Component {
 
   openDropdown = (e) => {
     console.log('showing at ', e.clientX, e.clientY);
+    const {
+      target,
+      stickTo,
+    } = this.props;
+    const x = stickTo === 'cursor' ? e.clientX : target.current.getBoundingClientRect().left;
+    const y = stickTo === 'cursor' ? e.clientY :
+      target.current.getBoundingClientRect().top + (target.current.getBoundingClientRect().height/2);
+    console.log('cal', x, y);
     this.setState({
       showDropdown: true,
-      x: e.clientX,
-      y: e.clientY,
+      x,
+      y,
     });
   };
 
@@ -106,8 +115,8 @@ class Dropdown extends Component {
     if (isEmpty(target) || isEmpty(target.current)) {
       return 0;
     }
-    if (x + width > window.innerWidth - 25) {
-      return x - width + 30;
+    if (x + width > window.innerWidth) {
+      return x - width/2 + this.xBuffer;
     }
     return x;
   };
@@ -139,33 +148,33 @@ class Dropdown extends Component {
 
     return showDropdown ? (
       <div className="dropdownWrapper" style={dropdownStyle} ref={this.dropdownNode}>
-      <div className="dropdownMenu">
         { Header &&
           <Header />
         }
-        { RowComponent === null && options.map(option =>
-          <div
-            key={option.key}
-            className={`dropdownOption ${truncateOption ? 'truncate' : ''}`}
-            style={optionStyle}
-            role="button"
-            tabIndex="0"
-            onClick={e => { this.selectOption(e, option); }}
-          >
-            {option.value}
-          </div>)
-        }
-        { RowComponent && options.map(option =>
-          <RowComponent
-            key={option.key}
-            option={option}
-            onClick={e => { this.selectOption(e, option); }}
-          />)
-        }
+        <div className="dropdownMenu">
+          { RowComponent === null && options.map(option =>
+            <div
+              key={option.key}
+              className={`dropdownOption ${truncateOption ? 'truncate' : ''}`}
+              style={optionStyle}
+              role="button"
+              tabIndex="0"
+              onClick={e => { this.selectOption(e, option); }}
+            >
+              {option.value}
+            </div>)
+          }
+          { RowComponent && options.map(option =>
+            <RowComponent
+              key={option.key}
+              option={option}
+              onClick={e => { this.selectOption(e, option); }}
+            />)
+          }
+        </div>
         { Footer &&
           <Footer />
         }
-      </div>
       </div>
     ) : null;
   }
@@ -173,11 +182,14 @@ class Dropdown extends Component {
 
 Dropdown.propTypes = {
   target: PropTypes.shape({}).isRequired,
+  /** If stick to mouse, it will open where the cursor is, otherwise
+  it will open with reference to target */
+  stickTo: PropTypes.oneOf(['cursor', 'target']),
   event: PropTypes.oneOf(['mousedown', 'contextmenu']),
-  /** Menu items **/
+  /** Menu items */
   options: PropTypes.arrayOf(PropTypes.shape({})),
   onSelected: PropTypes.func,
-  /** Number of items shown at one time **/
+  /** Number of items shown at one time */
   maxShown: PropTypes.number,
   width: PropTypes.number,
   truncateOption: PropTypes.bool,
@@ -187,6 +199,7 @@ Dropdown.propTypes = {
 };
 
 Dropdown.defaultProps = {
+  stickTo: 'cursor',
   event: 'mousedown',
   options: [],
   onSelected: () => {},

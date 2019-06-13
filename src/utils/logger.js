@@ -1,10 +1,11 @@
 import moment from 'moment';
+import { detectIE } from './browserUtil';
 
 /* eslint no-console: "off" */
 
 export default (message, level = 'INFO', object = '', colorStrOveride = '') => {
   const prependDate = `[${moment(new Date()).format('YYYY-MM-DD HH:mm:ss.SSS')}]`;
-  const browserIsIE = false;
+  const browserIsIE = detectIE();
   switch (level) {
     case 'DEBUG':
       if (!process.env.production) {

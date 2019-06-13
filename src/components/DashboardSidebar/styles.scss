@@ -17,27 +17,33 @@
 
 .linkWrapper {
 	display: flex;
-	align-items: center;
-	padding-left: 1rem;
+	align-items: stretch;
 	height: 50px;
 	transition: all 0.2s ease-out;
 	border-left: solid 5px transparent;
 	vertical-align: middle;
+	color: #bbb;
+	width: 100%;
+	font-size: 1.2rem;
+	align-items: center;
 	&:hover {
 		cursor: pointer;
 		border-left: solid 5px white;
-		a {
-			color: white;
-		}
-		i {
+		color: white;
+		.linkIcon {
 			color: white;
 		}
 	}
-	a {
-		display: block;
-		width: 100%;
-		font-size: 1.2rem;
-		color: #bbb;
+	&.selected {
+		background: white;
+		border-left-color: #666;
+		color: #666;
+		&:hover {
+			color: #666;
+		}
+		.linkIcon {
+			color: #666;
+		}
 	}
 }
 
@@ -46,9 +52,8 @@
 	color: #bbb;
 	text-align: center;
 	vertical-align: middle;
-	line-height: 2rem;
 	font-size: 1.5rem;
-	width: 30px;
-	height: 30px;
-	margin-right: 1.2rem;
+	padding: 0.75rem;
+	// background: red;
+	margin-right: 1rem;
 }

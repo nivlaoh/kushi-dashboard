@@ -18,6 +18,7 @@ class Loader extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     const {
       activate,
       timeout,
@@ -29,17 +30,20 @@ class Loader extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.activate) {
-      this.setState({
-        offLoader: !nextProps.activate,
-      });
-    }
-    if (nextProps.timeout !== -1) {
-      this.dismissLoader(nextProps);
+    if (this._isMounted) {
+      if (nextProps.activate) {
+        this.setState({
+          offLoader: !nextProps.activate,
+        });
+      }
+      if (nextProps.timeout !== -1) {
+        this.dismissLoader(nextProps);
+      }
     }
   }
 
   componentWillUnmount() {
+    this._isMounted = false;
     clearTimeout(this.timer);
     clearTimeout(this.loaderTimer);
   }
@@ -55,14 +59,15 @@ class Loader extends Component {
         clearTimeout(this.timer);
         this.timer = null;
 
-        this.loaderTimer = setTimeout(() => this.setState({
-          offLoader: true,
-        }, () => {
-          clearTimeout(this.loaderTimer);
-          this.loaderTimer = null;
-          document.body.classList.toggle('noscroll', false);
-        }), 400);
-
+        if (this._isMounted) {
+          this.loaderTimer = setTimeout(() => this.setState({
+            offLoader: true,
+          }, () => {
+            clearTimeout(this.loaderTimer);
+            this.loaderTimer = null;
+            document.body.classList.toggle('noscroll', false);
+          }), 400);
+        }
       }, props.timeout);
     }
   }

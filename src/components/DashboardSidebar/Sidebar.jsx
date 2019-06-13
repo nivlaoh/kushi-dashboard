@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { SidebarLink } from '../../models';
@@ -14,27 +13,43 @@ class Sidebar extends Component {
       removeSidebar: !props.visible,
     };
     this.initSidebar = this.initSidebar.bind(this);
+    this.sidebarTimer = null;
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillReceiveProps(nextProps) {
     const {
       visible,
     } = this.props;
-    if (visible && !prevProps.visible) {
+    if (nextProps.visible && !visible) {
       this.setState({
-        removeSidebar: false
+        removeSidebar: false,
       });
-    }
-    if (!visible && prevProps.visible) {
+    } else if (!nextProps.visible && visible) {
       this.initSidebar();
     }
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+    clearTimeout(this.sidebarTimer);
+    this.sidebarTimer = null;
+  }
+
   initSidebar() {
-    setTimeout(() => {
-      this.setState({
-        removeSidebar: true,
-      });
+    if (this.sidebarTimer) {
+      clearTimeout(this.sidebarTimer);
+      this.sidebarTimer = null;
+    }
+    this.sidebarTimer = setTimeout(() => {
+      if (this._isMounted) {
+        this.setState({
+          removeSidebar: true,
+        });
+      }
     }, 300);
   }
 
@@ -49,27 +64,22 @@ class Sidebar extends Component {
     const sidebarStyle = visible ? "sidebar visible" : "sidebar";
     return removeSidebar ? (<div></div>) : (
       <div className={sidebarStyle}>
-        { links.map((link, linkIndex) => (
-          <div key={`wrapper.${link.label}`} className="linkWrapper">
-            { !link.run ?
-            <Link key={`link.${link.label}`} to={link.route}>
-              {link.icon &&
-                <div className="linkIcon">
-                  <FontAwesomeIcon icon={link.icon} fixedWidth />
-                </div>
-              }
-              {link.label}
-            </Link> :
-            <a href="javascript:void(0)" tabIndex={linkIndex} onClick={link.run}>
-              {link.icon &&
-                <div className="linkIcon">
-                  <FontAwesomeIcon icon={link.icon} fixedWidth />
-                </div>
-              }
-              {link.label}
-            </a>
-          }
-          </div>
+        { links.map((link) => (
+          <NavLink
+            key={`link.${link.label}`}
+            className="linkWrapper"
+            exact
+            to={link.route}
+            onClick={link.run}
+            activeClassName="selected"
+          >
+            { link.icon &&
+              <div className="linkIcon">
+                <FontAwesomeIcon icon={link.icon} fixedWidth />
+              </div>
+            }
+            {link.label}
+          </NavLink>
         ))}
       </div>
     );

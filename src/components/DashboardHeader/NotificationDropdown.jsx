@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCog, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import messages from '../Dashboard/messages.json';
@@ -12,7 +10,6 @@ import './styles.scss';
 class NotificationDropdown extends Component {
   constructor(props) {
     super(props);
-    library.add(faCog, faUser);
   }
   
   render() {
@@ -58,6 +55,7 @@ class NotificationDropdown extends Component {
       <div>
         <Dropdown
           target={target}
+          stickTo="target"
           options={options}
           onSelected={onSelected}
           width={300}

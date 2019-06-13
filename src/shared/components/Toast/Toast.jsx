@@ -125,7 +125,7 @@ Toast.defaultProps = {
   show: false,
   dismissible: true,
   onDismiss: () => {},
-  type: 'success',
+  type: 'info',
   icon: null,
 };
 

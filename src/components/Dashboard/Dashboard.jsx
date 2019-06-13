@@ -27,10 +27,15 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     const {
       getWidgets,
     } = this.props;
     getWidgets();
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   toggleSidebar() {
@@ -43,9 +48,11 @@ class Dashboard extends Component {
   }
 
   stopLoading() {
-    this.setState({
-      isLoading: false,
-    });
+    if (this._isMounted) {
+      this.setState({
+        isLoading: false,
+      });
+    }
   }
 
   render() {
@@ -75,7 +82,8 @@ class Dashboard extends Component {
         label: 'Logout',
         route: '/logout',
         icon: 'sign-out-alt',
-        run: () => {
+        run: (e) => {
+          e.preventDefault();
           logout(() => {
             history.push('/logout');
           });

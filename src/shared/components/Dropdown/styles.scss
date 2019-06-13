@@ -1,4 +1,6 @@
 .dropdownWrapper {
+	display: flex;
+	flex-direction: column;
 	background: white;
 	border: solid 1px #ccc;
 	box-shadow: 0 2px 8px #ccc;
@@ -6,6 +8,7 @@
 	z-index: -1;
 	overflow-y: auto;
 	height: 300px;
+	border-radius: 5px;
 }
 
 .dropdownMenu {
