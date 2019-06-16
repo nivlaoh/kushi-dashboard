@@ -138,12 +138,14 @@ class Settings extends Component {
                 <TextBox
                   label="First Name"
                   placeholder="First Name"
+                  fluid
                   value={user.firstName}
                   onChange={e => { updateUserInfo('firstName', e.target.value); }}
                 />
                 <TextBox
                   label="Last Name"
                   placeholder="Last Name"
+                  fluid
                   value={user.lastName}
                   onChange={e => { updateUserInfo('lastName', e.target.value); }}
                 />

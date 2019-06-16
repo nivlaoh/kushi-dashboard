@@ -1,9 +1,11 @@
 @import "../../../variables.scss";
 
 .textContainer {
-	width: 100%;
 	margin-top: 0;
 	margin-bottom: 0.6rem;
+	&.full {
+		width: 100%;
+	}
 }
 
 .infoRow {

@@ -7,6 +7,7 @@ import { DashboardWidget } from '../../models';
 import Widget from './Widget';
 import Button from '../../shared/components/Button';
 import Dialog from '../../shared/components/Dialog';
+import TextBox from '../../shared/components/TextBox';
 
 class DashboardHome extends Component {
   constructor(props) {
@@ -17,10 +18,12 @@ class DashboardHome extends Component {
     this.widgetHeight = 200;
     this.margin = 15;
 
+    const widgetInfo = this.mapWidgetInfo(props);
     this.state = {
       editable: false,
       showWidgetSettings: false,
       grid: this.calculateGrid(props.widgets),
+      widgetInfo,
     };
   }
 
@@ -37,8 +40,10 @@ class DashboardHome extends Component {
       this.updateDimensions(null, nextProps.sidebarVisible ? this.widgetWidth : 0);
     }
     if (nextProps.widgets !== widgets || nextProps.widgets.length !== widgets.length) {
+      const widgetInfo = this.mapWidgetInfo(nextProps);
       this.setState({
         grid: this.calculateGrid(nextProps.widgets),
+        widgetInfo,
       });
     }
   }
@@ -46,6 +51,13 @@ class DashboardHome extends Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimensions);
   }
+
+  mapWidgetInfo = (props) => {
+    return props.widgets.reduce((map, widget) => {
+      map[widget.id] = { id: widget.id, rows: widget.rows, columns: widget.columns };
+      return map;
+    }, {});
+  };
 
   calculateGrid = (widgets) => {
     const grid = [[]];
@@ -148,6 +160,35 @@ class DashboardHome extends Component {
     });
   };
 
+  changeWidgetSettings = () => {
+    const {
+      updateWidgetSettings,
+    } = this.props;
+    const {
+      widgetInfo,
+    } = this.state;
+    this.setState({
+      showWidgetSettings: false,
+    });
+    updateWidgetSettings(widgetInfo);
+  };
+
+  updateWidgetInfo = (e, side, id) => {
+    const {
+      widgetInfo,
+    } = this.state;
+    console.log(e.target.value, side, id);
+    this.setState({
+      widgetInfo: {
+        ...widgetInfo,
+        [id]: {
+          ...widgetInfo[id],
+          [side]: e.target.value,
+        },
+      },
+    });
+  };
+
   render() {
     const {
       widgets,
@@ -169,10 +210,10 @@ class DashboardHome extends Component {
           <span>Home</span>
           <div className="widgetsControl">
             <Button type="icon-clear" rounded onClick={this.toggleEdit} title="Edit Widget">
-              <FontAwesomeIcon icon={faPencilAlt} />
+              <FontAwesomeIcon icon={faPencilAlt} fixedWidth />
             </Button>
             <Button type="icon-clear" rounded onClick={this.showDialog} title="Settings">
-              <FontAwesomeIcon icon={faCog} />
+              <FontAwesomeIcon icon={faCog} fixedWidth />
             </Button>
           </div>
         </div>
@@ -180,10 +221,35 @@ class DashboardHome extends Component {
           mode="confirm"
           show={showWidgetSettings}
           title="Widgets Settings"
-          onConfirm={this.hideDialog}
+          onConfirm={this.changeWidgetSettings}
           onDismiss={this.hideDialog}
         >
-          Hello Custom Text
+          <div className="settingRows">
+            <div className="row rowHeader">
+              <div className="info">Widget Name</div>
+              <div className="infoInput">Rows</div>
+              <div className="infoInput">Columns</div>
+            </div>
+          { widgets.map(widget => (
+            <div key={widget.id} className="row">
+              <div className="info">{ widget.name ? widget.name : `Widget ${widget.id}`}</div>
+              <TextBox
+                type="number"
+                className="infoInput"
+                placeholder="Rows"
+                value={widget.rows}
+                onChange={(e) => { this.updateWidgetInfo(e, 'rows', widget.id) }}
+              />
+              <TextBox
+                type="number"
+                className="infoInput"
+                placeholder="Columns"
+                value={widget.columns}
+                onChange={(e) => { this.updateWidgetInfo(e, 'columns', widget.id) }}
+              />
+            </div>))
+          }
+          </div>
         </Dialog>
         <div
           className="widgetsWrapper"
@@ -213,12 +279,14 @@ DashboardHome.propTypes = {
   widgets: PropTypes.arrayOf(DashboardWidget),
   sidebarVisible: PropTypes.bool,
   closeWidget: PropTypes.func,
+  updateWidgetSettings: PropTypes.func,
 };
 
 DashboardHome.defaultProps = {
   widgets: [],
   sidebarVisible: false,
   closeWidget: () => {},
+  updateWidgetSettings: () => {},
 };
 
 export default DashboardHome;

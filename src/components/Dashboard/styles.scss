@@ -59,9 +59,29 @@
 	}
 }
 
+.widgetName {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	text-shadow: 1px 1px 1px #333;
+	font-weight: bold;
+	z-index: 1;
+}
+
 .widgetsControl {
 	display: flex;
 	align-self: flex-end;
+}
+
+.widgetSettings {
+	position: absolute;
+	right: 0;
+	top: 0;
+	svg {
+		color: white;
+		text-shadow: 0 2px 2px black;
+		filter: drop-shadow(0 1px 2px #333);
+	}
 }
 
 [draggable=true] {
@@ -81,4 +101,28 @@
 	border: none;
 	width: 100%;
 	background-color: white;
+}
+
+.settingRows {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	.row {
+		display: flex;
+		flex: 1;
+		align-items: center;
+		min-height: 48px;
+		&.rowHeader {
+			font-weight: bold;
+		}
+		.info {
+			flex: 1;
+		}
+		.infoInput {
+			width: 70px;
+		}
+		.textContainer + .textContainer {
+			margin-left: 10px;
+		}
+	}
 }

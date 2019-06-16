@@ -61,6 +61,7 @@ class Dashboard extends Component {
       logout,
       history,
       closeWidget,
+      updateWidgetSettings,
     } = this.props;
     const {
       isLoading,
@@ -102,6 +103,7 @@ class Dashboard extends Component {
               widgets={widgets}
               closeWidget={closeWidget}
               sidebarVisible={sidebarVisible}
+              updateWidgetSettings={updateWidgetSettings}
             />
           )} />
           <Route path='/settings' render={(routeProps) => (

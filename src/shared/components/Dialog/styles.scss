@@ -19,7 +19,7 @@
 		border: solid 1px #ccc;
 		min-width: 350px;
 		min-height: 250px;
-		max-height: 100vh;
+		max-height: calc(100vh - 50px);
 		max-width: 600px;
 		border-radius: 5px;
 		box-shadow: 0 2px 25px #888;
@@ -28,6 +28,7 @@
 			justify-content: center;
 			text-transform: uppercase;
 			padding: 1rem 1rem 0.5rem 1rem;
+			min-height: 40px;
 			font-weight: bold;
 			font-size: 1.2rem;
 			font-family: Arial, sans-serif;
@@ -43,6 +44,8 @@
 			flex: 1;
 			padding: 1rem 2rem;
 			font-size: 1.1rem;
+			overflow-y: auto;
+			min-height: 120px;
 		}
 		.popupReply {
 			margin-left: 2rem;
@@ -51,6 +54,7 @@
 		.buttonsControl {
 			display: flex;
 			justify-content: flex-end;
+			min-height: 50px;
 		}
 	}
 }

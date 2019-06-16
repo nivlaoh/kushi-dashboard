@@ -21,6 +21,7 @@ const mapDispatchToProps = dispatch => ({
   getProfilePic: () => settingsOperations.getProfilePic()(dispatch),
   getWidgets: () => dashboardOperations.getWidgets()(dispatch),
   closeWidget: (index) => dashboardOperations.closeWidget(index)(dispatch),
+  updateWidgetSettings: (settings) => { console.log(settings); },
 });
 
 const DashboardContainer = connect(mapStateToProps, mapDispatchToProps)(withRouter(Dashboard));

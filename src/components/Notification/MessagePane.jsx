@@ -259,12 +259,12 @@ class MessagePane extends Component {
           <div className={`composeWindow ${compose ? 'visible' : ''} ${closingCompose ? 'hide' : ''}`}>
             <div className="composeMetaRow">
               <div className="infoRow">
-                <TextBox placeholder="To" />
-                <TextBox placeholder="Cc" />
+                <TextBox fluid placeholder="To" />
+                <TextBox fluid placeholder="Cc" />
               </div>
             </div>
             <div className="composeMetaRow">
-              <TextBox placeholder="Subject" />
+              <TextBox fluid placeholder="Subject" />
             </div>
             <textarea className="composeContent"></textarea>
             <div className="buttonsControl">

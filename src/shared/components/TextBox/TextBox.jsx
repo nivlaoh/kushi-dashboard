@@ -89,6 +89,7 @@ class TextBox extends Component {
       placeholder,
       label,
       readOnly,
+      fluid,
     } = this.props;
     const {
       showError,
@@ -98,7 +99,7 @@ class TextBox extends Component {
     const fieldIcon = this.getFieldIcon();
 
     return (
-      <div className="textContainer">
+      <div className={`textContainer ${fluid ? 'full' : ''}`}>
         { label &&
           <div className="label">{label}</div>
         }
@@ -133,7 +134,7 @@ TextBox.propTypes = {
   fieldKey: PropTypes.string,
   /** class name to be added for styling */
   className: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func,
   /** Event handler for validation */
   onValidate: PropTypes.func,

@@ -76,6 +76,7 @@ $pageTitle: #696969;
 
 .infoRow {
 	display: flex;
+	align-items: center;
 	.textContainer + .textContainer {
 		margin-left: 10px;
 	}

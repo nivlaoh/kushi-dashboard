@@ -1,6 +1,7 @@
 [
     {
         "id": "1",
+        "name": "Weather",
         "rows": 1,
         "columns": 1,
         "background": "purple",
@@ -10,6 +11,7 @@
     },
     {
         "id": "2",
+        "name": "Map",
         "rows": 2,
         "columns": 3,
         "background": "#00bcd4",
@@ -20,6 +22,7 @@
     },
     {
         "id": "3",
+        "name": "Gallery",
         "rows": 1,
         "columns": 1,
         "background": "black",

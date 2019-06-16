@@ -37,6 +37,8 @@ class Weather extends Component {
       description = 'cloudy';
     } else if (description.includes('light-rain')) {
       description = 'rain-mix';
+    } else if (description.includes('light-showers')) {
+      description = 'showers';
     }
     return <i className={`weatherIcon wi wi-${isDay ? 'day' : 'night'}-${description}`}></i>;
   };
@@ -58,11 +60,11 @@ class Weather extends Component {
           </div>
         </div>
         <div className="tempReading">{ temperature }{`\u00b0\u0043`}</div>
-        <div className="infoRow">
+        <div className="infoRow weatherRow">
           { this.getWeatherIcon(forecast) }{ forecast }
         </div>
-        <div className="infoRow">
-          <FontAwesomeIcon className="marker" icon={faMapMarker} /> { area }
+        <div className="infoRow locationRow">
+          <FontAwesomeIcon className="marker" fixedWidth icon={faMapMarker} /> { area }
         </div>
       </div>
     );

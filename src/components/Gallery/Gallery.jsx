@@ -36,40 +36,42 @@ class Gallery extends Component {
     getTransition();
     getTiming();
     this.loadImages = setInterval(() => {
-      getImages && getImages(10, subject).then(() => {
-        if (this.rotateImage) {
-          clearInterval(this.rotateImage);
-        }
-        this.rotateImage = setInterval(() => {
-          const {
-            images,
-            maxImages,
-            imageBuffer,
-          } = this.props;
-          const {
-            showingImage,
-          } = this.state;
-
-          if (images.length !== 0) {
-            console.log('Showing', (showingImage + 1) % images.length, 'of', images.length);
-            const sliceImages = images
-              .filter(image => image.id >= showingImage && image.id <= showingImage + (imageBuffer - 1));
-
-            if (this.loadImages !== null && images.length >= maxImages) {
-              console.log('Max images reached, stop loading more');
-              clearInterval(this.loadImages);
-              this.loadImages = null;
-            }
-
-            this.setState({
-              showingImage: (showingImage + 1) % maxImages,
-              galleryImages: [
-                ...sliceImages,
-              ],
-            });
+      if (getImages) {
+        getImages(10, subject).then(() => {
+          if (this.rotateImage) {
+            clearInterval(this.rotateImage);
           }
-        }, 5000);
-      });
+          this.rotateImage = setInterval(() => {
+            const {
+              images,
+              maxImages,
+              imageBuffer,
+            } = this.props;
+            const {
+              showingImage,
+            } = this.state;
+
+            if (images.length !== 0) {
+              console.log('Showing', (showingImage + 1) % images.length, 'of', images.length);
+              const sliceImages = images
+                .filter(image => image.id >= showingImage && image.id <= showingImage + (imageBuffer - 1));
+
+              if (this.loadImages !== null && images.length >= maxImages) {
+                console.log('Max images reached, stop loading more');
+                clearInterval(this.loadImages);
+                this.loadImages = null;
+              }
+
+              this.setState({
+                showingImage: (showingImage + 1) % maxImages,
+                galleryImages: [
+                  ...sliceImages,
+                ],
+              });
+            }
+          }, 5000);
+        });
+      }
     }, 20000);
   }
 
@@ -130,7 +132,6 @@ class Gallery extends Component {
   };
 
   changeSettings = () => {
-    console.log('change settings');
     const {
       setSubject,
       setTransition,

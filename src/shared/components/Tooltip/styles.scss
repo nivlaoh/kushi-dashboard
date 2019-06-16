@@ -17,6 +17,7 @@
 	z-index: 80;
 	opacity: 0;
 	transition: opacity 0.2s linear;
+	pointer-events: none;
 	&:after {
 		content: "";
 		position: absolute;
