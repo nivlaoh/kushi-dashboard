@@ -28,8 +28,12 @@
 			margin-bottom: 5px;
 			padding-left: 5px;
 			padding-right: 5px;
-			i {
+			cursor: default;
+			svg {
 				cursor: pointer;
+				path {
+					pointer-events: none;
+				}
 			}
 		}
 	}
@@ -44,6 +48,9 @@
 		background: transparent;
 		&:focus {
 			cursor: text;
+		}
+		&:read-only {
+			cursor: default;
 		}
 	}
 	.select-arrow {

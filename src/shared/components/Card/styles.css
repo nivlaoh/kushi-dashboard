@@ -39,8 +39,10 @@
 	padding-left: 0.1rem;
 	min-height: 35px;
 	vertical-align: middle;
+	display: flex;
 }
 .footer.right {
 	text-align: right;
 	padding-right: 0.1rem;
+	justify-content: flex-end;
 }

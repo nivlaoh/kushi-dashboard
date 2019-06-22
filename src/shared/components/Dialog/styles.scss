@@ -18,7 +18,7 @@
 		background: white;
 		border: solid 1px #ccc;
 		min-width: 350px;
-		min-height: 250px;
+		min-height: 200px;
 		max-height: calc(100vh - 50px);
 		max-width: 600px;
 		border-radius: 5px;
@@ -45,7 +45,8 @@
 			padding: 1rem 2rem;
 			font-size: 1.1rem;
 			overflow-y: auto;
-			min-height: 120px;
+			min-height: 60px;
+			color: #666;
 		}
 		.popupReply {
 			margin-left: 2rem;

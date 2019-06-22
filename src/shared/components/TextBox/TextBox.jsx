@@ -85,11 +85,14 @@ class TextBox extends Component {
     const {
       type,
       value,
+      tabIndex,
       maxlength,
       placeholder,
       label,
       readOnly,
       fluid,
+      onKeyDown,
+      innerRef,
     } = this.props;
     const {
       showError,
@@ -106,9 +109,12 @@ class TextBox extends Component {
         <div className="textboxRow">
           <input
             type={type}
+            ref={innerRef}
             className={this.getTextClasses()}
             value={value}
+            tabIndex={tabIndex}
             onChange={this.textChange}
+            onKeyDown={onKeyDown}
             maxLength={maxlength}
             placeholder={placeholder}
             readOnly={readOnly}
@@ -135,7 +141,9 @@ TextBox.propTypes = {
   /** class name to be added for styling */
   className: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  tabIndex: PropTypes.string,
   onChange: PropTypes.func,
+  onKeyDown: PropTypes.func,
   /** Event handler for validation */
   onValidate: PropTypes.func,
   onError: PropTypes.func,
@@ -154,7 +162,9 @@ TextBox.defaultProps = {
   fieldKey: undefined,
   className: '',
   value: '',
+  tabIndex: '0',
   onChange: () => {},
+  onKeyDown: () => {},
   onValidate: null,
   onError: () => {},
   maxlength: 999,
@@ -165,4 +175,4 @@ TextBox.defaultProps = {
   readOnly: false,
 };
 
-export default TextBox;
+export default React.forwardRef((props, ref) => <TextBox innerRef={ref} {...props} />);

@@ -9,10 +9,35 @@ import './styles.scss';
 class Dialog extends Component {
   constructor(props) {
     super(props);
+
+    this.replyRef = React.createRef();
+
     this.state = {
       promptText: '',
     };
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.show) {
+      document.body.classList.toggle('noscroll', true);
+      setTimeout(() => {
+        this.replyRef.current.focus();
+      }, 10);
+    }
+  }
+
+  onKeyDown = (e) => {
+    const {
+      onDismiss,
+    } = this.props;
+
+    if (e.key === 'Enter') {
+      this.confirm();
+    }
+    if (e.key === 'Escape') {
+      onDismiss();
+    }
+  };
 
   updatePromptText = (e) => {
     this.setState({
@@ -30,7 +55,18 @@ class Dialog extends Component {
 
     this.setState({
       promptText: '',
-    }, () => { onConfirm(promptText); });
+    }, () => {
+      onConfirm(promptText);
+      document.body.classList.toggle('noscroll', false);
+    });
+  }
+
+  dismiss = () => {
+    const {
+      onDismiss,
+    } = this.props;
+    onDismiss();
+    document.body.classList.toggle('noscroll', false);
   }
 
   render() {
@@ -62,11 +98,14 @@ class Dialog extends Component {
               <div className="popupText">{text}</div>
               { mode === 'prompt' &&
                 <TextBox
+                  ref={this.replyRef}
                   type="text"
                   className="popupReply"
                   placeholder={defaultPrompt}
                   value={promptText}
+                  tabIndex="0"
                   onChange={this.updatePromptText}
+                  onKeyDown={this.onKeyDown}
                 />
               }
             </div>
@@ -74,7 +113,7 @@ class Dialog extends Component {
           { children && <div className="popupText">{children}</div> }
           <div className="buttonsControl">
             { (mode === 'confirm' || mode === 'prompt') &&
-              <Button onClick={onDismiss} style={btnStyles}>{btn2Text}</Button>
+              <Button onClick={this.dismiss} style={btnStyles}>{btn2Text}</Button>
             }
             <Button type="primary" onClick={this.confirm} style={btnStyles}>{btn1Text}</Button>
           </div>

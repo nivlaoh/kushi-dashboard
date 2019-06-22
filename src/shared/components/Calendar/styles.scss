@@ -1,0 +1,93 @@
+@import "../../../variables.scss";
+
+.calendar {
+	border: solid 1px #ccc;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	.calHeader {
+		height: 35px;
+		background: $linkBlue;
+		color: white;
+		display: flex;
+		flex: 1;
+		align-items: center;
+		justify-content: center;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		.monthControl {
+			display: flex;
+			width: 35px;
+			height: 35px;
+			.btn {
+				height: 35px;
+			}
+			svg {
+				color: white;
+			}
+		}
+		.currMonth {
+			display: flex;
+			flex: 1;
+			justify-content: center;
+			font-weight: bold;
+		}
+	}
+	.dates {
+		.week {
+			display: flex;
+			flex: 1;
+			height: 35px;
+			align-items: center;
+			color: #666;
+			&.heading {
+				font-weight: bold;
+			}
+			&.even {
+				background: #eee;
+			}
+			.day {
+				display: flex;
+				flex: 1;
+				justify-content: center;
+				align-items: center;
+				height: 100%;
+				position: relative;
+				cursor: pointer;
+				z-index: 1;
+				&:hover {
+					// background: #ccc;
+					&:before {
+						content: '';
+						width: 30px;
+						height: 30px;
+						background: #ccc;
+						position: absolute;
+						left: 50%;
+						top: 5%;
+						transform: scale(1, 1) translate(-50%);
+						transform-origin: 50% 50%;
+						z-index: -1;
+						border-radius: 100%;
+					}
+				}
+				&.today {
+					color: white;
+					z-index: 1;
+					&:before {
+						content: '';
+						width: 30px;
+						height: 30px;
+						background: $linkBlue;
+						position: absolute;
+						left: 50%;
+						top: 5%;
+						transform: scale(1, 1) translate(-50%);
+						transform-origin: 50% 50%;
+						z-index: -1;
+						border-radius: 100%;
+					}
+				}
+			}
+		}
+	}
+}

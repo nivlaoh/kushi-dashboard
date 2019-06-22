@@ -39,6 +39,10 @@ class Weather extends Component {
       description = 'rain-mix';
     } else if (description.includes('light-showers')) {
       description = 'showers';
+    } else if (description.includes('thundery-showers')) {
+      description = 'thunderstorm';
+    } else if (description.includes('rain')) {
+      description = 'rain';
     }
     return <i className={`weatherIcon wi wi-${isDay ? 'day' : 'night'}-${description}`}></i>;
   };

@@ -1,4 +1,4 @@
-import { validateEmail, accentFold } from './stringUtil';
+import { validateEmail, accentFold, capitaliseFirstLetter } from './stringUtil';
 
 describe('stringUtil', () => {
   describe('validateEmail', () => {
@@ -22,6 +22,20 @@ describe('stringUtil', () => {
   describe('accentFold', () => {
     it('should return unaccented character', () => {
       expect(accentFold('Åland')).toEqual('Aland');
+    });
+  });
+
+  describe('capitaliseFirstLetter', () => {
+    it('should capitalise single letter', () => {
+      expect(capitaliseFirstLetter('a')).toEqual('A');
+    });
+    
+    it('should capitalise one word', () => {
+      expect(capitaliseFirstLetter('hello')).toEqual('Hello');
+    });
+
+    it('should capitalise words in sentence', () => {
+      expect(capitaliseFirstLetter('I am running.')).toEqual('I Am Running.');
     });
   });
 });

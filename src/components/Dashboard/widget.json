@@ -13,7 +13,7 @@
         "id": "2",
         "name": "Map",
         "rows": 2,
-        "columns": 3,
+        "columns": 2,
         "background": "#00bcd4",
         "color": "white",
         "type": "component",
@@ -33,10 +33,14 @@
     },
     {
         "id": "4",
+        "name": "Todo",
         "rows": 1,
         "columns": 1,
         "background": "green",
-        "color": "white"
+        "color": "white",
+        "type": "component",
+        "componentSrc": "Todo",
+        "hasPadding": false
     },
     {
         "id": "5",

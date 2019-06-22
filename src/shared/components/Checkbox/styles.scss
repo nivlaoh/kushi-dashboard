@@ -46,6 +46,18 @@
 				border-bottom-color: #999;
 			}
 		}
+		&.inverse {
+			color: white;
+			border-color: white;
+			&.checked {
+				background: white;
+				border-color: white;
+				&:after {
+					border-right-color: $linkBlue;
+					border-bottom-color: $linkBlue;
+				}
+			}
+		}
 	}
 	.checkboxLabel {
 		margin-left: 10px;

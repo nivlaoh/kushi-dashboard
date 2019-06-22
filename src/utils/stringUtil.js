@@ -47,8 +47,20 @@ export const accentFoldedHilite = (str, q) => {
   return highlighted;
 };
 
+export const capitaliseFirstLetter = (words) => {
+  const pos = words.split(' ');
+  const capPos = pos.map(word => {
+    if (word.length > 1) {
+      return word.charAt(0).toUpperCase() + word.substring(1);
+    }
+    return word.charAt(0).toUpperCase();
+  });
+  return capPos.join(' ');
+}
+
 export default {
   validateEmail,
   accentFold,
   accentFoldedHilite,
+  capitaliseFirstLetter,
 };

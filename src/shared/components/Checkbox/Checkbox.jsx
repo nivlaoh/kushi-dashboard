@@ -9,6 +9,7 @@ class Checkbox extends Component {
       checked,
       shape,
       captureClick,
+      inverseColour,
     } = this.props;
     let checkboxClasses = 'checkbox';
     if (checked) {
@@ -19,6 +20,9 @@ class Checkbox extends Component {
     }
     if (!captureClick) {
       checkboxClasses += ' noclick';
+    }
+    if (inverseColour) {
+      checkboxClasses += ' inverse';
     }
     return checkboxClasses;
   };
@@ -75,6 +79,7 @@ Checkbox.propTypes = {
   shape: PropTypes.oneOf(['square', 'circle']),
   label: PropTypes.string,
   textPosition: PropTypes.oneOf(['left', 'right']),
+  inverseColour: PropTypes.bool,
 };
 
 Checkbox.defaultProps = {
@@ -85,6 +90,7 @@ Checkbox.defaultProps = {
   shape: 'square',
   label: null,
   textPosition: 'right',
+  inverseColour: false,
 };
 
 export default Checkbox;

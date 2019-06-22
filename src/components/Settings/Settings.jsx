@@ -8,6 +8,7 @@ import MultiSelect from '../../shared/components/MultiSelect';
 import TextBox from '../../shared/components/TextBox';
 import Stepper from '../../shared/components/Stepper';
 import Dialog from '../../shared/components/Dialog';
+import Calendar from '../../shared/components/Calendar';
 import System from './System';
 
 import './styles.scss';
@@ -180,6 +181,7 @@ class Settings extends Component {
                 options={options}
                 searchCallback={()=>{}}
               />
+              <Calendar />
               <System />
             </Tab>
             <Tab title="Third">

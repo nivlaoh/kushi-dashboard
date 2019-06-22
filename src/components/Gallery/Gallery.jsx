@@ -207,6 +207,7 @@ class Gallery extends Component {
               options={subjects}
               onChange={(e) => { this.selectOption('selectedSubject', e); }}
               selected={selectedSubject}
+              searchable={false}
             />
             <MultiSelect
               label="Transition"
@@ -214,6 +215,7 @@ class Gallery extends Component {
               options={transitions}
               onChange={(e) => { this.selectOption('selectedTransition', e); }}
               selected={selectedTransition}
+              searchable={false}
             />
             <MultiSelect
               label="Timing"
@@ -221,6 +223,7 @@ class Gallery extends Component {
               options={timings}
               onChange={(e) => { this.selectOption('selectedTiming', e); }}
               selected={selectedTiming}
+              searchable={false}
             />
           </div>
         </Dialog>

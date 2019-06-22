@@ -13,7 +13,7 @@ class DashboardHome extends Component {
   constructor(props) {
     super(props);
     
-    this.widgetWidth = 250;
+    this.widgetWidth = 300;
     this.spaceWidth = window.innerWidth - (props.sidebarVisible ? this.widgetWidth : 0);
     this.widgetHeight = 200;
     this.margin = 15;
@@ -263,6 +263,8 @@ class DashboardHome extends Component {
                 key={`wid.${widget.id}`}
                 index={index}
                 widget={widget}
+                widgetWidth={this.widgetWidth}
+                widgetHeight={this.widgetHeight}
                 gridData={grid}
                 hasPadding={widget.hasPadding}
                 editable={editable}

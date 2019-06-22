@@ -24,6 +24,7 @@ class MessagePane extends Component {
       closingReply: false,
       compose: false,
       closingCompose: false,
+      deleting: null,
     };
     library.add(faUser);
   }
@@ -114,10 +115,16 @@ class MessagePane extends Component {
     const {
       activeMessage,
     } = this.state;
-    deleteMessage(activeMessage);
     this.setState({
-      activeMessage: null,
+      deleting: activeMessage.id,
     });
+    setTimeout(() => {
+      deleteMessage(activeMessage);
+      this.setState({
+        activeMessage: null,
+        deleting: null,
+      });
+    }, 600);
   };
 
   showComposeWindow = () => {
@@ -148,6 +155,21 @@ class MessagePane extends Component {
     });
   };
 
+  getSenderClasses = (msg) => {
+    const {
+      activeMessage,
+      deleting,
+    } = this.state;
+    let clz = 'sender';
+    if (activeMessage && activeMessage.id === msg.id) {
+      clz += ' active';
+    }
+    if (deleting === msg.id) {
+      clz += ' deleting';
+    }
+    return clz;
+  };
+
   render() {
     const {
       messages,
@@ -172,7 +194,7 @@ class MessagePane extends Component {
           <div className="recipientList">
             {messages.map(msg => (
               <div key={msg.id}
-                className={`sender ${activeMessage && activeMessage.id === msg.id ? 'active' : ''}`}
+                className={this.getSenderClasses(msg)}
                 onClick={() => { this.viewMessage(msg) }}
                 onContextMenu={e => { this.messageContext(e, msg.id) }}
                 role="button"
@@ -218,13 +240,14 @@ class MessagePane extends Component {
               className="toolbarIcon"
               title="Reply"
               onClick={this.replyMessage}
+              disabled={activeMessage === null}
             >
               <FontAwesomeIcon icon={faReply} />
             </button>
-            <button type="button" className="toolbarIcon" title="Reply All">
+            <button type="button" className="toolbarIcon" title="Reply All" disabled={activeMessage === null}>
               <FontAwesomeIcon icon={faReplyAll} />
             </button>
-            <button type="button" className="toolbarIcon" title="Forward">
+            <button type="button" className="toolbarIcon" title="Forward" disabled={activeMessage === null}>
               <FontAwesomeIcon icon={faShare} />
             </button>
             <button
@@ -232,6 +255,7 @@ class MessagePane extends Component {
               className="toolbarIcon"
               title="Delete"
               onClick={this.deleteEmail}
+              disabled={activeMessage === null}
             >
               <FontAwesomeIcon icon={faTrash} />
             </button>
