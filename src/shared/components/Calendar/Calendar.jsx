@@ -1,111 +1,162 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 
-import Button from '../Button';
+import MonthView from './MonthView';
+import YearView from './YearView';
 
 import './styles.scss';
 
 class Calendar extends Component {
   constructor(props) {
     super(props);
-    this.dates = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
     this.state = {
-      currDate: moment(),
-      dateRows: this.parseDateRows(),
+      viewDate: moment().startOf('day'),
+      view: 'month',
+      selectedDate: null,
     };
   }
 
-  parseDateRows = (curr = moment()) => {
-    const dateRows = [[]];
-    const lastDayOfMonth = curr.endOf('month');
-    let currWeek = 0;
-    const lastDayDate = lastDayOfMonth.date();
-    Array.from(Array(lastDayDate)).forEach((_, i) => {
-      const dayIndex = this.dates.findIndex(date => date === curr.date(i+1).format('dd'));
-      // console.log('dayIndex', dayIndex, i);
-      while (dateRows[currWeek].length < dayIndex) {
-        dateRows[currWeek].push({ id: `${i}`, day: '' });
-      }
-      dateRows[currWeek].push({ id: `${i}`, day: i+1 });
-      if (dayIndex === 6 && i !== lastDayDate - 1) {
-        currWeek += 1;
-        dateRows.push([]);
-      }
-    });
-    while (dateRows[currWeek].length < 7) {
-      const lastDayInRow = dateRows[currWeek][dateRows[currWeek].length - 1];
-      dateRows[currWeek].push({ id: `${parseInt(lastDayInRow.id, 10) + 1}`, day: '' });
+  goPrevious = () => {
+    const {
+      viewDate,
+      view,
+    } = this.state;
+    let prev;
+    if (view === 'month') {
+      prev = viewDate.subtract(1, 'months');
+    } else if (view === 'year') {
+      prev = viewDate.subtract(1, 'years');
     }
-
-    dateRows.forEach(row => row.forEach((dateSlot, index) => { dateSlot.id = index; }));
-    return dateRows;
-  };
-
-  prevMonth = () => {
-    const {
-      currDate,
-    } = this.state;
-    const prev = currDate.subtract(1, 'months');
     this.setState({
-      currDate: prev,
-      dateRows: this.parseDateRows(prev),
+      viewDate: prev,
     });
   };
 
-  nextMonth = () => {
+  goNext = () => {
     const {
-      currDate,
+      viewDate,
+      view,
     } = this.state;
-    const next = currDate.add(1, 'months');
+    let next;
+    if (view === 'month') {
+      next = viewDate.add(1, 'months');
+    } else if (view === 'year') {
+      next = viewDate.add(1, 'years');
+    }
     this.setState({
-      currDate: next,
-      dateRows: this.parseDateRows(next),
+      viewDate: next,
+    });
+  };
+
+  toggleView = () => {
+    const {
+      view,
+    } = this.state;
+
+    this.setState({
+      view: view === 'month' ? 'year' : 'month',
+    });
+  };
+
+  getHeadingLabel = () => {
+    const {
+      viewDate,
+      view,
+    } = this.state;
+
+    if (view === 'month') {
+      return viewDate.format('MMM YYYY');
+    }
+    return viewDate.format('YYYY');
+  };
+
+  selectMonth = (e) => {
+    const month = e.target.getAttribute('tabindex');
+    const {
+      viewDate,
+    } = this.state;
+    this.setState({
+      viewDate: viewDate.month(month),
+      view: 'month',
+    });
+  };
+
+  selectDay = (date) => {
+    const {
+      onSelect,
+    } = this.props;
+    this.setState({
+      selectedDate: date,
+    }, () => {
+      onSelect(date);
     });
   };
 
   render() {
     const {
-      currDate,
-      dateRows,
+      dayLabels,
+      monthLabels,
+      scale,
+      events,
+    } = this.props;
+    const {
+      viewDate,
+      view,
+      selectedDate,
     } = this.state;
-    const today = moment().date();
 
     return (
       <div className="calendar">
         <div className="calHeader">
           <div className="monthControl">
-            <Button type="icon-clear" className="btn" rounded onClick={this.prevMonth}>
+            <button type="button" className="btn" onClick={this.goPrevious}>
               <FontAwesomeIcon icon={faArrowLeft} fixedWidth size="sm" />
-            </Button>
+            </button>
           </div>
-          <div className="currMonth">{ currDate.format('MMM YYYY') }</div>
+          <div className="currMonth">
+            <button type="button" onClick={this.toggleView}>
+              { this.getHeadingLabel() }
+            </button>
+          </div>
           <div className="monthControl">
-            <Button type="icon-clear" className="btn" rounded onClick={this.nextMonth}>
+            <button type="button" className="btn" onClick={this.goNext}>
               <FontAwesomeIcon icon={faArrowRight} fixedWidth size="sm" />
-            </Button>
+            </button>
           </div>
         </div>
-        <div className="dates">
-          <div className="week heading">
-            { this.dates.map(day => (
-              <div key={day} className="day">{day}</div>
-            ))}
-          </div>
-          { dateRows.map((row, index) => (
-            <div key={`w-${index}`} className={`week${ index % 2 === 0 ? ' even' : ' odd'}`}>
-              { row.map(day => (
-                <div key={day.id} className={`day${day.day === today ? ' today' : ''}`}>
-                  {day.day}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
+        { view === 'month' ?
+          <MonthView
+            viewDate={viewDate}
+            dayLabels={dayLabels}
+            onSelect={this.selectDay}
+            selected={selectedDate}
+            scale={scale}
+            events={events}
+          /> :
+          <YearView viewDate={viewDate} monthLabels={monthLabels} onSelect={this.selectMonth} />
+        }
       </div>
     );
   }
 }
+
+Calendar.propTypes = {
+  dayLabels: PropTypes.arrayOf(PropTypes.string),
+  monthLabels: PropTypes.arrayOf(PropTypes.string),
+  scale: PropTypes.oneOf(['small', 'large']),
+  events: PropTypes.arrayOf(PropTypes.shape({})),
+  onSelect: PropTypes.func,
+};
+
+Calendar.defaultProps = {
+  dayLabels: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+  monthLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  scale: 'small',
+  events: [],
+  onSelect: () => {},
+};
 
 export default Calendar;
