@@ -8,7 +8,7 @@ import MultiSelect from '../../shared/components/MultiSelect';
 import TextBox from '../../shared/components/TextBox';
 import Stepper from '../../shared/components/Stepper';
 import Dialog from '../../shared/components/Dialog';
-import Calendar from '../../shared/components/Calendar';
+import Datepicker from '../../shared/components/Datepicker'
 import System from './System';
 
 import './styles.scss';
@@ -21,6 +21,7 @@ class Settings extends Component {
       files: [],
       selectedCountry: null,
       showDialog: false,
+      selectedDate: '2019-06-11',
     };
   }
 
@@ -98,6 +99,12 @@ class Settings extends Component {
     });
   };
 
+  changeDate = (date) => {
+    this.setState({
+      selectedDate: date.format('YYYY-MM-DD'),
+    });
+  };
+
   render() {
     const settingsStyle = {
       maxWidth: '700px',
@@ -127,6 +134,7 @@ class Settings extends Component {
       files,
       selectedCountry,
       showDialog,
+      selectedDate,
     } = this.state;
 
     return (
@@ -181,7 +189,11 @@ class Settings extends Component {
                 options={options}
                 searchCallback={()=>{}}
               />
-              <Calendar />
+              <Datepicker
+                placeholder="Choose date"
+                value={selectedDate}
+                onChange={this.changeDate}
+              />
               <System />
             </Tab>
             <Tab title="Third">

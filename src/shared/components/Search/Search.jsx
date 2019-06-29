@@ -15,6 +15,8 @@ class Search extends Component {
       searching: false,
       inputValue: '',
       dropdownVisible: false,
+      selecting: null,
+      hint: null,
     };
   }
 
@@ -50,16 +52,27 @@ class Search extends Component {
   asyncSearch = (e) => {
     const {
       onChange,
+      options,
     } = this.props;
+    const typedWords = e.target.value;
+    let hint;
+    if (options.length > 0 && options[0].value.toLowerCase().startsWith(typedWords.toLowerCase())) {
+      const untypedParts = options[0].value.toLowerCase().substring(typedWords.length);
+      hint = typedWords + untypedParts;
+    }
+    if (typedWords === '') {
+      hint = null;
+    }
     this.setState({
       searching: true,
-      inputValue: e.target.value,
+      inputValue: typedWords,
     });
     onChange(e);
     setTimeout(() => {
       this.setState({
         searching: false,
         dropdownVisible: true,
+        hint,
       });
     }, 50);
   };
@@ -76,16 +89,64 @@ class Search extends Component {
       onSearch,
       options,
     } = this.props;
-    if (e.keyCode === 13) {
+    const {
+      selecting,
+    } = this.state;
+
+    if (e.key === 'Enter') {
+      if (options.length > 0) {
+        if (selecting !== null) {
+          this.setState({
+            inputValue: options[selecting].value,
+            dropdownVisible: false,
+            selecting: null,
+            hint: null,
+          });
+        }
+      }
       onSearch(e);
-    } else if (e.keyCode === 9) {
+    } else if (e.key === 'Tab') {
       e.preventDefault();
       if (options.length > 0) {
+        const next = selecting === null ? 0 : selecting;
         this.setState({
-          inputValue: options[0].value,
+          selecting: next,
+          inputValue: options[next].value,
+          hint: null,
+        });
+      }
+    } else if (e.key === 'Escape') {
+      this.setState({
+        dropdownVisible: false,
+        selecting: null,
+        hint: null,
+      });
+    } else if (e.key === 'ArrowDown') {
+      if (options.length > 0) {
+        const next = selecting === null ? 0 : (selecting + 1) % options.length;
+        this.setState({
+          selecting: next,
+        });
+      }
+    } else if (e.key === 'ArrowUp') {
+      if (options.length > 0) {
+        const next = selecting === null ? options.length - 1 : (selecting - 1 + options.length) % options.length;
+        this.setState({
+          selecting: next,
         });
       }
     }
+  };
+
+  getResultClasses = (index) => {
+    let rowClass = 'searchResultRow valid';
+    const {
+      selecting,
+    } = this.state;
+    if (selecting === index) {
+      rowClass += ' selected';
+    }
+    return rowClass;
   };
 
   render() {
@@ -98,6 +159,7 @@ class Search extends Component {
       searching,
       inputValue,
       dropdownVisible,
+      hint,
     } = this.state;
     const resultStyle = {
       width: this.node.current === null ? 'auto' : this.node.current.clientWidth,
@@ -114,6 +176,11 @@ class Search extends Component {
             onKeyDown={this.checkKeystroke}
             placeholder={placeholder}
           />
+          { options.length > 0 && hint !== null &&
+            <div className="searchHint">
+              { hint }
+            </div>
+          }
           <FontAwesomeIcon className="innericon" icon={faSearch} />
           { searching && showSearchIcon &&
             <div className="searchIcon">
@@ -127,7 +194,7 @@ class Search extends Component {
               <div key={result.key}
                 role="button"
                 tabIndex={resultIndex}
-                className="searchResultRow valid"
+                className={this.getResultClasses(resultIndex)}
                 onClick={() => { this.chooseResult(result) }}
               >
                 { result.value }

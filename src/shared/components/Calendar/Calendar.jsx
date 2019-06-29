@@ -14,10 +14,25 @@ class Calendar extends Component {
     super(props);
     this.state = {
       viewDate: moment().startOf('day'),
-      view: 'month',
+      view: this.setView(props),
       selectedDate: null,
     };
   }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      view,
+    } = this.props;
+    if (nextProps.view !== view) {
+      this.setState({
+        view: this.setView(nextProps),
+      });
+    }
+  }
+
+  setView = (props) => {
+    return props.mode === 'day' ? 'month' : 'year';
+  };
 
   goPrevious = () => {
     const {
@@ -78,9 +93,12 @@ class Calendar extends Component {
     const {
       viewDate,
     } = this.state;
+    const {
+      mode,
+    } = this.props;
     this.setState({
       viewDate: viewDate.month(month),
-      view: 'month',
+      view: mode === 'day' ? 'month' : 'year',
     });
   };
 
@@ -136,7 +154,11 @@ class Calendar extends Component {
             scale={scale}
             events={events}
           /> :
-          <YearView viewDate={viewDate} monthLabels={monthLabels} onSelect={this.selectMonth} />
+          <YearView
+            viewDate={viewDate}
+            monthLabels={monthLabels}
+            onSelect={this.selectMonth}
+          />
         }
       </div>
     );
@@ -144,6 +166,7 @@ class Calendar extends Component {
 }
 
 Calendar.propTypes = {
+  mode: PropTypes.oneOf(['day', 'month']),
   dayLabels: PropTypes.arrayOf(PropTypes.string),
   monthLabels: PropTypes.arrayOf(PropTypes.string),
   scale: PropTypes.oneOf(['small', 'large']),
@@ -152,6 +175,7 @@ Calendar.propTypes = {
 };
 
 Calendar.defaultProps = {
+  mode: 'day',
   dayLabels: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
   monthLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   scale: 'small',

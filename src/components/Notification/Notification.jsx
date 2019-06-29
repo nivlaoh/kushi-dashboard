@@ -10,6 +10,7 @@ class Notification extends Component {
     super(props);
     this.state = {
       activeMessage: null,
+      showToast: false,
     };
   }
 
@@ -28,26 +29,44 @@ class Notification extends Component {
     }
   }
 
+  dismissToast = () => {
+    this.setState({
+      showToast: false,
+    });
+  };
+
+  notifySuccess = () => {
+    this.setState({
+      showToast: true,
+    });
+  };
+
+  sendMsg = (msg) => {
+    const {
+      onSend,
+    } = this.props;
+    onSend(msg, this.notifySuccess);
+  };
+
   render() {
     const {
       activeMessage,
+      showToast,
     } = this.state;
     const {
-      showToast,
       messages,
       onRead,
-      onSend,
       deleteMessage,
     } = this.props;
     return (
       <div className="content-wrapper">
         <div className="pageTitle">Notifications</div>
-        <Toast message="Email sent" show={showToast} type="success" />
+        <Toast message="Email sent" show={showToast} type="success" onDismiss={this.dismissToast} />
         <div className="messageContentWrapper">
           <MessagePane
             messages={messages}
             onRead={onRead}
-            onSend={onSend}
+            onSend={this.sendMsg}
             deleteMessage={deleteMessage}
             active={activeMessage}
           />
@@ -58,7 +77,6 @@ class Notification extends Component {
 }
 
 Notification.propTypes = {
-  showToast: PropTypes.bool,
   messages: PropTypes.arrayOf(Message),
   getMessages: PropTypes.func,
   deleteMessage: PropTypes.func,
@@ -67,7 +85,6 @@ Notification.propTypes = {
 };
 
 Notification.defaultProps = {
-  showToast: false,
   messages: [],
   getMessages: () => {},
   deleteMessage: () => {},

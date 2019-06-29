@@ -135,7 +135,7 @@ class TextBox extends Component {
 
 TextBox.propTypes = {
   /** Specifies input type of TextBox */
-  type: PropTypes.oneOf(['text', 'number', 'tel', 'email', 'password']),
+  type: PropTypes.oneOf(['text', 'date', 'number', 'tel', 'email', 'password']),
   /** identifier to be used for form */
   fieldKey: PropTypes.string,
   /** class name to be added for styling */

@@ -16,21 +16,23 @@ Kushi Dashboard is a general purpose admin dashboard, React-redux powered.
 
 This repository aims to showcase different common UI components. When the project gets more mature, each shared component will have its own docs.
 
-  - Alert
-  - Button
-  - Card
-  - Checkbox
-  - Dialog
-  - FileUpload
-  - Loader
-  - MultiSelect/Dropdown
-  - ProgressBar
-  - RadioButton
-  - Search
-  - Stepper
-  - Tabs
-  - TextBox
-  - Toast
+  - [Alert](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/Alert/Alert.md)
+  - [Button](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/Button/Button.md)
+  - [Calendar](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/Calendar/Calendar.md)
+  - [Card](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/Card/Card.md)
+  - [Checkbox](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/Checkbox/Checkbox.md)
+  - [Datepicker](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/Datepicker/Datepicker.md)
+  - [Dialog](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/Dialog/Dialog.md)
+  - [FileUpload](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/FileUpload/FileUpload.md)
+  - [Loader](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/Loader/Loader.md)
+  - [MultiSelect/Dropdown](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/MultiSelect/MultiSelect.md)
+  - [ProgressBar](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/ProgressBar/ProgressBar.md)
+  - [RadioButton](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/RadioButton/RadioButton.md)
+  - [Search](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/Search/Search.md)
+  - [Stepper](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/Stepper/Stepper.md)
+  - [Tabs](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/Tabs/Tabs.md)
+  - [TextBox](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/TextBox/TextBox.md)
+  - [Toast](https://github.com/nivlaoh/kushi-dashboard/blob/master/src/shared/components/Toast/Toast.md)
   - Tooltip
 
 ### Components - documentation

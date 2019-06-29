@@ -102,7 +102,7 @@
 			height: 50px;
 			margin-right: 20px;
 			pointer-events: none;
-			i {
+			svg {
 				color: white;
 				font-size: 2rem;
 			}
@@ -121,7 +121,7 @@
 					color: white;
 					font-size: 0.7rem;
 					font-weight: normal;
-					padding: 2px;
+					padding: 2px 5px;
 					margin-left: 5px;
 					border-radius: 4px;
 				}
@@ -188,9 +188,23 @@
 				white-space: nowrap;
 			}
 		}
+		.showMore {
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+			height: 20px;
+			button {
+				border: none;
+				background: none;
+				width: 45px;
+				&:hover {
+					color: #aaa;
+				}
+			}
+		}
 	}
 	.messageToolbar {
-		height: 35px;
+		height: 45px;
 		display: flex;
 		background: #ddd;
 		z-index: 9;
@@ -202,8 +216,8 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			width: 35px;
-			height: 35px;
+			width: 45px;
+			height: 45px;
 			color: #666;
 			cursor: pointer;
 			outline: none;
@@ -219,6 +233,9 @@
 			&.more {
 				align-self: flex-end;
 			}
+		}
+		button {
+			border-radius: 0;
 		}
 	}
 	.replyPane {

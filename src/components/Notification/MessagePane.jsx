@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCaretDown, faReply, faReplyAll, faEnvelope, faShare, faTimes, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCaretUp, faReply, faReplyAll, faEnvelope, faShare, faTimes, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Button from '../../shared/components/Button';
@@ -25,6 +25,7 @@ class MessagePane extends Component {
       compose: false,
       closingCompose: false,
       deleting: null,
+      detailedMetadata: false,
     };
     library.add(faUser);
   }
@@ -72,6 +73,12 @@ class MessagePane extends Component {
       return activeMessage.senderName ?
         (<span><b>{activeMessage.senderName}</b> &lt;{activeMessage.senderEmail}&gt;</span>) :
         (<span>{activeMessage.senderEmail}</span>);
+    }
+    if (field === 'cc') {
+      return activeMessage.ccEmails.join(', ');
+    }
+    if (field === 'bcc') {
+      return activeMessage.bccEmails.join(', ');
     }
     if (field === 'subject') {
       return activeMessage.subject;
@@ -170,6 +177,15 @@ class MessagePane extends Component {
     return clz;
   };
 
+  showMore = () => {
+    const {
+      detailedMetadata,
+    } = this.state;
+    this.setState({
+      detailedMetadata: !detailedMetadata,
+    });
+  };
+
   render() {
     const {
       messages,
@@ -180,6 +196,7 @@ class MessagePane extends Component {
       closingReply,
       compose,
       closingCompose,
+      detailedMetadata,
     } = this.state;
 
     return (
@@ -207,7 +224,7 @@ class MessagePane extends Component {
                   <div className="senderName">
                     {msg.senderName}
                     {msg.status === 'UNREAD' ?
-                      <span className="unreadTag">NEW</span> : null
+                      <div className="unreadTag">NEW</div> : null
                     }
                   </div>
                   <div className="messageSnippet">{msg.message}</div>
@@ -229,9 +246,28 @@ class MessagePane extends Component {
                 {this.displayEmail('from')}
               </div>
             </div>
+            { detailedMetadata && [
+              <div key="cc" className="metadata">
+                <div className="tag">Cc:</div>
+                <div className="tagValue">
+                  {this.displayEmail('cc')}
+                </div>
+              </div>,
+              <div key="bcc" className="metadata">
+                <div className="tag">Bcc:</div>
+                <div className="tagValue">
+                  {this.displayEmail('bcc')}
+                </div>
+              </div>
+            ]}
             <div className="metadata">
               <div className="tag">Subject:</div>
               <div className="tagValue">{this.displayEmail('subject')}</div>
+            </div>
+            <div className="showMore">
+              <button type="button" className="toolbarIcon more" title="More" onClick={this.showMore}>
+                <FontAwesomeIcon icon={detailedMetadata ? faCaretUp : faCaretDown} />
+              </button>
             </div>
           </div>
           <div className="messageToolbar">
@@ -244,10 +280,22 @@ class MessagePane extends Component {
             >
               <FontAwesomeIcon icon={faReply} />
             </button>
-            <button type="button" className="toolbarIcon" title="Reply All" disabled={activeMessage === null}>
+            <button
+              type="button"
+              className="toolbarIcon"
+              title="Reply All"
+              onClick={this.replyMessage}
+              disabled={activeMessage === null}
+            >
               <FontAwesomeIcon icon={faReplyAll} />
             </button>
-            <button type="button" className="toolbarIcon" title="Forward" disabled={activeMessage === null}>
+            <button
+              type="button"
+              className="toolbarIcon"
+              title="Forward"
+              onClick={this.replyMessage}
+              disabled={activeMessage === null}
+            >
               <FontAwesomeIcon icon={faShare} />
             </button>
             <button
@@ -277,7 +325,9 @@ class MessagePane extends Component {
           }
           <div
             className="messagePreview"
-            dangerouslySetInnerHTML={{ __html: activeMessage ? activeMessage.message : 'Please click on a notification' }}
+            dangerouslySetInnerHTML={{ __html: activeMessage ?
+              activeMessage.message :
+              'Please click on a notification' }}
           >
           </div>
           <div className={`composeWindow ${compose ? 'visible' : ''} ${closingCompose ? 'hide' : ''}`}>
@@ -315,6 +365,7 @@ MessagePane.defaultProps = {
   onRead: () => {},
   onSend: () => {},
   deleteMessage: () => {},
+  active: null,
 };
 
 export default MessagePane;

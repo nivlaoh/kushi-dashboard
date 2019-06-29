@@ -105,7 +105,7 @@
 	overflow: hidden;
 	cursor: pointer;
 	position: relative;
-	i {
+	svg {
 		font-size: 2rem;
 		color: white;
 	}
@@ -241,7 +241,7 @@
 				color: white;
 				font-size: 0.7rem;
 				font-weight: normal;
-				padding: 2px;
+				padding: 2px 5px;
 				margin-left: 5px;
 				border-radius: 4px;
 			}

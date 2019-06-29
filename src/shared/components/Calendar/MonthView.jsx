@@ -44,7 +44,6 @@ class MonthView extends Component {
       }
 
       const iDate = moment(lastDayOfMonth).date(i+1);
-      console.log('data', selected, iDate);
       dateRows[currWeek].push({
         id: `${i}`,
         dateLabel: i+1,

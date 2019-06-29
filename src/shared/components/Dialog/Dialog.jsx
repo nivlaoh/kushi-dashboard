@@ -21,7 +21,9 @@ class Dialog extends Component {
     if (nextProps.show) {
       document.body.classList.toggle('noscroll', true);
       setTimeout(() => {
-        this.replyRef.current.focus();
+        if (this.replyRef.current) {
+          this.replyRef.current.focus();
+        }
       }, 10);
     }
   }
@@ -77,7 +79,6 @@ class Dialog extends Component {
       text,
       btn1Text,
       btn2Text,
-      onDismiss,
       defaultPrompt,
       children,
     } = this.props;
@@ -139,7 +140,7 @@ Dialog.propTypes = {
 Dialog.defaultProps = {
   mode: 'alert',
   show: false,
-  title: 'Hello',
+  title: 'Dialog',
   text: null,
   defaultPrompt: null,
   btn1Text: 'Ok',

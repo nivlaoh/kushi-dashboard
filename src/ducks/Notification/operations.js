@@ -4,8 +4,9 @@ const getEmails = () => (dispatch) => {
   dispatch(actions.getEmails());
 };
 
-const sendEmail = (message) => (dispatch) => {
+const sendEmail = (message, cb) => (dispatch) => {
   dispatch(actions.sendEmail(message));
+  cb();
 };
 
 const deleteEmail = (message) => (dispatch) => {

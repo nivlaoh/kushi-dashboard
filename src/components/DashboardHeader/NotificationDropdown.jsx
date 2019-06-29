@@ -43,7 +43,7 @@ class NotificationDropdown extends Component {
             <div className="senderName">
               { message.senderName }
               { message.status === 'UNREAD' ?
-                <span className="unreadTag">NEW</span> : null
+                <div className="unreadTag">NEW</div> : null
               }
             </div>
             <div className="messageSnippet">{message.message}</div>

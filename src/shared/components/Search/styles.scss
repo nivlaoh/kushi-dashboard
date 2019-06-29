@@ -32,6 +32,9 @@
 					background: #ccc;
 				}
 			}
+			&.selected {
+				background: #ccc;
+			}
 		}
 	}
 }
@@ -43,19 +46,32 @@
 	transition: all 0.2s ease-out;
 	color: #333;
 	border: solid 1px $formWidgetBorder;
+	background: white;
 	&:read-only {
 		background: #eee;
 		color: #999;
 	}
 	&:not(:read-only):hover {
 		border: solid 1px $textBoxHover;
-		background: #eee;
+		background: rgba(190, 190, 190, 0.4);
 	}
 	&:not(:read-only):focus {
 		border: solid 1px $textBoxHover;
 	}
 }
-
+.searchHint {
+	position: absolute;
+	border: solid 1px transparent;
+	background: white;
+	left: 0;
+	top: 0;
+	padding: 10px;
+	padding-left: 30px;
+	width: 100%;
+	color: #aaa;
+	pointer-events: none;
+	z-index: -1;
+}
 .innericon {
 	position: absolute;
 	left: 10px;

@@ -3,6 +3,7 @@
 .calendar {
 	margin-bottom: 10px;
 	border-radius: 5px;
+	width: 100%;
 	.calHeader {
 		height: 35px;
 		background: $linkBlue;
@@ -61,6 +62,10 @@
 			}
 			&.even {
 				background: #eee;
+				&:last-child {
+					border-bottom-left-radius: 5px;
+					border-bottom-right-radius: 5px;
+				}
 			}
 			&.large {
 				height: 75px;
@@ -138,6 +143,9 @@
 							z-index: -1;
 							border-radius: 100%;
 						}
+					}
+					.shownDate {
+						pointer-events: none;
 					}
 				}
 				&.today {
