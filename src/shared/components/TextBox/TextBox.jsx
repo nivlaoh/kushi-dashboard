@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isObject } from 'lodash';
+import { isObject, uniqueId } from 'lodash';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope, faKey, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,6 +11,7 @@ class TextBox extends Component {
 
   constructor(props) {
     super(props);
+    this.id = uniqueId('textbox-');
     this.state = {
       showError: false,
       validationMessage: null,
@@ -104,29 +105,31 @@ class TextBox extends Component {
     return (
       <div className={`textContainer ${fluid ? 'full' : ''}`}>
         { label &&
-          <div className="label">{label}</div>
+          <div className="label" htmlFor={this.id}>{label}</div>
         }
         <div className="textboxRow">
           <input
             type={type}
             ref={innerRef}
+            id={this.id}
             className={this.getTextClasses()}
             value={value}
-            tabIndex={tabIndex}
+            tabIndex={readOnly ? -1 : tabIndex}
             onChange={this.textChange}
             onKeyDown={onKeyDown}
             maxLength={maxlength}
             placeholder={placeholder}
             readOnly={readOnly}
+            aria-describedby={`${this.id}-help`}
           />
           { fieldIcon &&
-            <div className="textboxIcon">
+            <div className="textboxIcon" aria-hidden="true">
               <FontAwesomeIcon icon={fieldIcon} />
             </div>
           }
         </div>
         { showError &&
-          <div className="errorMessage">{ validationMessage }</div>
+          <div className="errorMessage" id={`${this.id}-help`}>{ validationMessage }</div>
         }
       </div>
     );

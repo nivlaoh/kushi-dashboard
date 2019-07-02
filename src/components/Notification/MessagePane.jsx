@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCaretDown, faCaretUp, faReply, faReplyAll, faEnvelope, faShare, faTimes, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCaretUp, faReply, faReplyAll, faEnvelope, faShare, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Button from '../../shared/components/Button';
@@ -17,6 +16,7 @@ class MessagePane extends Component {
     super(props);
     this.activeNode = React.createRef();
     this.replyRef = React.createRef();
+    this.composeToRef = React.createRef();
 
     this.state = {
       activeMessage: null,
@@ -26,8 +26,8 @@ class MessagePane extends Component {
       closingCompose: false,
       deleting: null,
       detailedMetadata: false,
+      msgToSend: {},
     };
-    library.add(faUser);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -141,6 +141,8 @@ class MessagePane extends Component {
     if (!compose) {
       this.setState({
         compose: true,
+      }, () => {
+        this.composeToRef.current.focus();
       });
     } else {
       this.setState({
@@ -157,6 +159,21 @@ class MessagePane extends Component {
   };
 
   composeEmail = () => {
+    const {
+      onSend,
+    } = this.props;
+    const {
+      msgToSend,
+    } = this.state;
+    onSend({
+      text: msgToSend.text,
+    });
+    this.setState({
+      compose: false,
+    });
+  };
+
+  cancelCompose = () => {
     this.setState({
       compose: false,
     });
@@ -333,7 +350,7 @@ class MessagePane extends Component {
           <div className={`composeWindow ${compose ? 'visible' : ''} ${closingCompose ? 'hide' : ''}`}>
             <div className="composeMetaRow">
               <div className="infoRow">
-                <TextBox fluid placeholder="To" />
+                <TextBox ref={this.composeToRef} fluid placeholder="To" />
                 <TextBox fluid placeholder="Cc" />
               </div>
             </div>
@@ -342,7 +359,7 @@ class MessagePane extends Component {
             </div>
             <textarea className="composeContent"></textarea>
             <div className="buttonsControl">
-              <Button type="default" onClick={this.composeEmail}>Cancel</Button>
+              <Button type="default" onClick={this.cancelCompose}>Cancel</Button>
               <Button type="primary" onClick={this.composeEmail}>Send</Button>
             </div>
           </div>

@@ -1,0 +1,7 @@
+export const GET_STOCK_INFO = 'GET_STOCK_INFO';
+export const CHANGE_STOCK_SYMBOL = 'CHANGE_STOCK_SYMBOL';
+
+export default {
+  GET_STOCK_INFO,
+  CHANGE_STOCK_SYMBOL,
+};

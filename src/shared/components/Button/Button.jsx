@@ -37,7 +37,7 @@ class Button extends Component {
     } = this.props;
 
     const ButtonComponent = () =>
-      <button type="button" ref={this.btnRef} className={this.getButtonClasses()} onClick={onClick}>
+      <button type="button" ref={this.btnRef} className={this.getButtonClasses()} tabIndex="0" onClick={onClick}>
         { text || children }
       </button>;
     const ButtonWithTooltip = withTooltip(() => <ButtonComponent />);

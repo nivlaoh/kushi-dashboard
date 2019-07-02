@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { debounce, isEmpty, isFunction } from 'lodash';
+import { debounce, isEmpty, isFunction, uniqueId } from 'lodash';
 import { faCaretDown, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -14,6 +14,7 @@ class MultiSelect extends Component {
     super(props);
     this.node = React.createRef();
     this.searchBox = React.createRef();
+    this.id = uniqueId('multiselect-');
 
     this.state = {
       dropdownVisible: false,
@@ -45,7 +46,7 @@ class MultiSelect extends Component {
       };
     }
     if (nextProps.selected !== selected) {
-      stateChange['searchValue'] = '';
+      stateChange.searchValue = '';
     }
     this.setState(stateChange);
     return true;
@@ -177,19 +178,17 @@ class MultiSelect extends Component {
       selectedOptions,
     } = this.state;
 
-    let value;
+    let inputVal;
     if (isEmpty(searchValue)) {
       if (isEmpty(selected)) {
-        value = '';
+        inputVal = '';
       } else {
-        value = selected.value;
+        inputVal = selected.value;
       }
+    } else if (isEmpty(selected)) {
+      inputVal = searchValue;
     } else {
-      if (isEmpty(selected)) {
-        value = searchValue;
-      } else {
-        value = selected.value;
-      }
+      inputVal = selected.value;
     }
 
     const searchUpdate = debounce((e) => {
@@ -201,7 +200,6 @@ class MultiSelect extends Component {
       } = this.props;
       if (async && isFunction(searchCallback)
         && this.searchBox.current.value.length >= minCharacters) {
-        console.log('searching...', e);
         searchCallback(e);
       } else {
         this.setState({
@@ -219,7 +217,7 @@ class MultiSelect extends Component {
     return (
       <div className="selectWrapper">
         { label &&
-          <div className="label">{label}</div>
+          <div className="label" htmlFor={this.id}>{label}</div>
         }
         <div className="select-container" ref={this.node}>
           <div className="selectedTags">
@@ -237,29 +235,31 @@ class MultiSelect extends Component {
           <input
             type="text"
             ref={this.searchBox}
+            id={this.id}
             placeholder={placeholder}
             onClick={this.showDropdown}
             onChange={searchUpdate.bind(this)}
             onKeyDown={this.handleKeyDown}
-            defaultValue={value}
+            defaultValue={inputVal}
             readOnly={readonly || !searchable}
             autoComplete="off"
           />
-          <div className="select-arrow">
+          <div className="select-arrow" aria-hidden="true">
             <FontAwesomeIcon icon={faCaretDown} />
           </div>
           { dropdownVisible &&
-            <div className="select-dropdown" style={dropdownStyle}>
+            <div className="select-dropdown" style={dropdownStyle} role="listbox">
               { filteredOptions.map((option, index) => (
                 <div
                   key={option.key}
                   id={option.key}
                   refkey={option.key}
-                  role="row"
+                  role="option"
                   tabIndex={index}
                   className={`select-option${index === cursor ? ' active' : ''}`}
                   onMouseEnter={() => this.hoverOption(index)}
                   onClick={this.selectOption}
+                  aria-selected={selectedOptions.filter(selectedOpt => selectedOpt.key === option.key).length >= 1}
                 >
                   <div className="option-value">
                     {option.value}

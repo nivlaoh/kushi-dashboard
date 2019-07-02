@@ -6,6 +6,7 @@ import notificationReducer from './ducks/Notification';
 import weatherReducer from './ducks/Weather';
 import galleryReducer from './ducks/Gallery';
 import settingReducer from './ducks/Settings';
+import stockReducer from './ducks/Stock';
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   weather: weatherReducer,
   gallery: galleryReducer,
   settings: settingReducer,
+  stock: stockReducer,
 });
 
 export default rootReducer;

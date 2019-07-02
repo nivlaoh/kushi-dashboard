@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
+import { isEmpty, uniqueId } from 'lodash';
 import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -11,6 +11,7 @@ class Search extends Component {
     super(props);
     this.node = React.createRef();
     this.searchBox = React.createRef();
+    this.id = uniqueId('search-');
     this.state = {
       searching: false,
       inputValue: '',
@@ -160,16 +161,18 @@ class Search extends Component {
       inputValue,
       dropdownVisible,
       hint,
+      selecting,
     } = this.state;
     const resultStyle = {
       width: this.node.current === null ? 'auto' : this.node.current.clientWidth,
     };
     return (
       <div className="searchWrapper" ref={this.node}>
-        <div className="searchContainer">
+        <div className="searchContainer" role="search">
           <input
             type="text"
             ref={this.searchBox}
+            id={this.id}
             className="search"
             value={inputValue}
             onChange={this.asyncSearch}
@@ -177,25 +180,33 @@ class Search extends Component {
             placeholder={placeholder}
           />
           { options.length > 0 && hint !== null &&
-            <div className="searchHint">
+            <div className="searchHint" aria-hidden="true">
               { hint }
             </div>
           }
           <FontAwesomeIcon className="innericon" icon={faSearch} />
           { searching && showSearchIcon &&
-            <div className="searchIcon">
+            <div className="searchIcon" role="presentation">
               <FontAwesomeIcon icon={faSpinner} spin fixedWidth />
             </div>
           }
         </div>
         { dropdownVisible &&
-          <div className="searchResults" style={resultStyle}>
+          <div
+            className="searchResults"
+            style={resultStyle}
+            role="listbox"
+            tabIndex="0"
+            aria-activedescendant={`result-${selecting}`}
+          >
             { options.map((result, resultIndex) =>
               <div key={result.key}
-                role="button"
-                tabIndex={resultIndex}
+                role="option"
+                id={`result-${resultIndex}`}
+                tabIndex={resultIndex + 1}
                 className={this.getResultClasses(resultIndex)}
                 onClick={() => { this.chooseResult(result) }}
+                aria-selected={resultIndex === selecting}
               >
                 { result.value }
               </div>

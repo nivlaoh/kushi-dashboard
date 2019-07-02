@@ -18,7 +18,7 @@ const notificationReducer = (state = {}, action) => {
         message: action.message,
         status: true,
       };
-    case DELETE_EMAIL:
+    case DELETE_EMAIL: {
       const id = state.messages.findIndex(msg => msg.id === action.message.id);
       return {
         ...state,
@@ -27,6 +27,7 @@ const notificationReducer = (state = {}, action) => {
           ...state.messages.slice(id + 1),
         ],
       }
+    }
     default:
       return state;
   }

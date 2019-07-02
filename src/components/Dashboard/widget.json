@@ -47,7 +47,10 @@
         "rows": 1,
         "columns": 1,
         "background": "orange",
-        "color": "white"
+        "color": "white",
+        "type": "component",
+        "componentSrc": "Stock",
+        "hasPadding": false
     },
     {
         "id": "6",

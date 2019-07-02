@@ -13,13 +13,13 @@ beforeAll(() => {
 
 describe('Toast', () => {
   it ('should hide Toast by default', () => {
-    const component = wrapper({});
+    const component = wrapper({ message: 'test' });
     expect(component.find('.toast').exists()).toBe(false);
   });
 
   it('should show toast in the centre', () => {
     jest.spyOn(document.documentElement, 'clientWidth', 'get').mockImplementation(() => 1000);
-    const component = wrapper({ show: true });
+    const component = wrapper({ message: 'test', show: true });
     expect(component.find('.toast').prop('style')).toHaveProperty('left', 250);
   });
 
@@ -32,21 +32,21 @@ describe('Toast', () => {
   });
 
   it('should show error toast', () => {
-    const component = wrapper({ type: 'error', show: true });
+    const component = wrapper({ message: 'test', type: 'error', show: true });
     expect(component.find('.toastClose').exists()).toBe(true);
     expect(component.find('.toast.error').exists()).toBe(true);
     expect(component.find('.fa-exclamation-circle').exists()).toBe(true);
   });
 
   it('should show success toast', () => {
-    const component = wrapper({ type: 'success', show: true });
+    const component = wrapper({ message: 'test', type: 'success', show: true });
     expect(component.find('.toastClose').exists()).toBe(true);
     expect(component.find('.toast.success').exists()).toBe(true);
     expect(component.find('.fa-check-circle').exists()).toBe(true);
   });
 
   it('should show disappearing toast if not dismissible', () => {
-    const component = wrapper({ show: true, dismissible: false });
+    const component = wrapper({ message: 'test', show: true, dismissible: false });
     expect(component.exists('.toast')).toBe(true);
     setTimeout(() => {
       expect(component.exists('.toast')).toBe(false);
