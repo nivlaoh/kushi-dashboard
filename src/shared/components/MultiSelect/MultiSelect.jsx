@@ -14,6 +14,7 @@ class MultiSelect extends Component {
     super(props);
     this.node = React.createRef();
     this.searchBox = React.createRef();
+    this.suggestion = React.createRef();
     this.id = uniqueId('multiselect-');
 
     this.state = {
@@ -21,6 +22,7 @@ class MultiSelect extends Component {
       searchValue: '',
       filteredOptions: props.options,
       cursor: 0,
+      scrollOffset: 0,
       selectedOptions: [],
     };
 
@@ -62,7 +64,8 @@ class MultiSelect extends Component {
       dropdownVisible,
     } = this.state;
     const {
-      options
+      options,
+      maxShown,
     } = this.props;
     if (!dropdownVisible) {
       this.showDropdown();
@@ -70,12 +73,21 @@ class MultiSelect extends Component {
     }
     let newCursorValue;
     if (e.keyCode === 38) {
-      newCursorValue = Math.abs(cursor - 1) % options.length;
+      newCursorValue = (cursor - 1) % options.length;
+      newCursorValue = newCursorValue < 0 ? newCursorValue + options.length : newCursorValue;
+      let pos = (newCursorValue - 1) * 45;
+      if (pos < this.suggestion.current.scrollTop) {
+        this.suggestion.current.scrollTop = newCursorValue * 45;
+      }
       this.setState({
         cursor: newCursorValue,
       });
     } else if (e.keyCode === 40) {
       newCursorValue = (cursor + 1) % options.length;
+      let pos = (newCursorValue + 1) * 45;
+      if (pos > this.suggestion.current.scrollTop + maxShown * 45) {
+        this.suggestion.current.scrollTop = newCursorValue * 45;
+      }
       this.setState({
         cursor: newCursorValue,
       });
@@ -210,7 +222,7 @@ class MultiSelect extends Component {
     }, searchDelay);
 
     const dropdownStyle = {
-      maxHeight: `${55 * maxShown}px`,
+      maxHeight: `${45 * maxShown}px`,
       overflowY: 'auto',
     };
 
@@ -242,13 +254,13 @@ class MultiSelect extends Component {
             onKeyDown={this.handleKeyDown}
             defaultValue={inputVal}
             readOnly={readonly || !searchable}
-            autoComplete="off"
+            autoComplete="something"
           />
           <div className="select-arrow" aria-hidden="true">
             <FontAwesomeIcon icon={faCaretDown} />
           </div>
           { dropdownVisible &&
-            <div className="select-dropdown" style={dropdownStyle} role="listbox">
+            <div ref={this.suggestion} className="select-dropdown" style={dropdownStyle} role="listbox">
               { filteredOptions.map((option, index) => (
                 <div
                   key={option.key}

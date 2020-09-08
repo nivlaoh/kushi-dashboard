@@ -6,5 +6,10 @@ import Alert from './Alert';
 Error text message
 ```jsx
 import Alert from './Alert';
-<Alert errorMessage="Error message" />
+<Alert message="Error message" type="error" />
+```
+Dismissible error text message
+```jsx
+import Alert from './Alert';
+<Alert message="Error message" type="error" onDismiss={() => {}} />
 ```

@@ -7,32 +7,36 @@ import './styles.css';
 
 const Alert = (props) => {
   const {
-    errorMessage,
     message,
+    type,
     onDismiss,
+    isShowing,
   } = props;
-  const messageClasses = `response-msg ${errorMessage ? 'error' : 'info'}`;
-  return (
+  const messageClasses = `response-msg ${type}`;
+  return isShowing && (
     <div className={messageClasses}>
-      {errorMessage}
       {message}
-      <div role="button" tabIndex={0} className="dismiss-icon" onClick={onDismiss}>
-        <FontAwesomeIcon icon={faTimes} />
-      </div>
+      { onDismiss !== null &&
+        <div role="button" tabIndex={0} className="dismiss-icon" onClick={onDismiss}>
+          <FontAwesomeIcon icon={faTimes} />
+        </div>
+      }
     </div>
   );
 }
 
 Alert.propTypes = {
-  errorMessage: PropTypes.string,
   message: PropTypes.string,
+  type: PropTypes.oneOf(['info', 'error']),
   onDismiss: PropTypes.func,
+  isShowing: PropTypes.bool,
 };
 
 Alert.defaultProps = {
-  errorMessage: null,
   message: null,
-  onDismiss: () => {},
+  type: 'info',
+  onDismiss: null,
+  isShowing: true,
 };
 
 export default Alert;

@@ -16,7 +16,10 @@ const Card = (props) => {
 }
 
 Card.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
   className: PropTypes.string,
 };
 

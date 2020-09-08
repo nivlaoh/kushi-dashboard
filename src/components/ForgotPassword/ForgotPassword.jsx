@@ -20,12 +20,14 @@ class ForgotPassword extends Component {
       resetDone: false,
       emailAddress: '',
       showMsg: false,
+      messageType: 'error',
     };
   }
 
   onReset = () => {
     const {
       resetPassword,
+      successMessage,
     } = this.props;
     const {
       emailAddress,
@@ -36,13 +38,17 @@ class ForgotPassword extends Component {
         this.setState({
           emailAddress: '',
           showMsg: true,
+          message: successMessage,
+          messageType: 'info',
         }, () => {
           setTimeout(() => this.setState({ resetDone: true }), 3000);
         });
       });
     } else {
       this.setState({
-        errorMessage: 'Invalid email address',
+        showMsg: true,
+        message: 'Invalid email address',
+        messageType: 'error',
       });
     }
   }
@@ -56,7 +62,8 @@ class ForgotPassword extends Component {
 
   dismissMsg = () => {
     this.setState({
-      errorMessage: null,
+      showMsg: false,
+      message: null,
     });
   }
 
@@ -64,13 +71,13 @@ class ForgotPassword extends Component {
     const {
       resetDone,
       emailAddress,
-      errorMessage,
+      message,
       showMsg,
+      messageType,
     } = this.state;
     const {
       location,
       history: { push },
-      successMessage,
     } = this.props;
 
     const cardStyle = resetDone ? 'loginCard fadeOut' : 'loginCard';
@@ -95,13 +102,12 @@ class ForgotPassword extends Component {
               label="Email Address:"
               fluid
             />
-            { !isEmpty(errorMessage) || showMsg &&
-              <Alert
-                message={successMessage}
-                errorMessage={errorMessage}
-                onDismiss={this.dismissMsg}
-              />
-            }
+            <Alert
+              message={message}
+              onDismiss={this.dismissMsg}
+              type={messageType}
+              isShowing={showMsg}
+            />
             <Link to="/login">Back to Login Page</Link>
           </CardBody>
           <CardFooter rightAligned>
